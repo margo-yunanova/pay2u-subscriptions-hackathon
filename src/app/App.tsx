@@ -1,10 +1,12 @@
 import { Accordion } from '../ui/accordion';
 import { Button } from '../ui/button';
 import { Chip } from '../ui/chip';
+import { SummaryPaymentHistory } from '../ui/summary-payment-history';
 import './App.css';
 function App() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <SummaryPaymentHistory />
       <Accordion />
       <Chip label="Кешбэк до 30%" />
       <Button variant="contained">кнопка</Button>
