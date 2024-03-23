@@ -14,11 +14,13 @@ import { Button } from '../button';
 interface NonModalDialogProps {
   title?: string;
   description?: string;
+  buttonName?: string;
 }
 
 export const NonModalDialog: FC<NonModalDialogProps> = ({
   title = 'Уже есть подписки? ',
   description = 'Добавьте их и получайте кешбэк до 30% с каждой оплаты в приложении ',
+  buttonName = 'Добавить мои подписки',
 }) => {
   const [bannerOpen, setBannerOpen] = useState(true);
   const theme = useTheme();
@@ -54,7 +56,7 @@ export const NonModalDialog: FC<NonModalDialogProps> = ({
                 {description}
               </Typography>
             </Stack>
-            <Button variant="contained">Добавить мои подписки</Button>
+            <Button variant="contained">{buttonName}</Button>
           </Stack>
         </Paper>
       </Fade>

@@ -16,6 +16,9 @@ const StyledAccordion = styled(AccordionBase)<AccordionPropsBase>(() => ({
   boxShadow: 'none',
   borderBottom: 'solid 1px',
   borderColor: `rgba(24, 20, 31, 0.15)`,
+  '&.Mui-expanded': {
+    margin: '0px 0px',
+  },
 }));
 
 const StyledAccordionSummary = styled(
