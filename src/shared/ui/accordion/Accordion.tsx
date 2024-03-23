@@ -1,16 +1,15 @@
 import {
   Accordion as AccordionBase,
-  styled,
+  AccordionDetails,
+  AccordionDetailsProps as AccordionDetailsPropsBase,
   AccordionProps as AccordionPropsBase,
   AccordionSummary,
   AccordionSummaryProps as AccordionSummaryPropsBase,
-  AccordionDetails,
-  AccordionDetailsProps as AccordionDetailsPropsBase,
   Typography,
+  styled,
 } from '@mui/material';
-import { ChevronDown } from 'react-coolicons';
-
 import { FC } from 'react';
+import { ChevronDown } from 'react-coolicons';
 
 const StyledAccordion = styled(AccordionBase)<AccordionPropsBase>(() => ({
   padding: '24px 0px',

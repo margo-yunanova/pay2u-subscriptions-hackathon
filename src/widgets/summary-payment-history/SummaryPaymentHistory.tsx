@@ -1,21 +1,19 @@
-import { FC } from 'react';
 import {
-  Card as CardBase,
-  styled,
-  CardProps,
   Box,
-  Typography,
-  IconButton,
+  Card as CardBase,
   CardContent,
+  CardProps,
+  IconButton,
+  Typography,
+  styled,
   useTheme,
 } from '@mui/material';
+import { FC } from 'react';
 import { CaretRightSm } from 'react-coolicons';
 
-const StyledSummaryPaymentHistory = styled(CardBase)<CardProps>(
-  ({ theme }) => ({
-    borderRadius: '12px',
-  }),
-);
+const StyledSummaryPaymentHistory = styled(CardBase)<CardProps>(() => ({
+  borderRadius: '12px',
+}));
 
 interface SummaryPaymentHistoryProps {}
 

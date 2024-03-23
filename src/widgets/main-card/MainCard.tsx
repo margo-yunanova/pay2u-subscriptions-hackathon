@@ -1,12 +1,10 @@
-import { Card as CardBase, styled, CardProps } from '@mui/material';
-import { FC } from 'react';
-import { useTheme } from '@mui/material/styles';
+import { Card as CardBase, CardProps, styled } from '@mui/material';
 import Box from '@mui/material/Box';
-
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-
+import { useTheme } from '@mui/material/styles';
+import { FC } from 'react';
 import heart from '../../assets/heart.svg';
 
 const StyledMainCard = styled(CardBase)<CardProps>(({ theme }) => ({

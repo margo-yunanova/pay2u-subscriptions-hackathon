@@ -1,8 +1,8 @@
-import { Accordion } from '../ui/accordion';
-import { Button } from '../ui/button';
-import { Chip } from '../ui/chip';
-import { MainCard } from '../ui/main-card';
-import { SummaryPaymentHistory } from '../ui/summary-payment-history';
+import { Accordion } from '../shared/ui/accordion';
+import { Button } from '../shared/ui/button';
+import { Chip } from '../shared/ui/chip';
+import { MainCard } from '../widgets/main-card';
+import { SummaryPaymentHistory } from '../widgets/summary-payment-history';
 import './App.css';
 
 function App() {
