@@ -8,7 +8,7 @@ export const Button = styled(ButtonBase, {
   ],
 })<ButtonProps>(({ theme }) => ({
   width: '100%',
-  textTransform: 'capitalize',
+  textTransform: 'none',
   borderRadius: '8px',
   paddingTop: '8px',
   paddingBottom: '8px',
