@@ -26,4 +26,18 @@ declare module '@mui/material/styles' {
     greyDusk2?: Color;
     greyDusk1?: Color;
   }
+
+  interface TypographyVariants {
+    link: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    link?: React.CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    link: true;
+  }
 }

@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 import heart from '../../assets/heart.svg';
 
@@ -23,10 +22,8 @@ export const MainCard: FC<MainCardProps> = ({
   subtitle = 'Храните интересное здесь',
   image = heart,
 }) => {
-  const theme = useTheme();
-
   return (
-    <StyledMainCard elevation={10}>
+    <StyledMainCard elevation={4}>
       <CardContent
         sx={{
           display: 'flex',
@@ -40,7 +37,7 @@ export const MainCard: FC<MainCardProps> = ({
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
+            justifyContent: 'space-evenly',
           }}
         >
           <Typography
@@ -63,7 +60,7 @@ export const MainCard: FC<MainCardProps> = ({
 
         <CardMedia
           component="img"
-          sx={{ width: '79px', height: '70px' }}
+          sx={{ width: '79px', height: '70px', objectFit: 'contain' }}
           image={image}
           alt="Сердце"
         />

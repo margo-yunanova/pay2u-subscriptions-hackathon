@@ -35,7 +35,10 @@ export const SummaryPaymentHistory: FC<SummaryPaymentHistoryProps> = () => {
             justifyContent: 'space-between',
           }}
         >
-          <Typography sx={{ color: theme.palette.text.brandDayDark }}>
+          <Typography
+            variant="h3"
+            sx={{ color: theme.palette.text.brandDayDark }}
+          >
             История списаний и начислений
           </Typography>
           <IconButton
@@ -56,10 +59,8 @@ export const SummaryPaymentHistory: FC<SummaryPaymentHistoryProps> = () => {
               flexDirection: 'column',
             }}
           >
-            <Typography>1339 ₽</Typography>
-            <Typography
-              sx={{ padding: '0px', color: theme.palette.text.greyDusk1 }}
-            >
+            <Typography variant="h3">1339 ₽</Typography>
+            <Typography variant="body2" sx={{ padding: '0px' }}>
               Будет списано в марте
             </Typography>
           </Box>
@@ -69,10 +70,8 @@ export const SummaryPaymentHistory: FC<SummaryPaymentHistoryProps> = () => {
               flexDirection: 'column',
             }}
           >
-            <Typography>299 ₽</Typography>
-            <Typography
-              sx={{ padding: '0px', color: theme.palette.text.greyDusk1 }}
-            >
+            <Typography variant="h3">299 ₽</Typography>
+            <Typography variant="body2" sx={{ padding: '0px' }}>
               Начислится кэшбека
             </Typography>
           </Box>

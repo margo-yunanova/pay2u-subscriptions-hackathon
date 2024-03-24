@@ -25,10 +25,30 @@ export const typography = {
     color: palette.text?.greyDusk1,
     fontWeight: '400',
   },
+  body1: {
+    fontSize: '12px',
+    lineHeight: '16px',
+    letterSpacing: '0.25px',
+    fontWeight: '400',
+  },
+  body2: {
+    fontSize: '12px',
+    lineHeight: '16px',
+    letterSpacing: '0.25px',
+    color: palette.text?.greyDusk1,
+    fontWeight: '400',
+  },
   button: {
     fontSize: '16px',
     lineHeight: '24px',
     letterSpacing: '0.2px',
     fontWeight: '500',
+  },
+  link: {
+    fontSize: '14px',
+    lineHeight: '20px',
+    letterSpacing: '0.25px',
+    fontWeight: '400',
+    color: '#2A3CE0',
   },
 };
