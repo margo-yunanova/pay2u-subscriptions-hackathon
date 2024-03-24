@@ -1,29 +1,21 @@
-import { Accordion } from '../shared/ui/accordion';
-import { Button } from '../shared/ui/button';
-import { Chip } from '../shared/ui/chip';
-import { NonModalDialog } from '../shared/ui/non-modal-dialog';
-import { Slider } from '../shared/ui/slider';
-import { MainCard } from '../widgets/main-card';
-import { MySubscriptionsCard } from '../widgets/my-subscriptions-card';
-import { SummaryPaymentHistory } from '../widgets/summary-payment-history';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from '../pages/home-page';
 import './App.css';
+import { popular, subscriptions } from '../pages/home-page/homeMock';
 
 function App() {
   return (
-    <>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <NonModalDialog />
-        <MySubscriptionsCard />
-        <SummaryPaymentHistory />
-        <Accordion />
-        <MainCard />
-        <Chip label="Кешбэк до 30%" />
-        <Button variant="contained">кнопка</Button>
-        <Button variant="outlined">кнопка</Button>
-      </div>
-      <Slider type="popular" />
-      <Slider type="service" />
-    </>
+    <Routes>
+      <Route
+        path="/home"
+        element={
+          <HomePage
+            popularSubscriptions={popular}
+            mySubscriptionsCard={subscriptions}
+          />
+        }
+      />
+    </Routes>
   );
 }
 
