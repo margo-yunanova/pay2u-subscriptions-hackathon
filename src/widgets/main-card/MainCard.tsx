@@ -44,19 +44,15 @@ export const MainCard: FC<MainCardProps> = ({
           }}
         >
           <Typography
-            variant="body1"
-            component="span"
+            variant="h3"
             sx={{
               textAlign: 'left',
-              fontWeight: '500',
             }}
           >
             {title}
           </Typography>
           <Typography
-            variant="body2"
-            color="text.secondary"
-            component="span"
+            variant="subtitle1"
             sx={{
               textAlign: 'left',
             }}

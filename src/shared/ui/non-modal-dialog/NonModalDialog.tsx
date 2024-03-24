@@ -41,7 +41,7 @@ export const NonModalDialog: FC<NonModalDialogProps> = ({
           <Stack direction="column" gap="24px">
             <Stack direction="column" gap="4px">
               <Stack direction="row" justifyContent="space-between">
-                <Typography fontWeight="bold">{title}</Typography>
+                <Typography variant="h3">{title}</Typography>
                 <IconButton
                   onClick={closeBanner}
                   sx={{ padding: '0px', color: theme.palette.text.greyDusk1 }}
@@ -49,12 +49,7 @@ export const NonModalDialog: FC<NonModalDialogProps> = ({
                   <CloseSm />
                 </IconButton>
               </Stack>
-              <Typography
-                variant="body2"
-                sx={{ color: theme.palette.text.greyDusk1 }}
-              >
-                {description}
-              </Typography>
+              <Typography variant="subtitle2">{description}</Typography>
             </Stack>
             <Button variant="contained">{buttonName}</Button>
           </Stack>

@@ -12,8 +12,6 @@ export const Button = styled(ButtonBase, {
   borderRadius: '8px',
   paddingTop: '8px',
   paddingBottom: '8px',
-  fontSize: '16px',
-  letterSpacing: '0.15px',
   '&:active': {
     backgroundColor: theme.palette.background.brandDayDark,
     color: theme.palette.text.baseWhite,
