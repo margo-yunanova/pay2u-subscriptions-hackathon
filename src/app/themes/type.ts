@@ -18,7 +18,6 @@ declare module '@mui/material/styles' {
   interface TypeText {
     baseWhite?: Color;
     baseBlue?: Color;
-    baseBlack?: Color;
     brandDay1?: Color;
     brandDay2?: Color;
     brandDayDark?: Color;
