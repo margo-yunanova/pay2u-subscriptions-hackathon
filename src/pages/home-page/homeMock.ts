@@ -1,4 +1,3 @@
-import heart from '../../assets/heart.svg';
 import ticket from '../../assets/ticket.svg';
 import disk from '../../assets/disk.svg';
 import Okko from '../../assets/Okko.png';
@@ -7,7 +6,6 @@ import Wink from '../../assets/Wink.png';
 import Yandex from '../../assets/Yandex.png';
 
 export const catalog = [
-  { title: 'Избранное', subtitle: 'Храните интересное здесь', image: heart },
   { title: 'Кино', subtitle: 'От 250 ₽ в месяц', image: ticket },
   { title: 'Музыка', subtitle: 'От 199 ₽ в месяц', image: disk },
 ];

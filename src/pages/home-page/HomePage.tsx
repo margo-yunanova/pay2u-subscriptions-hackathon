@@ -13,6 +13,8 @@ import { PopularSubscriptionProps } from '../../widgets/popular-subscription/Pop
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
 import { catalog, faq } from './homeMock';
 import { ChevronLeft, Bell } from 'react-coolicons';
+import heart from '../../assets/heart.svg';
+import { Link } from 'react-router-dom';
 
 interface HomePageProps {
   popularSubscriptions: PopularSubscriptionProps[];
@@ -98,8 +100,25 @@ export const HomePage: FC<HomePageProps> = ({
         <Stack flexDirection="column" gap="12px">
           <Stack flexDirection="row" justifyContent="space-between">
             <Typography variant="h2">Каталог</Typography>
-            <Typography variant="link">Все категории</Typography>
+
+            <Typography variant="link">
+              <Link
+                to={'/catalog'}
+                style={{
+                  color: 'inherit',
+                  cursor: 'inherit',
+                  textDecoration: 'inherit',
+                }}
+              >
+                Все категории
+              </Link>
+            </Typography>
           </Stack>
+          <MainCard
+            title="Избранное"
+            subtitle="Храните интересное здесь"
+            image={heart}
+          />
           {catalog.map((card, id) => (
             <MainCard key={id} {...card} />
           ))}
