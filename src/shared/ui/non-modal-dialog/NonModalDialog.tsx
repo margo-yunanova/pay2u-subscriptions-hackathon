@@ -44,7 +44,7 @@ export const NonModalDialog: FC<NonModalDialogProps> = ({
                 <Typography variant="h3">{title}</Typography>
                 <IconButton
                   onClick={closeBanner}
-                  sx={{ padding: '0px', color: theme.palette.text.greyDusk1 }}
+                  sx={{ color: theme.palette.text.greyDusk1 }}
                 >
                   <CloseSm />
                 </IconButton>

@@ -41,9 +41,7 @@ export const SummaryPaymentHistory: FC<SummaryPaymentHistoryProps> = () => {
           >
             История списаний и начислений
           </Typography>
-          <IconButton
-            sx={{ padding: '0px', color: theme.palette.text.greyDusk2 }}
-          >
+          <IconButton sx={{ color: theme.palette.text.greyDusk2 }}>
             <CaretRightSm />
           </IconButton>
         </Box>

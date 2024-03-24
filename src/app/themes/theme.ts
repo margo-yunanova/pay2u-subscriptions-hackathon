@@ -33,5 +33,13 @@ export const theme = createTheme({
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: '0px',
+          color: palette.text?.baseBlack,
+        },
+      },
+    },
   },
 });
