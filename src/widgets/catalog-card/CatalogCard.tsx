@@ -13,10 +13,11 @@ import { useNavigate } from 'react-router-dom';
 import { Chip } from '../../shared/ui/chip';
 
 export interface CatalogCardProps {
-  title?: string;
-  cashback?: string;
-  logo?: string;
-  sum?: string;
+  title: string;
+  cashback: string;
+  logo: string;
+  sum: string;
+  type: string;
 }
 
 const StyledCatalogCard = styled(CardBase)<CardProps>(() => ({

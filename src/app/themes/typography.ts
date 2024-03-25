@@ -1,7 +1,8 @@
 import '@fontsource/roboto';
 import { palette } from './palette';
+import { TypographyVariantsOptions } from '@mui/material';
 
-export const typography = {
+export const typography: TypographyVariantsOptions = {
   fontFamily: 'Roboto, Raleway, Arial',
   h2: {
     fontSize: '22px',
