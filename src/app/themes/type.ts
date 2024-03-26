@@ -20,6 +20,7 @@ declare module '@mui/material/styles' {
     baseBlue?: Color;
     brandDay1?: Color;
     brandDay2?: Color;
+    brandDay4?: Color;
     brandDayDark?: Color;
     accentDeepDark?: Color;
     greyDusk2?: Color;
@@ -38,5 +39,12 @@ declare module '@mui/material/styles' {
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
     link: true;
+  }
+}
+
+declare module '@mui/material/Chip' {
+  interface ChipPropsVariantOverrides {
+    cashback: true;
+    tag: true;
   }
 }

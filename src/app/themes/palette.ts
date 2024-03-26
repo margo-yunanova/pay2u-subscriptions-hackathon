@@ -17,6 +17,7 @@ export const palette: Partial<Palette> = {
     baseWhite: '#FFFFFF',
     brandDay1: '#0050CF',
     brandDay2: '#3A74D0',
+    brandDay4: '#C2DAFF',
     brandDayDark: '#002D6E',
     accentDeepDark: '#0065B0',
     greyDusk2: '#7C89A3',
