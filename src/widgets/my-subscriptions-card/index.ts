@@ -1,1 +1,0 @@
-export { MySubscriptionsCard } from './MySubscriptionsCard';

@@ -8,8 +8,8 @@ import heart from '../../assets/heart.svg';
 import { Accordion } from '../../shared/ui/accordion';
 import { NonModalDialog } from '../../shared/ui/non-modal-dialog';
 import { MainCard } from '../../widgets/main-card';
-import { MySubscriptionsCard } from '../../widgets/my-subscriptions-card';
-import { MySubscriptionsCardProps } from '../../widgets/my-subscriptions-card/MySubscriptionsCard';
+import { MySubscriptionSwiperCard } from '../../widgets/my-subscription-swiper-card';
+import { MySubscriptionSwiperCardProps } from '../../widgets/my-subscription-swiper-card/MySubscriptionSwiperCard';
 import { PopularSubscription } from '../../widgets/popular-subscription';
 import { PopularSubscriptionProps } from '../../widgets/popular-subscription/PopularSubscription';
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
@@ -17,7 +17,7 @@ import { catalog, faq } from './homeMock';
 
 interface HomePageProps {
   popularSubscriptions: PopularSubscriptionProps[];
-  mySubscriptionsCard: MySubscriptionsCardProps[];
+  mySubscriptionsCard: MySubscriptionSwiperCardProps[];
 }
 
 export const HomePage: FC<HomePageProps> = ({
@@ -79,7 +79,7 @@ export const HomePage: FC<HomePageProps> = ({
           >
             {mySubscriptionsCard.map((item) => (
               <SwiperSlide style={{ width: 'auto' }}>
-                <MySubscriptionsCard {...item} />
+                <MySubscriptionSwiperCard {...item} />
               </SwiperSlide>
             ))}
           </Swiper>

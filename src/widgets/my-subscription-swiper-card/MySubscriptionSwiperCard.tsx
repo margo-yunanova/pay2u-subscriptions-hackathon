@@ -6,20 +6,20 @@ import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 import image from '../../assets/ivi.png';
 
-const StyledMySubscriptionsCard = styled(CardBase)<CardProps>(() => ({
+const StyledMySubscriptionSwiperCard = styled(CardBase)<CardProps>(() => ({
   width: '160px',
   borderRadius: '17px',
   position: 'relative',
 }));
 
-export interface MySubscriptionsCardProps {
+export interface MySubscriptionSwiperCardProps {
   title?: string;
   period?: string;
   dueDate?: string;
   logo?: string;
 }
 
-export const MySubscriptionsCard: FC<MySubscriptionsCardProps> = ({
+export const MySubscriptionSwiperCard: FC<MySubscriptionSwiperCardProps> = ({
   title = 'IVI',
   period = '3',
   dueDate = '11.06.2024',
@@ -28,7 +28,7 @@ export const MySubscriptionsCard: FC<MySubscriptionsCardProps> = ({
   const theme = useTheme();
 
   return (
-    <StyledMySubscriptionsCard elevation={4}>
+    <StyledMySubscriptionSwiperCard elevation={4}>
       <CardContent
         sx={{
           display: 'flex',
@@ -64,6 +64,6 @@ export const MySubscriptionsCard: FC<MySubscriptionsCardProps> = ({
           zIndex: '-1',
         }}
       />
-    </StyledMySubscriptionsCard>
+    </StyledMySubscriptionSwiperCard>
   );
 };
