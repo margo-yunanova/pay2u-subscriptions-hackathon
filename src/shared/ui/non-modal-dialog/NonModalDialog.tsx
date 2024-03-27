@@ -1,4 +1,5 @@
 import {
+  Button,
   Fade,
   IconButton,
   Paper,
@@ -9,7 +10,6 @@ import {
 import TrapFocus from '@mui/material/Unstable_TrapFocus';
 import { FC, useState } from 'react';
 import { CloseSm } from 'react-coolicons';
-import { Button } from '../button';
 
 interface NonModalDialogProps {
   title?: string;

@@ -54,7 +54,7 @@ export const Accordion: FC<AccordionProps> = ({
         aria-controls={`panel${id}-content`}
         id={`panel${id}-header`}
       >
-        <Typography variant="h3">{title}</Typography>
+        <Typography variant="h4">{title}</Typography>
       </StyledAccordionSummary>
       <StyledAccordionDetails>
         <Typography variant="subtitle1">{details}</Typography>

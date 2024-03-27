@@ -1,4 +1,7 @@
-import '@fontsource/roboto';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 import { palette } from './palette';
 import { TypographyVariantsOptions } from '@mui/material';
 
@@ -13,6 +16,12 @@ export const typography: TypographyVariantsOptions = {
     lineHeight: '24px',
     letterSpacing: '0.15px',
     fontWeight: '500',
+  },
+  h4: {
+    fontSize: '16px',
+    lineHeight: '24px',
+    letterSpacing: '0.15px',
+    fontWeight: '400',
   },
   subtitle1: {
     fontSize: '14px',

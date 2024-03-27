@@ -2,6 +2,7 @@ import {
   CardActionArea,
   Card as CardBase,
   CardProps,
+  Chip,
   Stack,
   styled,
 } from '@mui/material';
@@ -10,14 +11,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Chip } from '../../shared/ui/chip';
 
 export interface CatalogCardProps {
-  title: string;
+  name: string;
   cashback: string;
   logo: string;
   sum: string;
-  type: string;
+  type: string[];
 }
 
 const StyledCatalogCard = styled(CardBase)<CardProps>(() => ({
@@ -25,7 +25,7 @@ const StyledCatalogCard = styled(CardBase)<CardProps>(() => ({
 }));
 
 export const CatalogCard: FC<CatalogCardProps> = ({
-  title,
+  name,
   cashback,
   logo,
   sum,
@@ -34,23 +34,23 @@ export const CatalogCard: FC<CatalogCardProps> = ({
 
   return (
     <StyledCatalogCard>
-      <CardActionArea onClick={() => navigate(`/catalog/${title}`)}>
+      <CardActionArea onClick={() => navigate(`/catalog/${name}`)}>
         <CardContent>
           <Stack flexDirection="row" gap="12px" alignItems="center">
             <CardMedia
               component="img"
               image={logo}
-              alt={`Логотип ${title}`}
+              alt={`Логотип ${name}`}
               sx={{
                 width: '44px',
                 height: '44px',
               }}
             />
             <Stack flexDirection="column" flexGrow={1}>
-              <Typography variant="h3">{title}</Typography>
+              <Typography variant="h3">{name}</Typography>
               <Typography variant="body2">Подписка от {sum} ₽</Typography>
             </Stack>
-            <Chip label={`${cashback}% кешбэк`} />
+            <Chip variant="cashback" label={`${cashback}% кешбэк`} />
           </Stack>
         </CardContent>
       </CardActionArea>

@@ -55,14 +55,15 @@ export const CatalogPage: FC<CatalogPageProps> = ({ catalogCard }) => {
   );
 
   const tabs = useMemo(
-    () => ['Все', ...new Set(catalogCard.map((card) => card.type))],
+    () => ['Все', ...new Set(catalogCard.flatMap((card) => card.type))],
     [catalogCard],
   );
+
   const activeCatalog = useMemo(
     () =>
       activeTab === 0
         ? catalogCard
-        : catalogCard.filter((card) => card.type === tabs[activeTab]),
+        : catalogCard.filter((card) => card.type.includes(tabs[activeTab])),
     [catalogCard, activeTab, tabs],
   );
 
@@ -81,19 +82,17 @@ export const CatalogPage: FC<CatalogPageProps> = ({ catalogCard }) => {
           </Stack>
         </Container>
 
-        <Container>
-          <Tabs
-            variant="scrollable"
-            scrollButtons={false}
-            value={activeTab}
-            onChange={handleTabChange}
-            aria-label="Категории"
-          >
-            {tabs.map((title, id) => (
-              <Tab key={id} label={title} {...a11yProps(id)} />
-            ))}
-          </Tabs>
-        </Container>
+        <Tabs
+          variant="scrollable"
+          scrollButtons={false}
+          value={activeTab}
+          onChange={handleTabChange}
+          aria-label="Категории"
+        >
+          {tabs.map((title, id) => (
+            <Tab key={id} label={title} {...a11yProps(id)} />
+          ))}
+        </Tabs>
 
         <Container>
           {tabs.map((title, id) => (
