@@ -62,7 +62,18 @@ export const HomePage: FC<HomePageProps> = ({
         <Container>
           <Stack flexDirection="row" justifyContent="space-between">
             <Typography variant="h2">Мои подписки</Typography>
-            <Typography variant="link">Все мои подписки</Typography>
+            <Typography variant="link">
+              <Link
+                to={'/mysubscriptions'}
+                style={{
+                  color: 'inherit',
+                  cursor: 'inherit',
+                  textDecoration: 'inherit',
+                }}
+              >
+                Все мои подписки
+              </Link>
+            </Typography>
           </Stack>
         </Container>
         <Container

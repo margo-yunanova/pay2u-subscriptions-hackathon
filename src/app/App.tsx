@@ -3,6 +3,7 @@ import { CatalogPage } from '../pages/catalog-page';
 import { services } from '../pages/catalog-page/catalogMock';
 import { HomePage } from '../pages/home-page';
 import { popular, subscriptions } from '../pages/home-page/homeMock';
+import { MySubscriptionPage } from '../pages/my-subscription-page';
 import { SubscriptionCardPage } from '../pages/subscription-card-page';
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
         path="/catalog/:title"
         element={<SubscriptionCardPage service={services[8]} />}
       />
+      <Route path="/mysubscriptions" element={<MySubscriptionPage />} />
     </Routes>
   );
 }
