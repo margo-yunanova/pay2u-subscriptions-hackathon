@@ -1,9 +1,11 @@
-import { Box, Container, IconButton, Stack, Typography } from '@mui/material';
+import { Chip, Container, IconButton, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
+import { Bell, ChevronLeft } from 'react-coolicons';
+import { Link } from 'react-router-dom';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import heart from '../../assets/heart.svg';
 import { Accordion } from '../../shared/ui/accordion';
-import { Chip } from '../../shared/ui/chip';
 import { NonModalDialog } from '../../shared/ui/non-modal-dialog';
 import { MainCard } from '../../widgets/main-card';
 import { MySubscriptionsCard } from '../../widgets/my-subscriptions-card';
@@ -12,9 +14,6 @@ import { PopularSubscription } from '../../widgets/popular-subscription';
 import { PopularSubscriptionProps } from '../../widgets/popular-subscription/PopularSubscription';
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
 import { catalog, faq } from './homeMock';
-import { ChevronLeft, Bell } from 'react-coolicons';
-import heart from '../../assets/heart.svg';
-import { Link } from 'react-router-dom';
 
 interface HomePageProps {
   popularSubscriptions: PopularSubscriptionProps[];
@@ -43,7 +42,7 @@ export const HomePage: FC<HomePageProps> = ({
         <Stack flexDirection="column" gap="12px">
           <Stack flexDirection="row" justifyContent="space-between">
             <Typography variant="h2">Мои подписки</Typography>
-            <Chip label="Кешбэк до 30%" />
+            <Chip variant="cashback" label="Кешбэк до 30%" />
           </Stack>
           <NonModalDialog
             title="Уже есть подписки?"
@@ -59,42 +58,52 @@ export const HomePage: FC<HomePageProps> = ({
         </Stack>
       </Container>
 
-      <Container>
-        <Stack flexDirection="column" gap="12px">
+      <Stack flexDirection="column" marginBottom="-10px">
+        <Container>
           <Stack flexDirection="row" justifyContent="space-between">
             <Typography variant="h2">Мои подписки</Typography>
             <Typography variant="link">Все мои подписки</Typography>
           </Stack>
-          <Box sx={{ marginRight: '-2rem' }}>
-            <Swiper
-              slidesPerView={2.5}
-              spaceBetween={12}
-              style={{ padding: '1px' }}
-            >
-              {mySubscriptionsCard.map((item) => (
-                <SwiperSlide>
-                  <MySubscriptionsCard {...item} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </Box>
-        </Stack>
-      </Container>
+        </Container>
+        <Container
+          style={{ padding: '0px', paddingTop: '12px', marginTop: '-10px' }}
+        >
+          <Swiper
+            slidesPerView="auto"
+            spaceBetween={7}
+            style={{
+              paddingLeft: '16px',
+              paddingBottom: '10px',
+              paddingTop: '10px',
+            }}
+          >
+            {mySubscriptionsCard.map((item) => (
+              <SwiperSlide style={{ width: 'auto' }}>
+                <MySubscriptionsCard {...item} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Container>
+      </Stack>
 
-      <Container>
-        <Stack flexDirection="column" gap="12px">
+      <Stack flexDirection="column" gap="12px">
+        <Container>
           <Typography variant="h2">Популярное</Typography>
-          <Box sx={{ marginRight: '-2rem' }}>
-            <Swiper slidesPerView={6} spaceBetween={15}>
-              {popularSubscriptions.map((item) => (
-                <SwiperSlide>
-                  <PopularSubscription {...item} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </Box>
-        </Stack>
-      </Container>
+        </Container>
+        <Container style={{ padding: '0px', paddingTop: '12px' }}>
+          <Swiper
+            slidesPerView={6}
+            spaceBetween={7}
+            style={{ paddingLeft: '16px' }}
+          >
+            {popularSubscriptions.map((item) => (
+              <SwiperSlide>
+                <PopularSubscription {...item} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </Container>
+      </Stack>
 
       <Container>
         <Stack flexDirection="column" gap="12px">
