@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import { HomePage } from '../pages/home-page';
-import './App.css';
-import { popular, subscriptions } from '../pages/home-page/homeMock';
 import { CatalogPage } from '../pages/catalog-page';
 import { services } from '../pages/catalog-page/catalogMock';
+import { HomePage } from '../pages/home-page';
+import { popular, subscriptions } from '../pages/home-page/homeMock';
+import { SubscriptionCardPage } from '../pages/subscription-card-page';
+import './App.css';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         }
       />
       <Route path="/catalog" element={<CatalogPage catalogCard={services} />} />
+      <Route
+        path="/catalog/:title"
+        element={<SubscriptionCardPage service={services[8]} />}
+      />
     </Routes>
   );
 }
