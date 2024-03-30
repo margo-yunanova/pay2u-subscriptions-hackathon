@@ -2,8 +2,8 @@ import type { Palette } from './type';
 
 export const palette: Partial<Palette> = {
   background: {
-    default: '',
-    paper: '',
+    default: '#fff',
+    paper: '#fff',
     brandDay1: '#0050CF',
     brandDay2: '#3A74D0',
     brandDayDark: '#002D6E',

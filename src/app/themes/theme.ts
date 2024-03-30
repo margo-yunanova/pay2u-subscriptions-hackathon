@@ -143,5 +143,84 @@ export const theme = createTheme({
         },
       ],
     },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          position: 'initial',
+          color: '#6B7A99',
+          fontSize: '21px',
+          lineHeight: '32px',
+          fontWeight: 500,
+          letterSpacing: '0.2px',
+          '&.Mui-focused': {
+            color: '#6B7A99',
+          },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputBase-input': {
+            border: '2px solid',
+            borderColor: 'transparent',
+            borderRadius: '8px',
+            backgroundColor: 'transparent',
+            fontSize: '14px',
+            color: palette.text?.greyDusk1,
+            padding: '10px 16px',
+            boxShadow:
+              '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
+            '&:focus': {
+              borderColor: palette.text?.brandDay1,
+            },
+            '&:invalid': {
+              boxShadow:
+                '0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)',
+            },
+          },
+        },
+      },
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          '& .MuiSwitch-switchBase.Mui-checked': {
+            color: '#2953FC',
+          },
+          '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+            backgroundColor: '#2953FC',
+          },
+          '& .MuiSwitch-track': {
+            backgroundColor: '#D3D8E6',
+            opacity: 1,
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          '&:before': {
+            border: 'none',
+          },
+          '&:hover:before': {
+            border: 'none !important',
+          },
+          '& .MuiSelect-select': {
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '5px',
+            alignItems: 'center',
+          },
+          '&:after': {
+            border: 'none',
+          },
+          '&:hover:after': {
+            border: 'none !important',
+          },
+        },
+      },
+    },
   },
 });
