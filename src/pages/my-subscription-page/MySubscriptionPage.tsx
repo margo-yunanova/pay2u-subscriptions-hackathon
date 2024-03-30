@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { FC, SyntheticEvent, useCallback, useState } from 'react';
 import { ChevronLeft, SearchMagnifyingGlass } from 'react-coolicons';
+import { useNavigate } from 'react-router-dom';
 import noSubscription from '../../assets/noSubscription.svg';
 import { MySubscriptionCard } from '../../widgets/my-subscription-card';
 import { subscriptions } from '../home-page/homeMock';
@@ -80,6 +81,7 @@ interface MySubscriptionPageProps {}
 
 export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
   const handleTabChange = useCallback(
     (event: SyntheticEvent, newValue: number) => {
@@ -92,11 +94,16 @@ export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
     <Stack flexDirection="column" gap="24px">
       <Container>
         <Stack flexDirection="row" alignItems="center">
-          <IconButton>
+          <IconButton onClick={() => navigate(-1)}>
             <ChevronLeft />
           </IconButton>
-          <Typography variant="h3">Каталог</Typography>
-          <IconButton style={{ flexGrow: '1', justifyContent: 'flex-end' }}>
+          <Typography
+            style={{ flexGrow: '1', justifyContent: 'flex-start' }}
+            variant="h3"
+          >
+            Каталог
+          </Typography>
+          <IconButton>
             <SearchMagnifyingGlass />
           </IconButton>
         </Stack>

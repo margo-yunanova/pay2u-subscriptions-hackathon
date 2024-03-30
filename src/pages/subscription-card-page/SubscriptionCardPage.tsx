@@ -13,13 +13,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import {
-  FC,
-  MouseEventHandler,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronLeft, Heart01 } from 'react-coolicons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -70,8 +64,13 @@ export const SubscriptionCardPage = ({ service }) => {
           <IconButton onClick={() => navigate(-1)}>
             <ChevronLeft />
           </IconButton>
-          <Typography variant="h3">{title?.toUpperCase()}</Typography>
-          <IconButton style={{ flexGrow: '1', justifyContent: 'flex-end' }}>
+          <Typography
+            style={{ flexGrow: '1', justifyContent: 'flex-start' }}
+            variant="h3"
+          >
+            {title?.toUpperCase()}
+          </Typography>
+          <IconButton>
             <Heart01 />
           </IconButton>
         </Stack>
@@ -102,7 +101,8 @@ export const SubscriptionCardPage = ({ service }) => {
               <Chip
                 variant="tag"
                 label={tag}
-                onClick={() => navigate(`/catalog/${tag.toLowerCase()}`)}
+                // TODO Переходить на страницу каталога
+                onClick={() => navigate(`/catalog`)}
               />
             ))}
           </Stack>
@@ -117,6 +117,7 @@ export const SubscriptionCardPage = ({ service }) => {
         <Container
           style={{ padding: '0px', paddingTop: '12px', marginTop: '-10px' }}
         >
+          {/* TODO добавить паддинг справа */}
           <Swiper
             slidesPerView="auto"
             spaceBetween={7}
@@ -141,6 +142,7 @@ export const SubscriptionCardPage = ({ service }) => {
           >
             <Typography variant="subtitle1">{card.info}</Typography>
           </Collapse>
+          {/* TODO проверить почему не скрывается кнопка */}
           {!fullDescription && (
             <Button
               onClick={handleFullDescriptionButton}
@@ -193,7 +195,9 @@ export const SubscriptionCardPage = ({ service }) => {
       </Container>
 
       <Container style={{ paddingBottom: '24px' }}>
-        <Button variant="contained">Оформить подписку</Button>
+        <Button onClick={() => navigate('/form')} variant="contained">
+          Оформить подписку
+        </Button>
       </Container>
     </Stack>
   );

@@ -20,6 +20,9 @@ interface HomePageProps {
   mySubscriptionsCard: MySubscriptionSwiperCardProps[];
 }
 
+//TODO курсор на ссылках
+// TODO сделать переход с главной странице раздела каталог на свои табы
+
 export const HomePage: FC<HomePageProps> = ({
   popularSubscriptions,
   mySubscriptionsCard,
@@ -31,8 +34,13 @@ export const HomePage: FC<HomePageProps> = ({
           <IconButton>
             <ChevronLeft />
           </IconButton>
-          <Typography variant="h3">Управления подписками</Typography>
-          <IconButton style={{ flexGrow: '1', justifyContent: 'flex-end' }}>
+          <Typography
+            style={{ flexGrow: '1', justifyContent: 'flex-start' }}
+            variant="h3"
+          >
+            Управления подписками
+          </Typography>
+          <IconButton>
             <Bell />
           </IconButton>
         </Stack>
@@ -88,6 +96,7 @@ export const HomePage: FC<HomePageProps> = ({
               paddingTop: '10px',
             }}
           >
+            {/* TODO добавить отступ справа */}
             {mySubscriptionsCard.map((item) => (
               <SwiperSlide style={{ width: 'auto' }}>
                 <MySubscriptionSwiperCard {...item} />
@@ -107,6 +116,7 @@ export const HomePage: FC<HomePageProps> = ({
             spaceBetween={7}
             style={{ paddingLeft: '16px' }}
           >
+            {/* TODO сделать карточки ссылками */}
             {popularSubscriptions.map((item) => (
               <SwiperSlide>
                 <PopularSubscription {...item} />

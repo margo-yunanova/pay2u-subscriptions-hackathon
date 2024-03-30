@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { FC, SyntheticEvent, useCallback, useMemo, useState } from 'react';
 import { ChevronLeft, SearchMagnifyingGlass } from 'react-coolicons';
+import { useNavigate } from 'react-router-dom';
 import { CatalogCard } from '../../widgets/catalog-card';
 import { CatalogCardProps } from '../../widgets/catalog-card/CatalogCard';
 
@@ -46,6 +47,7 @@ interface CatalogPageProps {
 
 export const CatalogPage: FC<CatalogPageProps> = ({ catalogCard }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
   const handleTabChange = useCallback(
     (event: SyntheticEvent, newValue: number) => {
@@ -72,11 +74,16 @@ export const CatalogPage: FC<CatalogPageProps> = ({ catalogCard }) => {
       <Stack flexDirection="column" gap="24px">
         <Container>
           <Stack flexDirection="row" alignItems="center">
-            <IconButton>
+            <IconButton onClick={() => navigate(-1)}>
               <ChevronLeft />
             </IconButton>
-            <Typography variant="h3">Каталог</Typography>
-            <IconButton style={{ flexGrow: '1', justifyContent: 'flex-end' }}>
+            <Typography
+              style={{ flexGrow: '1', justifyContent: 'flex-start' }}
+              variant="h3"
+            >
+              Каталог
+            </Typography>
+            <IconButton>
               <SearchMagnifyingGlass />
             </IconButton>
           </Stack>
