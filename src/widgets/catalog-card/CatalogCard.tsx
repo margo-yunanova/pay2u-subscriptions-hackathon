@@ -14,10 +14,9 @@ import { useNavigate } from 'react-router-dom';
 
 export interface CatalogCardProps {
   name: string;
-  cashback: string;
+  cashback: number;
   logo: string;
-  sum: string;
-  type: string[];
+  min_price: number;
 }
 
 const StyledCatalogCard = styled(CardBase)<CardProps>(() => ({
@@ -28,7 +27,7 @@ export const CatalogCard: FC<CatalogCardProps> = ({
   name,
   cashback,
   logo,
-  sum,
+  min_price,
 }) => {
   const navigate = useNavigate();
 
@@ -48,7 +47,7 @@ export const CatalogCard: FC<CatalogCardProps> = ({
             />
             <Stack flexDirection="column" flexGrow={1}>
               <Typography variant="h3">{name}</Typography>
-              <Typography variant="body2">Подписка от {sum} ₽</Typography>
+              <Typography variant="body2">Подписка от {min_price} ₽</Typography>
             </Stack>
             <Chip variant="cashback" label={`${cashback}% кешбэк`} />
           </Stack>

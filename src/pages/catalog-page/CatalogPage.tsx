@@ -7,15 +7,22 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, SyntheticEvent, useCallback, useMemo, useState } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, SearchMagnifyingGlass } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
+import { useGetCategoriesQuery } from '../../services/categories-api';
+import { useGetSubscriptionsQuery } from '../../services/subscriptions-api';
 import { CatalogCard } from '../../widgets/catalog-card';
-import { CatalogCardProps } from '../../widgets/catalog-card/CatalogCard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+export interface CategoryProps {
+  id: number;
+  name: string;
 }
 
 const TabPanel: FC<TabPanelProps> = (props) => {
@@ -41,33 +48,27 @@ const a11yProps = (index: number) => {
   };
 };
 
-interface CatalogPageProps {
-  catalogCard: CatalogCardProps[];
-}
+export const CatalogPage = () => {
+  const { data, error, isLoading, isSuccess } = useGetCategoriesQuery();
+  const categories = useMemo(
+    () => [{ id: 0, name: 'Все' }, ...(data !== undefined ? data : [])],
+    [data],
+  );
 
-export const CatalogPage: FC<CatalogPageProps> = ({ catalogCard }) => {
   const [activeTab, setActiveTab] = useState(0);
+
   const navigate = useNavigate();
 
-  const handleTabChange = useCallback(
+  const handleCategoryChange = useCallback(
     (event: SyntheticEvent, newValue: number) => {
       setActiveTab(newValue);
     },
     [],
   );
 
-  const tabs = useMemo(
-    () => ['Все', ...new Set(catalogCard.flatMap((card) => card.type))],
-    [catalogCard],
-  );
-
-  const activeCatalog = useMemo(
-    () =>
-      activeTab === 0
-        ? catalogCard
-        : catalogCard.filter((card) => card.type.includes(tabs[activeTab])),
-    [catalogCard, activeTab, tabs],
-  );
+  const { data: subscriptions } = useGetSubscriptionsQuery({
+    categoryId: categories?.[activeTab].id,
+  });
 
   return (
     <>
@@ -93,21 +94,29 @@ export const CatalogPage: FC<CatalogPageProps> = ({ catalogCard }) => {
           variant="scrollable"
           scrollButtons={false}
           value={activeTab}
-          onChange={handleTabChange}
+          onChange={handleCategoryChange}
           aria-label="Категории"
         >
-          {tabs.map((title, id) => (
-            <Tab key={id} label={title} {...a11yProps(id)} />
+          {categories?.map(({ id, name }) => (
+            <Tab key={id} label={name} {...a11yProps(id)} />
           ))}
         </Tabs>
 
         <Container>
-          {tabs.map((title, id) => (
+          {categories.map(({ id }) => (
             <TabPanel key={id} value={activeTab} index={id}>
               <Stack flexDirection="column" gap="12px">
-                {activeCatalog.map((card, id) => (
-                  <CatalogCard key={id} {...card} />
-                ))}
+                {subscriptions?.map(
+                  ({ id, name, cashback, logo, min_price }) => (
+                    <CatalogCard
+                      key={id}
+                      name={name}
+                      cashback={cashback}
+                      logo={logo}
+                      min_price={min_price}
+                    />
+                  ),
+                )}
               </Stack>
             </TabPanel>
           ))}

@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'catalog',
-        element: <CatalogPage catalogCard={services} />,
+        element: <CatalogPage />,
       },
       {
         path: 'catalog/:title',
