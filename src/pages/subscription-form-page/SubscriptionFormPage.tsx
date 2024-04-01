@@ -17,34 +17,40 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { FC, forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, CreditCard01 } from 'react-coolicons';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
-import { Link, useNavigate } from 'react-router-dom';
-import { object, string } from 'yup';
-import image from '../../assets/Wink.png';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { number, object, string } from 'yup';
+import { paymentAccount } from '../../mocks/db';
+import { useOrderSubscriptionMutation } from '../../services/api';
+import { tariffInfo } from '../../shared/utils/constants';
+import { TariffCardProps } from '../../widgets/tariff-card/TariffCard';
+import { SubscriptionCardPageProps } from '../subscription-card-page/SubscriptionCardPage';
 
 const schema = object().shape({
   name: string()
     .min(2, 'Имя должно содержать не менее двух символов')
     .required(),
-  tel: string()
+  phone_number: string()
     .length(18, 'Введите номер телефона в формате +7 (XXX) XXX-XX-XX')
     // .matches(new RegExp('[0-9]{11}'))
     .required(),
   email: string()
     .email('Введите действительный адрес электронной почты')
     .required('Введите действительный адрес электронной почты'),
-  paymentAccount: string(),
+  paymentAccount: number().required(),
+  tariff: number().required(),
 });
 
-interface CustomProps {
+interface TextMaskCustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
   name: string;
 }
 
-const TextMaskCustom = forwardRef<HTMLInputElement, CustomProps>(
+const TextMaskCustom = forwardRef<HTMLInputElement, TextMaskCustomProps>(
   function TextMaskCustom(props, ref) {
     const { onChange, ...other } = props;
     return (
@@ -64,9 +70,15 @@ const TextMaskCustom = forwardRef<HTMLInputElement, CustomProps>(
   },
 );
 
-interface SubscriptionFormPageProps {}
+interface SubscriptionFormPageProps {
+  subscription: SubscriptionCardPageProps;
+  tariff: TariffCardProps;
+}
 
-export const SubscriptionFormPage: FC<SubscriptionFormPageProps> = () => {
+export const SubscriptionFormPage = () => {
+  const location = useLocation();
+  const { tariff, subscription } = location.state as SubscriptionFormPageProps;
+
   const {
     handleSubmit,
     formState: { errors, isValid },
@@ -75,14 +87,33 @@ export const SubscriptionFormPage: FC<SubscriptionFormPageProps> = () => {
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
-    defaultValues: { name: '', tel: '', email: '', paymentAccount: '10' },
+    defaultValues: {
+      name: '',
+      phone_number: '',
+      email: '',
+      paymentAccount: paymentAccount[0].id,
+      tariff: tariff.id,
+    },
   });
 
   const theme = useTheme();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const [orderSubscription, { isLoading }] = useOrderSubscriptionMutation();
+
+  const onSubmit: SubmitHandler<{
+    paymentAccount: number;
+    name: string;
+    phone_number: string;
+    email: string;
+    tariff: number;
+  }> = async (data) => {
+    try {
+      await orderSubscription({ data, subscriptionId: subscription.id });
+      setTermsAgreed(false);
+      reset();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -103,24 +134,26 @@ export const SubscriptionFormPage: FC<SubscriptionFormPageProps> = () => {
           <Stack flexDirection="row" gap="12px" alignItems="center">
             <CardMedia
               component="img"
-              image={image}
-              alt={`Логотип ${'title'}`}
+              image={subscription.logo}
+              alt={`Логотип ${subscription.name}`}
               sx={{
                 width: '44px',
                 height: '44px',
               }}
             />
             <Stack flexDirection="column" flexGrow={1}>
-              <Typography variant="h3">Wink</Typography>
-              <Typography variant="body2">ТВ, фильмы</Typography>
+              <Typography variant="h3">{subscription.name}</Typography>
+              <Typography variant="body2">{subscription.subtitle}</Typography>
             </Stack>
           </Stack>
         </CardContent>
       </Card>
 
-      <Typography variant="h3">Подписка на 1 месяц</Typography>
       <Typography variant="h3">
-        300 ₽{' '}
+        Подписка на {tariffInfo[tariff.periodName].period}
+      </Typography>
+      <Typography variant="h3">
+        {location.state.tariff.price_per_month} ₽{' '}
         <Typography component="span" variant="body1">
           в месяц
         </Typography>
@@ -149,22 +182,24 @@ export const SubscriptionFormPage: FC<SubscriptionFormPageProps> = () => {
           )}
         />
         <Controller
-          name="tel"
+          name="phone_number"
           control={control}
           render={({ field }) => (
             <FormControl variant="standard">
-              <InputLabel shrink htmlFor="tel">
+              <InputLabel shrink htmlFor="phone_number">
                 Телефон
               </InputLabel>
               <InputBase
                 type="tel"
                 placeholder="+7 (985) 123-45-67"
-                id="tel"
+                id="phone_number"
                 inputComponent={TextMaskCustom as any}
                 {...field}
               />
-              <FormHelperText error={!!errors.tel}>
-                {errors.tel ? (errors.tel.message as string) : ' '}
+              <FormHelperText error={!!errors.phone_number}>
+                {errors.phone_number
+                  ? (errors.phone_number.message as string)
+                  : ' '}
               </FormHelperText>
               <Typography variant="body2" component="span">
                 Введите телефон владельца аккаунта подписки
@@ -208,28 +243,20 @@ export const SubscriptionFormPage: FC<SubscriptionFormPageProps> = () => {
                 {...field}
                 style={{ marginTop: '0px' }}
               >
-                [
-                <MenuItem
-                  key="1"
-                  value={'10'}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                  }}
-                >
-                  <CreditCard01 />
-                  Система быстрых платежей
-                </MenuItem>
-                ,
-                <MenuItem key="2" value={'20'}>
-                  Яндекс.Пэй
-                </MenuItem>
-                ,
-                <MenuItem key="3" value={'30'}>
-                  Наличные
-                </MenuItem>
-                , ]
+                {paymentAccount.map(({ id, name }) => (
+                  <MenuItem
+                    key={id}
+                    value={id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                    }}
+                  >
+                    <CreditCard01 />
+                    {name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           )}
@@ -264,9 +291,9 @@ export const SubscriptionFormPage: FC<SubscriptionFormPageProps> = () => {
         <Button
           variant="contained"
           type="submit"
-          disabled={!isValid || !termsAgreed}
+          disabled={!isValid || !termsAgreed || isLoading}
         >
-          Оплатить {isValid && termsAgreed && ' 300 ₽ '} за подписку
+          Оплатить подписку
         </Button>
       </Stack>
     </Container>

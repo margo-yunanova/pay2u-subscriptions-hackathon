@@ -49,22 +49,35 @@ export const SubscriptionCardPage = () => {
 
   const [fullDescription, setFullDescription] = useState(false);
 
-  // TODO добавить зависимости
   useLayoutEffect(() => {
     const scrollHeight = descriptionRef.current?.scrollHeight;
-
     if (scrollHeight && scrollHeight < descriptionHeight)
       setFullDescription(true);
-  });
+  }, [subscription?.description]);
 
   const handleFullDescriptionButton: MouseEventHandler = () => {
     setFullDescription(!fullDescription);
   };
 
-  const [period, setPeriod] = useState('monthly');
+  const [tariffId, setTariffId] = useState<string | undefined>(undefined);
 
-  const handleTariffCard = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPeriod((event.target as HTMLInputElement).value);
+  const handleTariffSubscription = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setTariffId((event.target as HTMLInputElement).value);
+  };
+
+  const handleSubscribe = () => {
+    const tariff = subscription?.tariffs.find(
+      (tariff) => tariff.id === +tariffId!,
+    );
+
+    navigate('/form', {
+      state: {
+        subscription,
+        tariff,
+      },
+    });
   };
 
   return (
@@ -160,7 +173,7 @@ export const SubscriptionCardPage = () => {
               {subscription?.description}
             </Typography>
           </Collapse>
-          {/* TODO проверить почему не скрывается кнопка */}
+
           {!fullDescription && (
             <Button
               onClick={handleFullDescriptionButton}
@@ -179,21 +192,20 @@ export const SubscriptionCardPage = () => {
           <RadioGroup
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
-            value={period}
-            onChange={handleTariffCard}
+            value={tariffId}
+            onChange={handleTariffSubscription}
             style={{ width: '100%', gap: '8px' }}
           >
             {subscription?.tariffs.map((tariff) => (
               <FormControlLabel
                 key={tariff.id}
-                value={tariff.periodName}
                 control={<TariffCard {...tariff} />}
                 label=""
                 style={{
                   margin: '0px',
                   border: 'solid 2px',
                   borderColor:
-                    period === tariff.periodName ? '#8EB2EC' : 'transparent',
+                    tariffId === tariff.periodName ? '#8EB2EC' : 'transparent',
                   borderRadius: '12px',
                 }}
               />
@@ -214,7 +226,11 @@ export const SubscriptionCardPage = () => {
       </Container>
 
       <Container style={{ paddingBottom: '24px' }}>
-        <Button onClick={() => navigate('/form')} variant="contained">
+        <Button
+          onClick={handleSubscribe}
+          variant="contained"
+          disabled={tariffId === undefined}
+        >
           Оформить подписку
         </Button>
       </Container>

@@ -3,7 +3,7 @@ import Okko from '../assets/Okko.png';
 import VkMusic from '../assets/VkMusic.png';
 import Wink from '../assets/Wink.png';
 import Yandex from '../assets/Yandex.png';
-import { categories, services } from './db';
+import { categories, mySubscriptions, services, tariffs } from './db';
 
 const getCategories = http.get('/categories', () =>
   HttpResponse.json(categories),
@@ -56,9 +56,37 @@ const getSubscriptionById = http.get('/subscriptions/:id', ({ params }) => {
   return HttpResponse.json(subscription);
 });
 
+const orderSubscription = http.post(
+  '/subscriptions/:id/order',
+  async ({ request, params }) => {
+    const { id } = params;
+    const requestBody = await request.json();
+
+    const subscription = mySubscriptions.find((item) => item.id === +id);
+    const tariff = tariffs.find((tariff) => tariff.id === requestBody?.tariff)!;
+
+    if (!subscription) {
+      const data = services.find((item) => item.id === +id)!;
+      mySubscriptions.push({
+        id: +id,
+        name: data.name,
+        logo: data.logo,
+        cashback: data.cashback,
+        tariff: { ...tariff },
+        pay_status: true,
+      });
+      return HttpResponse.json(mySubscriptions.at(-1));
+    }
+    subscription.tariff = { ...tariff };
+
+    return HttpResponse.json(subscription);
+  },
+);
+
 export const handlers = [
   getCategories,
   getPopularSubscriptions,
   getSubscriptionsByCategory,
   getSubscriptionById,
+  orderSubscription,
 ];

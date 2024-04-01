@@ -48,7 +48,7 @@ const banners = [
   { id: 8, image: banner4 },
 ];
 
-const tariffs: TariffCardProps[] = [
+export const tariffs: TariffCardProps[] = [
   {
     id: 1,
     period: 1,
@@ -81,6 +81,12 @@ const tariffs: TariffCardProps[] = [
     price_per_period: 300,
     periodName: 'annually',
   },
+];
+
+export const paymentAccount = [
+  { id: 1, logo: '', name: 'Система быстрых платежей' },
+  { id: 2, logo: '', name: 'Яндекс.Пей' },
+  { id: 3, logo: '', name: 'Наличные' },
 ];
 
 export const services: {
@@ -321,3 +327,12 @@ export const services: {
     is_favorite: false,
   },
 ];
+
+export const mySubscriptions: {
+  id: number;
+  name: string;
+  logo: string;
+  cashback: number;
+  tariff: TariffCardProps;
+  pay_status: true;
+}[] = [];

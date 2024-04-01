@@ -10,9 +10,22 @@ import {
 import { FC } from 'react';
 import { tariffInfo } from '../../shared/utils/constants';
 
-//interface TariffCardProps {}
+export interface TariffCardProps {
+  id: number;
+  period: number;
+  discount: number;
+  price_per_month: number;
+  price_per_period: number;
+  periodName: 'monthly' | 'quarterly' | 'semiannually' | 'annually';
+}
 
-export const TariffCard = ({ tariff }) => {
+export const TariffCard: FC<TariffCardProps> = ({
+  id,
+  discount,
+  price_per_month,
+  price_per_period,
+  periodName,
+}) => {
   const theme = useTheme();
   return (
     <Card
@@ -29,7 +42,7 @@ export const TariffCard = ({ tariff }) => {
         paddingRight="12px"
       >
         <Radio
-          value={tariff.periodName}
+          value={id}
           style={{
             padding: '0px',
             paddingLeft: '12px',
@@ -39,23 +52,22 @@ export const TariffCard = ({ tariff }) => {
         <CardContent style={{ flexGrow: 1, padding: '8px 0px' }}>
           <Stack flexDirection="column">
             <Typography variant="h3">
-              {tariffInfo[tariff.periodName].period}
+              {tariffInfo[periodName].period}
             </Typography>
             <Typography variant="h3" component="span">
-              {tariff.price_per_month} ₽
+              {price_per_month} ₽
               <Typography variant="subtitle1" component="span">
                 {' '}
                 в месяц
               </Typography>
             </Typography>
             <Typography variant="body1">
-              Оплата {tariff.price_per_period}{' '}
-              {tariffInfo[tariff.periodName].frequency}
+              Оплата {price_per_period} {tariffInfo[periodName].frequency}
             </Typography>
           </Stack>
         </CardContent>
-        {tariff.discount !== 0 && (
-          <Chip variant="cashback" label={tariff.discount + '% скидка'} />
+        {discount !== 0 && (
+          <Chip variant="cashback" label={discount + '% скидка'} />
         )}
       </Stack>
     </Card>
