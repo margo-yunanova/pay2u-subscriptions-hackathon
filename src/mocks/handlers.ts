@@ -44,12 +44,21 @@ const getSubscriptionsByCategory = http.get('/subscriptions', ({ request }) => {
       service.name.includes(name),
     );
   }
-  console.log(subscriptions);
+
   return HttpResponse.json(subscriptions);
+});
+
+const getSubscriptionById = http.get('/subscriptions/:id', ({ params }) => {
+  const { id } = params;
+
+  const subscription = services.find((item) => item.id === +id);
+
+  return HttpResponse.json(subscription);
 });
 
 export const handlers = [
   getCategories,
   getPopularSubscriptions,
   getSubscriptionsByCategory,
+  getSubscriptionById,
 ];

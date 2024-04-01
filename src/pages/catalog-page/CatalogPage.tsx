@@ -110,6 +110,7 @@ export const CatalogPage = () => {
                   ({ id, name, cashback, logo, min_price }) => (
                     <CatalogCard
                       key={id}
+                      id={id}
                       name={name}
                       cashback={cashback}
                       logo={logo}

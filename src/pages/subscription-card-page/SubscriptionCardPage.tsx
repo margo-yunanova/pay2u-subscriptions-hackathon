@@ -14,28 +14,38 @@ import {
   Typography,
 } from '@mui/material';
 import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, Heart01 } from 'react-coolicons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useGetSubscriptionByIdQuery } from '../../services/subscription-api';
 import { Accordion } from '../../shared/ui/accordion';
 import { SubscriptionBanner } from '../../widgets/subscription-banner/SubscriptionBanner';
 import { TariffCard } from '../../widgets/tariff-card';
-import { services } from '../catalog-page/catalogMock';
+import { TariffCardProps } from '../../widgets/tariff-card/TariffCard';
+import { CategoryProps } from '../catalog-page/CatalogPage';
 import { faqTariff } from './subscriptionCardPageMock';
 
-//interface SubscriptionCardPageProps {}
+export interface SubscriptionCardPageProps {
+  id: number;
+  name: string;
+  cashback: number;
+  logo: string;
+  min_price: number;
+  categories: CategoryProps[];
+  description: string;
+  banners: { id: number; image: string }[];
+  subtitle: string;
+  tariffs: TariffCardProps[];
+  is_favorite: boolean;
+}
 
-export const SubscriptionCardPage = ({ service }) => {
-  console.log(service);
-
-  const { title } = useParams();
+export const SubscriptionCardPage = () => {
+  const { id } = useParams();
+  const { data: subscription } = useGetSubscriptionByIdQuery(id);
   const navigate = useNavigate();
   const descriptionRef = useRef<HTMLDivElement>(null);
   const descriptionHeight = 62;
-
-  const card = services.find(
-    (item) => item.name.toLowerCase() === title!.toLocaleLowerCase(),
-  )!;
 
   const [fullDescription, setFullDescription] = useState(false);
 
@@ -68,7 +78,7 @@ export const SubscriptionCardPage = ({ service }) => {
             style={{ flexGrow: '1', justifyContent: 'flex-start' }}
             variant="h3"
           >
-            {title?.toUpperCase()}
+            {subscription?.name.toUpperCase()}
           </Typography>
           <IconButton>
             <Heart01 />
@@ -82,25 +92,31 @@ export const SubscriptionCardPage = ({ service }) => {
             <Stack flexDirection="row" gap="12px" alignItems="center">
               <CardMedia
                 component="img"
-                image={card.logo}
-                alt={`Логотип ${title}`}
+                image={subscription?.logo}
+                alt={`Логотип ${subscription?.name}`}
                 sx={{
                   width: '44px',
                   height: '44px',
                 }}
               />
               <Stack flexDirection="column" flexGrow={1}>
-                <Typography variant="h3">{title}</Typography>
-                <Typography variant="body2">{card.description}</Typography>
+                <Typography variant="h3">{subscription?.name}</Typography>
+                <Typography variant="body2">
+                  {subscription?.subtitle}
+                </Typography>
               </Stack>
-              <Chip variant="cashback" label={`${card.cashback}% кешбэк`} />
+              <Chip
+                variant="cashback"
+                label={`${subscription?.cashback}% кешбэк`}
+              />
             </Stack>
           </CardContent>
           <Stack flexDirection="row" gap="8px" paddingTop="12px">
-            {card.type.map((tag) => (
+            {subscription?.categories.map(({ name, id }) => (
               <Chip
+                key={id}
                 variant="tag"
-                label={tag}
+                label={name}
                 // TODO Переходить на страницу каталога
                 onClick={() => navigate(`/catalog`)}
               />
@@ -127,9 +143,9 @@ export const SubscriptionCardPage = ({ service }) => {
               paddingTop: '10px',
             }}
           >
-            {service.banner.map((src) => (
-              <SwiperSlide style={{ width: 'auto' }}>
-                <SubscriptionBanner image={src} />
+            {subscription?.banners.map(({ image, id }) => (
+              <SwiperSlide key={id} style={{ width: 'auto' }}>
+                <SubscriptionBanner image={image} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -140,7 +156,9 @@ export const SubscriptionCardPage = ({ service }) => {
             in={fullDescription}
             collapsedSize={`${descriptionHeight}px`}
           >
-            <Typography variant="subtitle1">{card.info}</Typography>
+            <Typography variant="subtitle1" ref={descriptionRef}>
+              {subscription?.description}
+            </Typography>
           </Collapse>
           {/* TODO проверить почему не скрывается кнопка */}
           {!fullDescription && (
@@ -165,10 +183,11 @@ export const SubscriptionCardPage = ({ service }) => {
             onChange={handleTariffCard}
             style={{ width: '100%', gap: '8px' }}
           >
-            {services[8].tariffs?.map((tariff) => (
+            {subscription?.tariffs.map((tariff) => (
               <FormControlLabel
+                key={tariff.id}
                 value={tariff.periodName}
-                control={<TariffCard tariff={tariff} />}
+                control={<TariffCard {...tariff} />}
                 label=""
                 style={{
                   margin: '0px',

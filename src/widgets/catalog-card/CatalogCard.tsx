@@ -13,6 +13,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface CatalogCardProps {
+  id: number;
   name: string;
   cashback: number;
   logo: string;
@@ -24,6 +25,7 @@ const StyledCatalogCard = styled(CardBase)<CardProps>(() => ({
 }));
 
 export const CatalogCard: FC<CatalogCardProps> = ({
+  id,
   name,
   cashback,
   logo,
@@ -33,7 +35,7 @@ export const CatalogCard: FC<CatalogCardProps> = ({
 
   return (
     <StyledCatalogCard>
-      <CardActionArea onClick={() => navigate(`/catalog/${name}`)}>
+      <CardActionArea onClick={() => navigate(`/catalog/${id}`)}>
         <CardContent>
           <Stack flexDirection="row" gap="12px" alignItems="center">
             <CardMedia

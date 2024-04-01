@@ -37,8 +37,8 @@ const router = createBrowserRouter([
         element: <CatalogPage />,
       },
       {
-        path: 'catalog/:title',
-        element: <SubscriptionCardPage service={services[8]} />,
+        path: 'catalog/:id',
+        element: <SubscriptionCardPage />,
       },
       {
         path: 'mysubscriptions',
