@@ -4,3 +4,5 @@ export const tariffInfo = {
   semiannually: { period: '6 месяцев', frequency: 'каждые полгода' },
   annually: { period: '12 месяцев', frequency: 'ежегодно' },
 };
+
+export const baseUrl = '/';
