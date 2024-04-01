@@ -18,7 +18,7 @@ import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 import { ChevronLeft, Heart01 } from 'react-coolicons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useGetSubscriptionByIdQuery } from '../../services/subscription-api';
+import { useGetSubscriptionByIdQuery } from '../../services/api';
 import { Accordion } from '../../shared/ui/accordion';
 import { SubscriptionBanner } from '../../widgets/subscription-banner/SubscriptionBanner';
 import { TariffCard } from '../../widgets/tariff-card';

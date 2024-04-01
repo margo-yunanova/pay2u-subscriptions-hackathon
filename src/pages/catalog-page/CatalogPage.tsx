@@ -10,8 +10,10 @@ import { FC, SyntheticEvent, useCallback, useMemo, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, SearchMagnifyingGlass } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
-import { useGetCategoriesQuery } from '../../services/categories-api';
-import { useGetSubscriptionsQuery } from '../../services/subscriptions-api';
+import {
+  useGetCategoriesQuery,
+  useGetSubscriptionsQuery,
+} from '../../services/api';
 import { CatalogCard } from '../../widgets/catalog-card';
 
 interface TabPanelProps {
