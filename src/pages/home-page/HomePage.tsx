@@ -1,37 +1,33 @@
 import { Chip, Container, IconButton, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { Bell, ChevronLeft } from 'react-coolicons';
-import { Link } from 'react-router-dom';
+import { Link, createSearchParams, useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import heart from '../../assets/heart.svg';
+import { catalog } from '../../mocks/db';
+import { useGetMySubscriptionsQuery } from '../../services/api';
 import { Accordion } from '../../shared/ui/accordion';
 import { NonModalDialog } from '../../shared/ui/non-modal-dialog';
 import { MainCard } from '../../widgets/main-card';
 import { MySubscriptionSwiperCard } from '../../widgets/my-subscription-swiper-card';
-import { MySubscriptionSwiperCardProps } from '../../widgets/my-subscription-swiper-card/MySubscriptionSwiperCard';
 import { PopularSubscription } from '../../widgets/popular-subscription';
 import { PopularSubscriptionProps } from '../../widgets/popular-subscription/PopularSubscription';
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
-import { catalog, faq } from './homeMock';
-
-interface HomePageProps {
-  popularSubscriptions: PopularSubscriptionProps[];
-  mySubscriptionsCard: MySubscriptionSwiperCardProps[];
-}
+import { faq } from './homeMock';
 
 //TODO курсор на ссылках
-// TODO сделать переход с главной странице раздела каталог на свои табы
-
-export const HomePage: FC<HomePageProps> = ({
-  popularSubscriptions,
-  mySubscriptionsCard,
-}) => {
+export const HomePage = () => {
+  const navigate = useNavigate();
+  const {
+    data: mySubscriptions,
+    isLoading,
+    isError,
+  } = useGetMySubscriptionsQuery();
   return (
     <Stack flexDirection="column" gap="24px">
       <Container>
         <Stack flexDirection="row" alignItems="center">
-          <IconButton>
+          <IconButton onClick={() => navigate(-1)}>
             <ChevronLeft />
           </IconButton>
           <Typography
@@ -97,7 +93,7 @@ export const HomePage: FC<HomePageProps> = ({
             }}
           >
             {/* TODO добавить отступ справа */}
-            {mySubscriptionsCard.map((item) => (
+            {mySubscriptions?.map((item) => (
               <SwiperSlide style={{ width: 'auto' }}>
                 <MySubscriptionSwiperCard {...item} />
               </SwiperSlide>
@@ -136,7 +132,6 @@ export const HomePage: FC<HomePageProps> = ({
                 to={'/catalog'}
                 style={{
                   color: 'inherit',
-                  cursor: 'inherit',
                   textDecoration: 'inherit',
                 }}
               >
@@ -144,13 +139,14 @@ export const HomePage: FC<HomePageProps> = ({
               </Link>
             </Typography>
           </Stack>
-          <MainCard
-            title="Избранное"
-            subtitle="Храните интересное здесь"
-            image={heart}
-          />
-          {catalog.map((card, id) => (
-            <MainCard key={id} {...card} />
+          {/* INFO нет api для получения категорий для главного экрана */}
+          {catalog.map((card) => (
+            <Link
+              to={`/catalog?${createSearchParams({ activeTab: card.categoryId.toString() })}`}
+              style={{ textDecoration: 'inherit' }}
+            >
+              <MainCard key={card.id} {...card} />
+            </Link>
           ))}
         </Stack>
       </Container>

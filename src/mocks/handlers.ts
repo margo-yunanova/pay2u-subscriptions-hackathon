@@ -74,6 +74,7 @@ const orderSubscription = http.post(
         cashback: data.cashback,
         tariff: { ...tariff },
         pay_status: true,
+        dueDate: '31.12.2024',
       });
       return HttpResponse.json(mySubscriptions.at(-1));
     }
@@ -83,9 +84,15 @@ const orderSubscription = http.post(
   },
 );
 
+const getMySubscriptions = http.get('/subscriptions/my', () => {
+  console.log('get');
+  return HttpResponse.json(mySubscriptions);
+});
+
 export const handlers = [
   getCategories,
   getPopularSubscriptions,
+  getMySubscriptions,
   getSubscriptionsByCategory,
   getSubscriptionById,
   orderSubscription,

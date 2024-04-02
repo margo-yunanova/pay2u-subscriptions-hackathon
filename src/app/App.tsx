@@ -1,13 +1,12 @@
 import {
+  Navigate,
   Outlet,
   RouterProvider,
   ScrollRestoration,
   createBrowserRouter,
 } from 'react-router-dom';
 import { CatalogPage } from '../pages/catalog-page';
-import { services } from '../pages/catalog-page/catalogMock';
 import { HomePage } from '../pages/home-page';
-import { popular, subscriptions } from '../pages/home-page/homeMock';
 import { MySubscriptionPage } from '../pages/my-subscription-page';
 import { SubscriptionCardPage } from '../pages/subscription-card-page';
 import { SubscriptionFormPage } from '../pages/subscription-form-page';
@@ -24,13 +23,13 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        path: '/',
+        element: <Navigate to="/home" replace={true} />,
+      },
+
+      {
         path: 'home',
-        element: (
-          <HomePage
-            popularSubscriptions={popular}
-            mySubscriptionsCard={subscriptions}
-          />
-        ),
+        element: <HomePage />,
       },
       {
         path: 'catalog',

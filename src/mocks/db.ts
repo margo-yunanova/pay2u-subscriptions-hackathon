@@ -13,6 +13,9 @@ import banner3 from '../assets/service/3.png';
 import banner4 from '../assets/service/4.png';
 import { CategoryProps } from '../pages/catalog-page/CatalogPage';
 import { TariffCardProps } from '../widgets/tariff-card/TariffCard';
+import heart from '../assets/heart.svg';
+import ticket from '../assets/ticket.svg';
+import disk from '../assets/disk.svg';
 
 export const categories = [
   {
@@ -34,6 +37,30 @@ export const categories = [
     id: 4,
     name: 'Прочее',
     slug: 'IDIw7',
+  },
+];
+
+export const catalog = [
+  {
+    id: 1,
+    title: 'Избранное',
+    subtitle: 'Храните интересное здесь',
+    image: heart,
+    categoryId: 0,
+  },
+  {
+    id: 2,
+    title: 'Кино',
+    subtitle: 'От 250 ₽ в месяц',
+    image: ticket,
+    categoryId: categories[0].id,
+  },
+  {
+    id: 3,
+    title: 'Музыка',
+    subtitle: 'От 199 ₽ в месяц',
+    image: disk,
+    categoryId: categories[2].id,
   },
 ];
 
@@ -192,7 +219,7 @@ export const services: {
     cashback: 30,
     logo: Yandex,
     min_price: 159,
-    categories: [categories[3]],
+    categories: [categories[3], categories[0], categories[2]],
     subtitle: 'Сервисы Яндекса, кешбэк и акции',
     banners,
     description:
@@ -335,4 +362,51 @@ export const mySubscriptions: {
   cashback: number;
   tariff: TariffCardProps;
   pay_status: true;
-}[] = [];
+  dueDate: string;
+}[] = [
+  {
+    id: 1,
+    name: 'IVI',
+    tariff: tariffs[0],
+    dueDate: '11.06.2024',
+    logo: Ivi,
+    cashback: 10,
+    pay_status: true,
+  },
+  {
+    id: 2,
+    name: 'Okko',
+    tariff: tariffs[1],
+    dueDate: '20.07.2024',
+    logo: Okko,
+    cashback: 10,
+    pay_status: true,
+  },
+  {
+    id: 3,
+    name: 'Vk Music',
+    tariff: tariffs[2],
+    dueDate: '15.09.2024',
+    logo: VkMusic,
+    cashback: 10,
+    pay_status: true,
+  },
+  {
+    id: 4,
+    name: 'Wink',
+    tariff: tariffs[3],
+    dueDate: '02.12.2024',
+    logo: Wink,
+    cashback: 10,
+    pay_status: true,
+  },
+  {
+    id: 5,
+    name: 'яндекс плюс',
+    tariff: tariffs[0],
+    dueDate: '05.03.2025',
+    logo: Yandex,
+    cashback: 10,
+    pay_status: true,
+  },
+];
