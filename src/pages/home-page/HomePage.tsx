@@ -22,7 +22,10 @@ export const HomePage = () => {
     data: mySubscriptions,
     isLoading,
     isError,
-  } = useGetMySubscriptionsQuery();
+  const { data: popularSubscriptions } = useGetSubscriptionsQuery({
+    ordering: 'popular_rate',
+  });
+
   return (
     <Stack flexDirection="column" gap="24px">
       <Container>
@@ -113,9 +116,14 @@ export const HomePage = () => {
             style={{ paddingLeft: '16px' }}
           >
             {/* TODO сделать карточки ссылками */}
-            {popularSubscriptions.map((item) => (
-              <SwiperSlide>
-                <PopularSubscription {...item} />
+            {popularSubscriptions?.map((item) => (
+              <SwiperSlide
+                key={item.id}
+                style={{ flexBasis: 'content', paddingRight: '20px' }}
+              >
+                <Link to={`/catalog/${item.id}`}>
+                  <PopularSubscription {...item} />
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

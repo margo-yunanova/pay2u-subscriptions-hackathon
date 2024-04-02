@@ -8,13 +8,13 @@ import {
 } from '@mui/material';
 
 export interface PopularSubscriptionProps {
-  title?: string;
-  image?: string;
+  name?: string;
+  logo?: string;
 }
 
 export const PopularSubscription: FC<PopularSubscriptionProps> = ({
-  image,
-  title,
+  logo,
+  name,
 }) => {
   return (
     <IconButton>
@@ -24,10 +24,10 @@ export const PopularSubscription: FC<PopularSubscriptionProps> = ({
           width: '44px',
         }}
       >
-        <CardMedia component="img" image={image} height={'44px'}></CardMedia>
+        <CardMedia component="img" image={logo} height={'44px'}></CardMedia>
         <CardContent style={{ padding: '0px' }}>
           <Typography variant="body1" style={{ wordBreak: 'normal' }}>
-            {title}
+            {name}
           </Typography>
         </CardContent>
       </Card>

@@ -9,15 +9,27 @@ export const api = createApi({
   endpoints: (builder) => ({
     getSubscriptions: builder.query<
       SubscriptionCardPageProps[],
-      Record<'categoryId', number>
+      Record<string, string | number>
     >({
-      query: (category) => {
-        if (category.categoryId === 0) {
-          return { url: 'subscriptions' };
+      query: (arg) => {
+        if (arg.categoryId === 0) {
+          return {
+            url: 'subscriptions',
+            params: {
+              'is-favorite': arg?.['is-favorite'],
+              name: arg?.name,
+              ordering: arg?.ordering,
+            },
+          };
         } else {
           return {
             url: 'subscriptions',
-            params: category,
+            params: {
+              'is-favorite': arg['is-favorite'],
+              name: arg?.name,
+              ordering: arg?.ordering,
+              categoryId: arg?.categoryId,
+            },
           };
         }
       },

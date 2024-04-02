@@ -45,6 +45,15 @@ const getSubscriptionsByCategory = http.get('/subscriptions', ({ request }) => {
     );
   }
 
+  const ordering = url.searchParams.get('ordering');
+  if (ordering) {
+    subscriptions.sort((a, b) => {
+      if (a.popular_rate > b.popular_rate) return -1;
+      if (a.popular_rate < b.popular_rate) return 1;
+      return 0;
+    });
+  }
+
   return HttpResponse.json(subscriptions);
 });
 
@@ -73,7 +82,7 @@ const orderSubscription = http.post(
         logo: data.logo,
         cashback: data.cashback,
         tariff: { ...tariff },
-        pay_status: true,
+        pay_status: 'true',
         dueDate: '31.12.2024',
       });
       return HttpResponse.json(mySubscriptions.at(-1));
@@ -84,9 +93,14 @@ const orderSubscription = http.post(
   },
 );
 
-const getMySubscriptions = http.get('/subscriptions/my', () => {
-  console.log('get');
-  return HttpResponse.json(mySubscriptions);
+const getMySubscriptions = http.get('/subscriptions/my', ({ request }) => {
+  const url = new URL(request.url);
+
+  const pay_status = url.searchParams.get('pay_status');
+
+  return HttpResponse.json(
+    mySubscriptions.filter((item) => pay_status === item.pay_status),
+  );
 });
 
 export const handlers = [
