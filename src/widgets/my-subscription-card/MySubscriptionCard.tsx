@@ -4,26 +4,33 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
-import image from '../../assets/ivi.png';
+import { TariffCardProps } from '../tariff-card/TariffCard';
 
 export interface MySubscriptionCardProps {
-  title?: string;
-  period?: string;
-  dueDate?: string;
-  logo?: string;
+  id: number;
+  name: string;
+  tariff: TariffCardProps;
+  dueDate: string;
+  logo: string;
+  cashback: number;
+  pay_status: string;
 }
 
 export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
-  title = 'IVI',
-  period = '3',
-  dueDate = '11.06.2024',
-  logo = image,
+  name,
+  tariff,
+  dueDate,
+  logo,
+  cashback,
+  pay_status,
 }) => {
   const theme = useTheme();
 
   return (
     <Card elevation={4} sx={{ borderRadius: '10px' }}>
-      <Container style={{ paddingBottom: '16px' }}>
+      <Container
+        style={{ paddingBottom: pay_status === 'false' ? '16px' : '0px' }}
+      >
         <Stack
           flexDirection="row"
           alignItems="flex-start"
@@ -33,7 +40,7 @@ export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
           <CardMedia
             component="img"
             image={logo}
-            alt={`Логотип ${title}`}
+            alt={`Логотип ${name}`}
             sx={{
               width: '56px',
               height: '56px',
@@ -49,12 +56,13 @@ export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
             }}
           >
             <Stack flexDirection="row" gap="12px" alignItems="center">
-              <Typography variant="h3">{title}</Typography>
-              <Chip variant="cashback" label="15% кешбэк" />
+              <Typography variant="h3">{name}</Typography>
+              <Chip variant="cashback" label={`${cashback} кешбэк`} />
             </Stack>
             <Stack>
               <Typography variant="body1" letterSpacing={0}>
-                Подписка на {period} месяца
+                {/* TODO добавить месяц в правильном падеже */}
+                Подписка на {tariff?.period} месяца
               </Typography>
               <Typography
                 sx={{
@@ -63,12 +71,14 @@ export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
                   fontWeight: '300',
                 }}
               >
-                Списание: {dueDate} / Неактивно
+                {pay_status === 'true' ? `Списание: ${dueDate}` : 'Неактивно'}
               </Typography>
             </Stack>
           </CardContent>
         </Stack>
-        <Button variant="outlined">Возобновить подписку</Button>
+        {pay_status === 'false' && (
+          <Button variant="outlined">Возобновить подписку</Button>
+        )}
       </Container>
     </Card>
   );

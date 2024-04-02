@@ -1,27 +1,37 @@
 import { Chip, Container, IconButton, Stack, Typography } from '@mui/material';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { Bell, ChevronLeft } from 'react-coolicons';
-import { Link, createSearchParams, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  createSearchParams,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { catalog } from '../../mocks/db';
-import { useGetMySubscriptionsQuery } from '../../services/api';
+import { catalog, faq } from '../../mocks/db';
+import {
+  useGetMySubscriptionsQuery,
+  useGetSubscriptionsQuery,
+} from '../../services/api';
 import { Accordion } from '../../shared/ui/accordion';
 import { NonModalDialog } from '../../shared/ui/non-modal-dialog';
 import { MainCard } from '../../widgets/main-card';
 import { MySubscriptionSwiperCard } from '../../widgets/my-subscription-swiper-card';
 import { PopularSubscription } from '../../widgets/popular-subscription';
-import { PopularSubscriptionProps } from '../../widgets/popular-subscription/PopularSubscription';
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
-import { faq } from './homeMock';
 
 //TODO курсор на ссылках
 export const HomePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     data: mySubscriptions,
     isLoading,
     isError,
+  } = useGetMySubscriptionsQuery({ pay_status: 'true' });
+
   const { data: popularSubscriptions } = useGetSubscriptionsQuery({
     ordering: 'popular_rate',
   });
@@ -74,7 +84,6 @@ export const HomePage = () => {
                 to={'/mysubscriptions'}
                 style={{
                   color: 'inherit',
-                  cursor: 'inherit',
                   textDecoration: 'inherit',
                 }}
               >
@@ -97,7 +106,7 @@ export const HomePage = () => {
           >
             {/* TODO добавить отступ справа */}
             {mySubscriptions?.map((item) => (
-              <SwiperSlide style={{ width: 'auto' }}>
+              <SwiperSlide key={item.id} style={{ width: 'auto' }}>
                 <MySubscriptionSwiperCard {...item} />
               </SwiperSlide>
             ))}
@@ -150,6 +159,7 @@ export const HomePage = () => {
           {/* INFO нет api для получения категорий для главного экрана */}
           {catalog.map((card) => (
             <Link
+              key={card.id}
               to={`/catalog?${createSearchParams({ activeTab: card.categoryId.toString() })}`}
               style={{ textDecoration: 'inherit' }}
             >
@@ -163,6 +173,7 @@ export const HomePage = () => {
         <Stack flexDirection="column">
           <Typography variant="h2">Часто задаваемые вопросы</Typography>
           <Container style={{ padding: '0px' }}>
+            {/* INFO нет апи на получение faq */}
             {faq.map((item, id) => (
               <Accordion key={id} {...item} id={`${id}`} />
             ))}

@@ -11,11 +11,12 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, SyntheticEvent, useCallback, useState } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, SearchMagnifyingGlass } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
 import noSubscription from '../../assets/noSubscription.svg';
 import { MySubscriptionCard } from '../../widgets/my-subscription-card';
-import { subscriptions } from '../home-page/homeMock';
+import { useGetMySubscriptionsQuery } from '../../services/api';
 
 const NoSubscription = () => {
   return (
@@ -75,7 +76,7 @@ const a11yProps = (index: number) => {
   };
 };
 
-const tabs = ['Вы уже подписаны', 'Активные', 'Неактивные'];
+const tabs = ['Активные', 'Неактивные'];
 
 interface MySubscriptionPageProps {}
 
@@ -89,6 +90,10 @@ export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
     },
     [],
   );
+
+  const { data: subscriptions } = useGetMySubscriptionsQuery({
+    pay_status: activeTab === 0,
+  });
 
   return (
     <Stack flexDirection="column" gap="24px">
@@ -126,21 +131,23 @@ export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
         ))}
       </Tabs>
 
-      <Container style={{ width: 'auto' }}>
-        <NoSubscription />
-      </Container>
-
-      <Container>
-        {tabs.map((title, id) => (
-          <TabPanel key={id} value={activeTab} index={id}>
-            <Stack flexDirection="column" gap="12px">
-              {subscriptions.map((card, id) => (
-                <MySubscriptionCard key={id} {...card} />
-              ))}
-            </Stack>
-          </TabPanel>
-        ))}
-      </Container>
+      {!subscriptions || subscriptions?.length === 0 ? (
+        <Container style={{ width: 'auto' }}>
+          <NoSubscription />
+        </Container>
+      ) : (
+        <Container>
+          {tabs.map((title, id) => (
+            <TabPanel key={id} value={activeTab} index={id}>
+              <Stack flexDirection="column" gap="12px">
+                {subscriptions?.map((card) => (
+                  <MySubscriptionCard key={card.id} {...card} />
+                ))}
+              </Stack>
+            </TabPanel>
+          ))}
+        </Container>
+      )}
     </Stack>
   );
 };

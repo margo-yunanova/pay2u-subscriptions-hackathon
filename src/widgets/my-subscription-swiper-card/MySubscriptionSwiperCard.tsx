@@ -4,7 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
-import image from '../../assets/ivi.png';
+import { TariffCardProps } from '../tariff-card/TariffCard';
 
 const StyledMySubscriptionSwiperCard = styled(CardBase)<CardProps>(() => ({
   width: '160px',
@@ -13,17 +13,20 @@ const StyledMySubscriptionSwiperCard = styled(CardBase)<CardProps>(() => ({
 }));
 
 export interface MySubscriptionSwiperCardProps {
-  title?: string;
-  period?: string;
-  dueDate?: string;
-  logo?: string;
+  id: number;
+  name: string;
+  logo: string;
+  cashback: number;
+  tariff: TariffCardProps;
+  pay_status: true;
+  dueDate: string;
 }
 
 export const MySubscriptionSwiperCard: FC<MySubscriptionSwiperCardProps> = ({
-  title = 'IVI',
-  period = '3',
-  dueDate = '11.06.2024',
-  logo = image,
+  name,
+  tariff,
+  dueDate,
+  logo,
 }) => {
   const theme = useTheme();
 
@@ -37,9 +40,10 @@ export const MySubscriptionSwiperCard: FC<MySubscriptionSwiperCardProps> = ({
           padding: '38px 8px 12px',
         }}
       >
-        <Typography variant="h3">{title}</Typography>
+        <Typography variant="h3">{name}</Typography>
         <Typography variant="body1" letterSpacing={0}>
-          Подписка на {period} месяца
+          {/* TODO поставить месяц в правильный падеж */}
+          Подписка на {tariff.period} месяца
         </Typography>
         <Typography
           sx={{
@@ -54,7 +58,7 @@ export const MySubscriptionSwiperCard: FC<MySubscriptionSwiperCardProps> = ({
       <CardMedia
         component="img"
         image={logo}
-        alt={`Логотип ${title}`}
+        alt={`Логотип ${name}`}
         sx={{
           width: '65px',
           height: '65px',

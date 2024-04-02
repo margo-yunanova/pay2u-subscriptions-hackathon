@@ -50,6 +50,12 @@ export const api = createApi({
     getCategories: builder.query<CategoryProps[], void>({
       query: () => 'categories',
     }),
+    getMySubscriptions: builder.query({
+      query: (arg) => ({
+        url: 'subscriptions/my',
+        params: { pay_status: arg?.pay_status },
+      }),
+    }),
   }),
 });
 
@@ -58,4 +64,5 @@ export const {
   useGetSubscriptionByIdQuery,
   useGetCategoriesQuery,
   useOrderSubscriptionMutation,
+  useGetMySubscriptionsQuery,
 } = api;
