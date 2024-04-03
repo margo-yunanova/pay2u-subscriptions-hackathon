@@ -269,7 +269,7 @@ export const services: {
     id: 2468,
     name: 'Netflix',
     cashback: 20,
-    logo: 'Netflix',
+    logo: 'https://static.vecteezy.com/system/resources/previews/017/396/804/non_2x/netflix-mobile-application-logo-free-png.png',
     min_price: 249,
     categories: [categories[0]],
     subtitle: 'Фильмы, сериалы, оригинальные контент',
@@ -284,7 +284,7 @@ export const services: {
     id: 8910,
     name: 'Spotify',
     cashback: 5,
-    logo: 'Spotify',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/Spotify_logo_2013%E2%80%932015.svg',
     min_price: 99,
     categories: [categories[2]],
     subtitle: 'Стриминговая музыкальная платформа',
@@ -299,7 +299,7 @@ export const services: {
     id: 1112,
     name: 'HBO',
     cashback: 10,
-    logo: 'HBO',
+    logo: 'https://i.pinimg.com/originals/8b/02/00/8b020050690f955ccb306cdf51324aea.png',
     min_price: 199,
     categories: [categories[0]],
     subtitle: 'Фильмы, сериалы, оригинальный контент',
@@ -314,7 +314,7 @@ export const services: {
     id: 1314,
     name: 'Audible',
     cashback: 15,
-    logo: 'Audible',
+    logo: 'https://cdn.iconscout.com/icon/free/png-512/free-audible-3521288-2944707.png?f=webp&w=256',
     min_price: 149,
     categories: [categories[1]],
     subtitle: 'Аудиокниги',
@@ -329,7 +329,7 @@ export const services: {
     id: 1516,
     name: 'Apple Music',
     cashback: 5,
-    logo: 'AppleMusic',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Apple_Music_icon.svg',
     min_price: 149,
     categories: [categories[2]],
     subtitle: 'Песни, альбомы, плейлисты',
@@ -344,7 +344,7 @@ export const services: {
     id: 1718,
     name: 'Google Play Books',
     cashback: 8,
-    logo: 'GooglePlayBooks',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/1/11/Google_Play_Books_icon_%282023%29.svg',
     min_price: 199,
     categories: [categories[1]],
     subtitle: 'Электронные книги',
@@ -359,7 +359,7 @@ export const services: {
     id: 920,
     name: 'Amazon Prime Video',
     cashback: 10,
-    logo: 'AmazonPrimeVideo',
+    logo: 'https://i.pinimg.com/originals/7d/53/6b/7d536b5057d6b0d50986a1ec155b034a.jpg',
     min_price: 199,
     categories: [categories[0]],
     subtitle: 'Фильмы, сериалы, оригинальный контент',
@@ -378,7 +378,7 @@ export const mySubscriptions: {
   logo: string;
   cashback: number;
   tariff: TariffCardProps;
-  pay_status: string;
+  pay_status: boolean;
   dueDate: string;
 }[] = [
   {
@@ -388,7 +388,7 @@ export const mySubscriptions: {
     dueDate: '11.06.2024',
     logo: Ivi,
     cashback: 10,
-    pay_status: 'true',
+    pay_status: true,
   },
   {
     id: 2,
@@ -397,7 +397,7 @@ export const mySubscriptions: {
     dueDate: '20.07.2024',
     logo: Okko,
     cashback: 10,
-    pay_status: 'false',
+    pay_status: false,
   },
   {
     id: 3,
@@ -406,7 +406,7 @@ export const mySubscriptions: {
     dueDate: '15.09.2024',
     logo: VkMusic,
     cashback: 10,
-    pay_status: 'true',
+    pay_status: true,
   },
   {
     id: 4,
@@ -415,7 +415,7 @@ export const mySubscriptions: {
     dueDate: '02.12.2024',
     logo: Wink,
     cashback: 10,
-    pay_status: 'false',
+    pay_status: false,
   },
   {
     id: 5,
@@ -424,7 +424,7 @@ export const mySubscriptions: {
     dueDate: '05.03.2025',
     logo: Yandex,
     cashback: 10,
-    pay_status: 'true',
+    pay_status: true,
   },
 ];
 
