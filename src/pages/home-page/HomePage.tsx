@@ -1,4 +1,12 @@
-import { Chip, Container, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Backdrop,
+  Chip,
+  CircularProgress,
+  Container,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { Bell, ChevronLeft } from 'react-coolicons';
 import {
@@ -21,18 +29,18 @@ import { MySubscriptionSwiperCard } from '../../widgets/my-subscription-swiper-c
 import { PopularSubscription } from '../../widgets/popular-subscription';
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
 
-//TODO курсор на ссылках
 export const HomePage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+
+  const { data: mySubscriptions, isLoading: isLoadingMySubscriptions } =
+    useGetMySubscriptionsQuery({
+      pay_status: 'true',
+    });
 
   const {
-    data: mySubscriptions,
-    isLoading,
-    isError,
-  } = useGetMySubscriptionsQuery({ pay_status: 'true' });
-
-  const { data: popularSubscriptions } = useGetSubscriptionsQuery({
+    data: popularSubscriptions,
+    isLoading: isLoadingPopularSubscriptions,
+  } = useGetSubscriptionsQuery({
     ordering: 'popular_rate',
   });
 
@@ -54,6 +62,16 @@ export const HomePage = () => {
           </IconButton>
         </Stack>
       </Container>
+
+      <Backdrop
+        sx={{
+          color: '#fff',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={isLoadingMySubscriptions || isLoadingPopularSubscriptions}
+      >
+        <CircularProgress />
+      </Backdrop>
 
       <Container>
         <Stack flexDirection="column" gap="12px">

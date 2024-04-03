@@ -1,8 +1,10 @@
 import {
+  Backdrop,
   Button,
   Card,
   CardContent,
   CardMedia,
+  CircularProgress,
   Container,
   IconButton,
   Stack,
@@ -91,7 +93,7 @@ export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
     [],
   );
 
-  const { data: subscriptions } = useGetMySubscriptionsQuery({
+  const { data: subscriptions, isLoading } = useGetMySubscriptionsQuery({
     pay_status: activeTab === 0,
   });
 
@@ -130,6 +132,16 @@ export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
           />
         ))}
       </Tabs>
+
+      <Backdrop
+        sx={{
+          color: '#fff',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={isLoading}
+      >
+        <CircularProgress />
+      </Backdrop>
 
       {!subscriptions || subscriptions?.length === 0 ? (
         <Container style={{ width: 'auto' }}>

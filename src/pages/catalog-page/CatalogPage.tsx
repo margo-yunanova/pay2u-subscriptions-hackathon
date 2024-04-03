@@ -1,4 +1,6 @@
 import {
+  Backdrop,
+  CircularProgress,
   Container,
   IconButton,
   InputBase,
@@ -75,7 +77,7 @@ const Search = styled(InputBase)(({ theme }) => ({
 }));
 
 export const CatalogPage = () => {
-  const { data, isLoading } = useGetCategoriesQuery();
+  const { data, isLoading: isLoadingCategories } = useGetCategoriesQuery();
   const categories = useMemo(
     () => [{ id: 0, name: 'Все' }, ...(data !== undefined ? data : [])],
     [data],
@@ -86,8 +88,16 @@ export const CatalogPage = () => {
     +(searchParams.get('activeTab') ?? 0),
   );
 
-  const navigate = useNavigate();
+  const [showSearchInput, setShowSearchInput] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [debouncedSearchValue] = useDebounce(searchValue, 500);
 
+  const { data: subscriptions, isLoading } = useGetSubscriptionsQuery({
+    categoryId: categories?.[activeTab]?.id,
+    name: debouncedSearchValue,
+  });
+
+  const navigate = useNavigate();
   const handleCategoryChange = useCallback(
     (event: SyntheticEvent, newValue: number) => {
       setActiveTab(newValue);
@@ -101,15 +111,6 @@ export const CatalogPage = () => {
     },
     [navigate],
   );
-
-  const [showSearchInput, setShowSearchInput] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
-  const [debouncedSearchValue] = useDebounce(searchValue, 500);
-
-  const { data: subscriptions } = useGetSubscriptionsQuery({
-    categoryId: categories?.[activeTab]?.id,
-    name: debouncedSearchValue,
-  });
 
   return (
     <>
@@ -160,6 +161,16 @@ export const CatalogPage = () => {
             </IconButton>
           </Stack>
         </Container>
+
+        <Backdrop
+          sx={{
+            color: '#fff',
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+          }}
+          open={isLoading || isLoadingCategories}
+        >
+          <CircularProgress />
+        </Backdrop>
 
         {!showSearchInput && (
           <Tabs

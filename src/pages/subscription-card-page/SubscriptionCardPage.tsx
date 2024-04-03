@@ -1,9 +1,11 @@
 import {
+  Backdrop,
   Button,
   Card,
   CardContent,
   CardMedia,
   Chip,
+  CircularProgress,
   Collapse,
   Container,
   FormControl,
@@ -16,7 +18,7 @@ import {
 import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, Heart01 } from 'react-coolicons';
-import { useNavigate, useParams } from 'react-router-dom';
+import { createSearchParams, useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useGetSubscriptionByIdQuery } from '../../services/api';
 import { Accordion } from '../../shared/ui/accordion';
@@ -42,7 +44,7 @@ export interface SubscriptionCardPageProps {
 
 export const SubscriptionCardPage = () => {
   const { id } = useParams();
-  const { data: subscription } = useGetSubscriptionByIdQuery(id);
+  const { data: subscription, isLoading } = useGetSubscriptionByIdQuery(id);
   const navigate = useNavigate();
   const descriptionRef = useRef<HTMLDivElement>(null);
   const descriptionHeight = 62;
@@ -99,6 +101,16 @@ export const SubscriptionCardPage = () => {
         </Stack>
       </Container>
 
+      <Backdrop
+        sx={{
+          color: '#fff',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={isLoading}
+      >
+        <CircularProgress />
+      </Backdrop>
+
       <Container>
         <Card elevation={0}>
           <CardContent sx={{ padding: '0px' }}>
@@ -130,8 +142,12 @@ export const SubscriptionCardPage = () => {
                 key={id}
                 variant="tag"
                 label={name}
-                // TODO Переходить на страницу каталога
-                onClick={() => navigate(`/catalog`)}
+                onClick={() =>
+                  navigate({
+                    pathname: '/catalog',
+                    search: `${createSearchParams({ activeTab: id.toString() })}`,
+                  })
+                }
               />
             ))}
           </Stack>
