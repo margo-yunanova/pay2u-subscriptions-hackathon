@@ -5,7 +5,7 @@ const getCategories = http.get('/categories', () =>
   HttpResponse.json(categories),
 );
 
-const getSubscriptionsByCategory = http.get('/subscriptions', ({ request }) => {
+const getSubscriptions = http.get('/subscriptions', ({ request }) => {
   let subscriptions = [...services];
   const url = new URL(request.url);
 
@@ -86,10 +86,19 @@ const getMySubscriptions = http.get('/subscriptions/my', ({ request }) => {
   );
 });
 
+const getMyTariff = http.get('/subscriptions/:id/mytariff', ({ params }) => {
+  const { id } = params;
+  console.log(id);
+  const tariff = mySubscriptions.find((item) => item.id === +id)?.tariff;
+  console.log(tariff);
+  return HttpResponse.json(tariff);
+});
+
 export const handlers = [
   getCategories,
   getMySubscriptions,
-  getSubscriptionsByCategory,
+  getSubscriptions,
   getSubscriptionById,
   orderSubscription,
+  getMyTariff,
 ];

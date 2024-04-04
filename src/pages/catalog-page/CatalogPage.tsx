@@ -79,7 +79,7 @@ const Search = styled(InputBase)(({ theme }) => ({
 export const CatalogPage = () => {
   const { data, isLoading: isLoadingCategories } = useGetCategoriesQuery();
   const categories = useMemo(
-    () => [{ id: 0, name: 'Все' }, ...(data !== undefined ? data : [])],
+    () => [{ id: 0, name: 'Все' }, ...(data ?? [])],
     [data],
   );
   const [searchParams] = useSearchParams();

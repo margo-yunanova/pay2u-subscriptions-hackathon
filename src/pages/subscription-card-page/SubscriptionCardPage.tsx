@@ -18,15 +18,25 @@ import {
 import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, Heart01 } from 'react-coolicons';
-import { createSearchParams, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  createSearchParams,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { useGetSubscriptionByIdQuery } from '../../services/api';
+import {
+  useGetSubscriptionByIdQuery,
+  useGetTariffQuery,
+} from '../../services/api';
 import { Accordion } from '../../shared/ui/accordion';
 import { SubscriptionBanner } from '../../widgets/subscription-banner/SubscriptionBanner';
 import { TariffCard } from '../../widgets/tariff-card';
 import { TariffCardProps } from '../../widgets/tariff-card/TariffCard';
 import { CategoryProps } from '../catalog-page/CatalogPage';
 import { faqTariff } from './subscriptionCardPageMock';
+import { SubscriptionManagement } from '../../widgets/subscription-management';
+import { Drawer } from '../../shared/ui/drawer';
 
 export interface SubscriptionCardPageProps {
   id: number;
@@ -45,6 +55,8 @@ export interface SubscriptionCardPageProps {
 export const SubscriptionCardPage = () => {
   const { id } = useParams();
   const { data: subscription, isLoading } = useGetSubscriptionByIdQuery(id);
+  const { data: tariff, isLoading: isLoadingMyTariff } = useGetTariffQuery(id);
+
   const navigate = useNavigate();
   const descriptionRef = useRef<HTMLDivElement>(null);
   const descriptionHeight = 62;
@@ -62,6 +74,7 @@ export const SubscriptionCardPage = () => {
   };
 
   const [tariffId, setTariffId] = useState<string | undefined>(undefined);
+  const [subscriptionManagement, setSubscriptionManagement] = useState(false);
 
   const handleTariffSubscription = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -106,7 +119,7 @@ export const SubscriptionCardPage = () => {
           color: '#fff',
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
-        open={isLoading}
+        open={isLoading || isLoadingMyTariff}
       >
         <CircularProgress />
       </Backdrop>
@@ -153,6 +166,56 @@ export const SubscriptionCardPage = () => {
           </Stack>
         </Card>
       </Container>
+
+      {tariff && (
+        <Container>
+          <Stack
+            flexDirection="row"
+            justifyContent="space-between"
+            paddingBottom="12px"
+          >
+            <Typography variant="h2">Действующий тариф</Typography>
+            <Typography variant="link">
+              <Link
+                to={'/payment-history'}
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'inherit',
+                }}
+              >
+                История
+              </Link>
+            </Typography>
+          </Stack>
+          {/* TODO обводка кнопки наезжает на границе, изменить паддинги */}
+          <Card elevation={4} sx={{ borderRadius: '10px' }}>
+            <Container style={{ padding: '0px', paddingBottom: '2px' }}>
+              <CardContent
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: '8px 12px',
+                }}
+              >
+                <Typography variant="h3">
+                  {/* TODO добавить месяц в правильном падеже */}
+                  Подписка на {tariff?.period} месяца
+                </Typography>
+                <Typography variant="body2">
+                  {tariff?.price_per_month} ₽ спишется {tariff?.future}
+                </Typography>
+              </CardContent>
+
+              <Button
+                variant="text"
+                onClick={() => setSubscriptionManagement(true)}
+              >
+                Управлять
+              </Button>
+            </Container>
+          </Card>
+        </Container>
+      )}
 
       <div>
         <Container>
@@ -201,34 +264,38 @@ export const SubscriptionCardPage = () => {
         </Container>
       </div>
 
-      <Container>
-        <Typography variant="h2">Тарифы</Typography>
+      {!tariff && (
+        <Container>
+          <Typography variant="h2">Тарифы</Typography>
 
-        <FormControl style={{ width: '100%' }}>
-          <RadioGroup
-            aria-labelledby="demo-controlled-radio-buttons-group"
-            name="controlled-radio-buttons-group"
-            value={tariffId}
-            onChange={handleTariffSubscription}
-            style={{ width: '100%', gap: '8px' }}
-          >
-            {subscription?.tariffs.map((tariff) => (
-              <FormControlLabel
-                key={tariff.id}
-                control={<TariffCard {...tariff} />}
-                label=""
-                style={{
-                  margin: '0px',
-                  border: 'solid 2px',
-                  borderColor:
-                    tariffId === tariff.periodName ? '#8EB2EC' : 'transparent',
-                  borderRadius: '12px',
-                }}
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
-      </Container>
+          <FormControl style={{ width: '100%' }}>
+            <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
+              value={tariffId}
+              onChange={handleTariffSubscription}
+              style={{ width: '100%', gap: '8px' }}
+            >
+              {subscription?.tariffs.map((tariff) => (
+                <FormControlLabel
+                  key={tariff.id}
+                  control={<TariffCard {...tariff} />}
+                  label=""
+                  style={{
+                    margin: '0px',
+                    border: 'solid 2px',
+                    borderColor:
+                      tariffId === tariff.periodName
+                        ? '#8EB2EC'
+                        : 'transparent',
+                    borderRadius: '12px',
+                  }}
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
+        </Container>
+      )}
 
       <Container>
         <Stack flexDirection="column">
@@ -241,15 +308,29 @@ export const SubscriptionCardPage = () => {
         </Stack>
       </Container>
 
-      <Container style={{ paddingBottom: '24px' }}>
-        <Button
-          onClick={handleSubscribe}
-          variant="contained"
-          disabled={tariffId === undefined}
+      {!tariff && (
+        <Container style={{ paddingBottom: '24px' }}>
+          <Button
+            onClick={handleSubscribe}
+            variant="contained"
+            disabled={tariffId === undefined}
+          >
+            Оформить подписку
+          </Button>
+        </Container>
+      )}
+
+      {subscriptionManagement && (
+        <Drawer
+          open={subscriptionManagement}
+          setOpen={setSubscriptionManagement}
         >
-          Оформить подписку
-        </Button>
-      </Container>
+          <SubscriptionManagement
+            subscription={subscription!}
+            tariff={tariff}
+          />
+        </Drawer>
+      )}
     </Stack>
   );
 };

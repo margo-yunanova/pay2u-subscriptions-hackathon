@@ -382,7 +382,7 @@ export const mySubscriptions: {
   dueDate: string;
 }[] = [
   {
-    id: 1,
+    id: 1234,
     name: 'IVI',
     tariff: tariffs[0],
     dueDate: '11.06.2024',
@@ -391,7 +391,7 @@ export const mySubscriptions: {
     pay_status: true,
   },
   {
-    id: 2,
+    id: 2345,
     name: 'Okko',
     tariff: tariffs[1],
     dueDate: '20.07.2024',
@@ -400,7 +400,7 @@ export const mySubscriptions: {
     pay_status: false,
   },
   {
-    id: 3,
+    id: 5123,
     name: 'Vk Music',
     tariff: tariffs[2],
     dueDate: '15.09.2024',
@@ -409,7 +409,7 @@ export const mySubscriptions: {
     pay_status: true,
   },
   {
-    id: 4,
+    id: 4567,
     name: 'Wink',
     tariff: tariffs[3],
     dueDate: '02.12.2024',
@@ -418,7 +418,7 @@ export const mySubscriptions: {
     pay_status: false,
   },
   {
-    id: 5,
+    id: 6789,
     name: 'яндекс плюс',
     tariff: tariffs[0],
     dueDate: '05.03.2025',

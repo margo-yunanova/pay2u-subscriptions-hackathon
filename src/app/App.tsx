@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { CatalogPage } from '../pages/catalog-page';
 import { HomePage } from '../pages/home-page';
-import { MySubscriptionPage } from '../pages/my-subscription-page';
+import { MySubscriptionsPage } from '../pages/my-subscriptions-page';
 import { SubscriptionCardPage } from '../pages/subscription-card-page';
 import { SubscriptionFormPage } from '../pages/subscription-form-page';
 import './App.css';
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'mysubscriptions',
-        element: <MySubscriptionPage />,
+        element: <MySubscriptionsPage />,
       },
       {
         path: 'form',

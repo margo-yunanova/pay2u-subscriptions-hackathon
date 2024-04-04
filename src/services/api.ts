@@ -56,6 +56,9 @@ export const api = createApi({
         params: { pay_status: arg?.pay_status },
       }),
     }),
+    getTariff: builder.query({
+      query: (id) => `subscriptions/${id}/mytariff`,
+    }),
   }),
 });
 
@@ -65,4 +68,5 @@ export const {
   useGetCategoriesQuery,
   useOrderSubscriptionMutation,
   useGetMySubscriptionsQuery,
+  useGetTariffQuery,
 } = api;
