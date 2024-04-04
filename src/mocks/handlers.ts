@@ -1,11 +1,11 @@
 import { http, HttpResponse } from 'msw';
 import { categories, mySubscriptions, services, tariffs } from './db';
 
-const getCategories = http.get('/categories', () =>
+const getCategories = http.get('/api/v1/categories', () =>
   HttpResponse.json(categories),
 );
 
-const getSubscriptions = http.get('/subscriptions', ({ request }) => {
+const getSubscriptions = http.get('/api/v1/subscriptions', ({ request }) => {
   let subscriptions = [...services];
   const url = new URL(request.url);
 
@@ -40,16 +40,19 @@ const getSubscriptions = http.get('/subscriptions', ({ request }) => {
   return HttpResponse.json(subscriptions);
 });
 
-const getSubscriptionById = http.get('/subscriptions/:id', ({ params }) => {
-  const { id } = params;
+const getSubscriptionById = http.get(
+  '/api/v1/subscriptions/:id',
+  ({ params }) => {
+    const { id } = params;
 
-  const subscription = services.find((item) => item.id === +id);
+    const subscription = services.find((item) => item.id === +id);
 
-  return HttpResponse.json(subscription);
-});
+    return HttpResponse.json(subscription);
+  },
+);
 
 const orderSubscription = http.post(
-  '/subscriptions/:id/order',
+  '/api/v1/subscriptions/:id/order',
   async ({ request, params }) => {
     const { id } = params;
     const requestBody = await request.json();
@@ -76,23 +79,29 @@ const orderSubscription = http.post(
   },
 );
 
-const getMySubscriptions = http.get('/subscriptions/my', ({ request }) => {
-  const url = new URL(request.url);
+const getMySubscriptions = http.get(
+  '/api/v1/subscriptions/my',
+  ({ request }) => {
+    const url = new URL(request.url);
 
-  const pay_status = url.searchParams.get('pay_status') === 'true';
+    const pay_status = url.searchParams.get('pay_status') === 'true';
 
-  return HttpResponse.json(
-    mySubscriptions.filter((item) => pay_status === item.pay_status),
-  );
-});
+    return HttpResponse.json(
+      mySubscriptions.filter((item) => pay_status === item.pay_status),
+    );
+  },
+);
 
-const getMyTariff = http.get('/subscriptions/:id/mytariff', ({ params }) => {
-  const { id } = params;
-  console.log(id);
-  const tariff = mySubscriptions.find((item) => item.id === +id)?.tariff;
-  console.log(tariff);
-  return HttpResponse.json(tariff);
-});
+const getMyTariff = http.get(
+  '/api/v1/subscriptions/:id/mytariff',
+  ({ params }) => {
+    const { id } = params;
+    console.log(id);
+    const tariff = mySubscriptions.find((item) => item.id === +id)?.tariff;
+    console.log(tariff);
+    return HttpResponse.json(tariff);
+  },
+);
 
 export const handlers = [
   getCategories,

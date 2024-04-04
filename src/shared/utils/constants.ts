@@ -5,4 +5,4 @@ export const tariffInfo = {
   annually: { period: '12 месяцев', frequency: 'ежегодно' },
 };
 
-export const baseUrl = '/';
+export const baseUrl = '/api/v1';
