@@ -80,9 +80,7 @@ const a11yProps = (index: number) => {
 
 const tabs = ['Активные', 'Неактивные'];
 
-interface MySubscriptionPageProps {}
-
-export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
+export const MySubscriptionsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
 
@@ -152,6 +150,7 @@ export const MySubscriptionPage: FC<MySubscriptionPageProps> = () => {
           {tabs.map((title, id) => (
             <TabPanel key={id} value={activeTab} index={id}>
               <Stack flexDirection="column" gap="12px">
+                {/* TODO сделать типы */}
                 {subscriptions?.map((card) => (
                   <MySubscriptionCard key={card.id} {...card} />
                 ))}
