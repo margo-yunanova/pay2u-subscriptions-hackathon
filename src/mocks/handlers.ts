@@ -58,7 +58,7 @@ const orderSubscription = http.post(
     const requestBody = await request.json();
 
     const subscription = mySubscriptions.find((item) => item.id === +id);
-    const tariff = tariffs.find((tariff) => tariff.id === requestBody?.tariff)!;
+    const tariff = tariffs.find((tariff) => tariff.id === requestBody!.tariff)!;
 
     if (!subscription) {
       const data = services.find((item) => item.id === +id)!;
@@ -96,10 +96,40 @@ const getMyTariff = http.get(
   '/api/v1/subscriptions/:id/mytariff',
   ({ params }) => {
     const { id } = params;
-    console.log(id);
+
     const tariff = mySubscriptions.find((item) => item.id === +id)?.tariff;
-    console.log(tariff);
+
     return HttpResponse.json(tariff);
+  },
+);
+
+const changeTariff = http.patch(
+  '/api/v1/subscriptions/:id/change_tariff',
+  async ({ request, params }) => {
+    const { id } = params;
+    const requestBody = await request.json();
+    console.log(requestBody);
+
+    const subscription = mySubscriptions.find((item) => item.id === +id);
+    console.log('subscription', subscription);
+    const tariff = tariffs.find((item) => item.id === +requestBody!.tariff);
+    console.log('tariff', tariff, tariffs);
+    if (subscription && tariff) {
+      subscription.tariff = tariff;
+    }
+    console.log(subscription?.tariff);
+    return HttpResponse.json({ tariff: requestBody!.tariff });
+  },
+);
+
+const getTariffs = http.get(
+  '/api/v1/subscriptions/:id/tariffs',
+  ({ params }) => {
+    const { id } = params;
+
+    const tariffs = services.find((item) => item.id === +id)?.tariffs;
+
+    return HttpResponse.json(tariffs);
   },
 );
 
@@ -110,4 +140,6 @@ export const handlers = [
   getSubscriptionById,
   orderSubscription,
   getMyTariff,
+  changeTariff,
+  getTariffs,
 ];

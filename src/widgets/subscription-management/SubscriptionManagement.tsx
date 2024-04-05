@@ -15,6 +15,7 @@ import {
 import { FC, Fragment } from 'react';
 import { SubscriptionCardPageProps } from '../../pages/subscription-card-page/SubscriptionCardPage';
 import { TariffCardProps } from '../tariff-card/TariffCard';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface SubscriptionManagementProps {
   subscription: SubscriptionCardPageProps;
@@ -26,6 +27,8 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
   tariff,
 }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const listTitles = [
     { title: 'Ближайшее списание', data: tariff?.date },
@@ -34,8 +37,14 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
     { title: 'Счет списания', data: tariff?.account },
   ];
 
-  const changeTariff = () => {};
-  const stopSubscription = () => {};
+  const changeTariff = () => {
+    navigate({
+      pathname: `/change-tariff/${id}`,
+    });
+  };
+
+  // TODO сделать отключение подписки
+  // const stopSubscription = () => {};
 
   return (
     <Stack flexDirection="column" gap="24px" padding="44px 16px 24px">
@@ -98,9 +107,10 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
           <Button variant="contained" onClick={changeTariff}>
             Изменить тариф
           </Button>
+          {/* TODO сделать отключение подписки
           <Button variant="outlined" onClick={stopSubscription}>
             Отключить подписку
-          </Button>
+          </Button> */}
         </Stack>
       </Container>
     </Stack>

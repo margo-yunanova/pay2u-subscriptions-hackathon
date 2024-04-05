@@ -11,6 +11,7 @@ import { MySubscriptionsPage } from '../pages/my-subscriptions-page';
 import { SubscriptionCardPage } from '../pages/subscription-card-page';
 import { SubscriptionFormPage } from '../pages/subscription-form-page';
 import './App.css';
+import { ChangeTariffPage } from '../pages/change-tariff-page';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
         path: 'form',
         element: <SubscriptionFormPage />,
       },
+      { path: 'change-tariff/:id', element: <ChangeTariffPage /> },
     ],
   },
 ]);
