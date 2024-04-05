@@ -58,10 +58,11 @@ const a11yProps = (index: number) => {
 const Search = styled(InputBase)(({ theme }) => ({
   '& .MuiInputBase-input': {
     border: 'none',
-    fontSize: '14px',
+    fontSize: '16px',
     boxShadow: 'none',
     font: theme.typography.h4,
     color: theme.palette.text.primary,
+    padding: '0px',
     '&:focus': {
       border: 'none',
     },
@@ -115,7 +116,6 @@ export const CatalogPage = () => {
             showSearchInput
               ? {
                   paddingBottom: '14px',
-                  paddingTop: '14px',
                   borderBottom: '1px solid black',
                 }
               : undefined
@@ -135,7 +135,7 @@ export const CatalogPage = () => {
             ) : (
               <Search
                 type="text"
-                placeholder="Иван"
+                placeholder="Введите название"
                 id="name"
                 defaultValue={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}

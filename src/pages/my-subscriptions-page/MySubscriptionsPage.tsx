@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { FC, SyntheticEvent, useCallback, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
-import { ChevronLeft, SearchMagnifyingGlass } from 'react-coolicons';
+import { ChevronLeft } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
 import noSubscription from '../../assets/noSubscription.svg';
 import { MySubscriptionCard } from '../../widgets/my-subscription-card';
@@ -106,11 +106,8 @@ export const MySubscriptionsPage = () => {
             style={{ flexGrow: '1', justifyContent: 'flex-start' }}
             variant="h3"
           >
-            Каталог
+            Мои подписки
           </Typography>
-          <IconButton>
-            <SearchMagnifyingGlass />
-          </IconButton>
         </Stack>
       </Container>
 

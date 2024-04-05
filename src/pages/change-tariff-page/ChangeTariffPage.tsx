@@ -57,15 +57,15 @@ export const ChangeTariffPage = () => {
   const handleChangeTariff = async () => {
     try {
       await changeTariff({
-        subscriptionId: subscriptionId!,
-        tariffId: tariffId!,
+        subscriptionId: +subscriptionId!,
+        tariffId: +tariffId!,
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
-  console.log(tariffId, tariff?.id);
+  console.log('change tariff', tariffId, tariff?.id);
   return (
     <Stack flexDirection="column" gap="24px">
       <Container>

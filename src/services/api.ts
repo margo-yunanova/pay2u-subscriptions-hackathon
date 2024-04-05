@@ -93,7 +93,7 @@ export const api = createApi({
     }),
     changeTariff: builder.mutation<
       { tariff: number },
-      { subscriptionId: string; tariffId: string }
+      { subscriptionId: number; tariffId: number }
     >({
       query: (arg) => ({
         url: `subscriptions/${arg?.subscriptionId}/change_tariff`,

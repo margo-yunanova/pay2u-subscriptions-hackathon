@@ -166,7 +166,7 @@ export const theme = createTheme({
             borderColor: 'transparent',
             borderRadius: '8px',
             backgroundColor: 'transparent',
-            fontSize: '14px',
+            fontSize: '16px',
             color: palette.text?.greyDusk1,
             padding: '10px 16px',
             boxShadow:
