@@ -9,18 +9,19 @@ import {
 } from '@mui/material';
 import TrapFocus from '@mui/material/Unstable_TrapFocus';
 import { FC, useState } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { CloseSm } from 'react-coolicons';
 
 interface NonModalDialogProps {
-  title?: string;
-  description?: string;
-  buttonName?: string;
+  title: string;
+  description: string;
+  buttonName: string;
 }
 
 export const NonModalDialog: FC<NonModalDialogProps> = ({
-  title = 'Уже есть подписки? ',
-  description = 'Добавьте их и получайте кешбэк до 30% с каждой оплаты в приложении ',
-  buttonName = 'Добавить мои подписки',
+  title,
+  description,
+  buttonName,
 }) => {
   const [bannerOpen, setBannerOpen] = useState(true);
   const theme = useTheme();

@@ -11,11 +11,16 @@ import banner1 from '../assets/service/1.png';
 import banner2 from '../assets/service/2.png';
 import banner3 from '../assets/service/3.png';
 import banner4 from '../assets/service/4.png';
-import { CategoryProps } from '../pages/catalog-page/CatalogPage';
-import { TariffCardProps } from '../widgets/tariff-card/TariffCard';
 import heart from '../assets/heart.svg';
 import ticket from '../assets/ticket.svg';
 import disk from '../assets/disk.svg';
+import {
+  IBanner,
+  ICategory,
+  IMainCard,
+  IMySubscription,
+  ITariff,
+} from '../shared/utils/type';
 
 export const categories = [
   {
@@ -40,7 +45,7 @@ export const categories = [
   },
 ];
 
-export const catalog = [
+export const catalog: IMainCard[] = [
   {
     id: 1,
     title: 'Избранное',
@@ -64,7 +69,7 @@ export const catalog = [
   },
 ];
 
-const banners = [
+const banners: IBanner[] = [
   { id: 1, image: banner1 },
   { id: 2, image: banner2 },
   { id: 3, image: banner3 },
@@ -75,14 +80,13 @@ const banners = [
   { id: 8, image: banner4 },
 ];
 
-export const tariffs: TariffCardProps[] = [
+export const tariffs: ITariff[] = [
   {
     id: 1,
     period: 1,
     discount: 0,
     price_per_month: 300,
     price_per_period: 300,
-    periodName: 'monthly',
   },
   {
     id: 2,
@@ -90,7 +94,6 @@ export const tariffs: TariffCardProps[] = [
     discount: 3,
     price_per_month: 290,
     price_per_period: 870,
-    periodName: 'quarterly',
   },
   {
     id: 3,
@@ -98,7 +101,6 @@ export const tariffs: TariffCardProps[] = [
     discount: 7,
     price_per_month: 280,
     price_per_period: 1680,
-    periodName: 'semiannually',
   },
   {
     id: 4,
@@ -106,11 +108,10 @@ export const tariffs: TariffCardProps[] = [
     discount: 12,
     price_per_month: 250,
     price_per_period: 300,
-    periodName: 'annually',
   },
 ];
 
-export const paymentAccount = [
+export const payment_account = [
   { id: 1, logo: '', name: 'Система быстрых платежей' },
   { id: 2, logo: '', name: 'Яндекс.Пей' },
   { id: 3, logo: '', name: 'Наличные' },
@@ -122,11 +123,11 @@ export const services: {
   cashback: number;
   logo: string;
   min_price: number;
-  categories: CategoryProps[];
+  categories: ICategory[];
   description: string;
   banners: { id: number; image: string }[];
   subtitle: string;
-  tariffs: TariffCardProps[];
+  tariffs: ITariff[];
   is_favorite: boolean;
   popular_rate: number;
 }[] = [
@@ -372,20 +373,12 @@ export const services: {
   },
 ];
 
-export const mySubscriptions: {
-  id: number;
-  name: string;
-  logo: string;
-  cashback: number;
-  tariff: TariffCardProps;
-  pay_status: boolean;
-  dueDate: string;
-}[] = [
+export const mySubscriptions: IMySubscription[] = [
   {
     id: 1234,
     name: 'IVI',
     tariff: tariffs[0],
-    dueDate: '11.06.2024',
+    due_date: '2024-12-31T23:59:59.200Z',
     logo: Ivi,
     cashback: 10,
     pay_status: true,
@@ -394,7 +387,7 @@ export const mySubscriptions: {
     id: 2345,
     name: 'Okko',
     tariff: tariffs[1],
-    dueDate: '20.07.2024',
+    due_date: '2024-12-31T23:59:59.200Z',
     logo: Okko,
     cashback: 10,
     pay_status: false,
@@ -403,7 +396,7 @@ export const mySubscriptions: {
     id: 5123,
     name: 'Vk Music',
     tariff: tariffs[2],
-    dueDate: '15.09.2024',
+    due_date: '2024-12-31T23:59:59.200Z',
     logo: VkMusic,
     cashback: 10,
     pay_status: true,
@@ -412,7 +405,7 @@ export const mySubscriptions: {
     id: 4567,
     name: 'Wink',
     tariff: tariffs[3],
-    dueDate: '02.12.2024',
+    due_date: '2024-12-31T23:59:59.200Z',
     logo: Wink,
     cashback: 10,
     pay_status: false,
@@ -421,7 +414,7 @@ export const mySubscriptions: {
     id: 6789,
     name: 'яндекс плюс',
     tariff: tariffs[0],
-    dueDate: '05.03.2025',
+    due_date: '2024-12-31T23:59:59.200Z',
     logo: Yandex,
     cashback: 10,
     pay_status: true,

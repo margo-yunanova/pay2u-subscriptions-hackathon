@@ -6,16 +6,9 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
+import { IMainSubscription } from '../../shared/utils/type';
 
-export interface PopularSubscriptionProps {
-  name?: string;
-  logo?: string;
-}
-
-export const PopularSubscription: FC<PopularSubscriptionProps> = ({
-  logo,
-  name,
-}) => {
+export const PopularSubscription: FC<IMainSubscription> = ({ logo, name }) => {
   return (
     <IconButton>
       <Card

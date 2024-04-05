@@ -9,22 +9,14 @@ import {
 } from '@mui/material';
 import { FC } from 'react';
 import { tariffInfo } from '../../shared/utils/constants';
+import { ITariff } from '../../shared/utils/type';
 
-export interface TariffCardProps {
-  id: number;
-  period: number;
-  discount: number;
-  price_per_month: number;
-  price_per_period: number;
-  periodName: 'monthly' | 'quarterly' | 'semiannually' | 'annually';
-}
-
-export const TariffCard: FC<TariffCardProps> = ({
+export const TariffCard: FC<ITariff> = ({
   id,
   discount,
   price_per_month,
   price_per_period,
-  periodName,
+  period,
 }) => {
   const theme = useTheme();
   return (
@@ -51,9 +43,7 @@ export const TariffCard: FC<TariffCardProps> = ({
         />
         <CardContent style={{ flexGrow: 1, padding: '8px 0px' }}>
           <Stack flexDirection="column">
-            <Typography variant="h3">
-              {tariffInfo[periodName].period}
-            </Typography>
+            <Typography variant="h3">{tariffInfo[period].period}</Typography>
             <Typography variant="h3" component="span">
               {price_per_month} ₽
               <Typography variant="subtitle1" component="span">
@@ -62,7 +52,7 @@ export const TariffCard: FC<TariffCardProps> = ({
               </Typography>
             </Typography>
             <Typography variant="body1">
-              Оплата {price_per_period} {tariffInfo[periodName].frequency}
+              Оплата {price_per_period} {tariffInfo[period].frequency}
             </Typography>
           </Stack>
         </CardContent>

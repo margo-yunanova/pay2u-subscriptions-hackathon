@@ -5,19 +5,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 import heart from '../../assets/heart.svg';
+import { IMainCard } from '../../shared/utils/type';
 
 const StyledMainCard = styled(CardBase)<CardProps>(({ theme }) => ({
   backgroundColor: theme.palette.background.brandDay5,
   borderRadius: '10px',
 }));
 
-interface MainCardProps {
-  title?: string;
-  subtitle?: string;
-  image?: string;
-}
-
-export const MainCard: FC<MainCardProps> = ({
+export const MainCard: FC<IMainCard> = ({
   title = 'Избранное',
   subtitle = 'Храните интересное здесь',
   image = heart,

@@ -1,7 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CategoryProps } from '../pages/catalog-page/CatalogPage';
-import { SubscriptionCardPageProps } from '../pages/subscription-card-page/SubscriptionCardPage';
 import { baseUrl } from '../shared/utils/constants';
+import {
+  ICategory,
+  IMainSubscription,
+  IMySubscription,
+  IMyTariff,
+  ISubscription,
+  ISubscriptionOrder,
+  ITariff,
+} from '../shared/utils/type';
 
 export const api = createApi({
   reducerPath: 'api',
@@ -15,8 +22,13 @@ export const api = createApi({
   ],
   endpoints: (builder) => ({
     getSubscriptions: builder.query<
-      SubscriptionCardPageProps[],
-      Record<string, string | number>
+      IMainSubscription[],
+      {
+        categoryId?: number;
+        name?: string;
+        ordering?: 'popular_rate';
+        'is-favorite'?: boolean;
+      }
     >({
       query: (arg) => {
         if (arg.categoryId === 0) {
@@ -42,14 +54,14 @@ export const api = createApi({
       },
       providesTags: ['Subscriptions'],
     }),
-    getSubscriptionById: builder.query<
-      SubscriptionCardPageProps,
-      string | undefined
-    >({
+    getSubscriptionById: builder.query<ISubscription, string | undefined>({
       query: (id) => `subscriptions/${id}`,
       providesTags: ['Subscription'],
     }),
-    orderSubscription: builder.mutation({
+    orderSubscription: builder.mutation<
+      ISubscriptionOrder,
+      { data: ISubscriptionOrder; subscriptionId: number }
+    >({
       query: ({ data, subscriptionId }) => ({
         url: `subscriptions/${subscriptionId}/order/`,
         method: 'POST',
@@ -65,18 +77,24 @@ export const api = createApi({
     getCategories: builder.query<ICategory[], void>({
       query: () => 'categories',
     }),
-    getMySubscriptions: builder.query({
+    getMySubscriptions: builder.query<
+      IMySubscription[],
+      { pay_status: boolean }
+    >({
       query: (arg) => ({
         url: 'subscriptions/my',
         params: { pay_status: arg?.pay_status },
       }),
       providesTags: ['mySubscriptions'],
     }),
-    getTariff: builder.query({
+    getTariff: builder.query<IMyTariff, string | undefined>({
       query: (id) => `subscriptions/${id}/mytariff`,
       providesTags: ['Tariff'],
     }),
-    changeTariff: builder.mutation<string, Record<string, string>>({
+    changeTariff: builder.mutation<
+      { tariff: number },
+      { subscriptionId: string; tariffId: string }
+    >({
       query: (arg) => ({
         url: `subscriptions/${arg?.subscriptionId}/change_tariff`,
         method: 'PATCH',
@@ -89,7 +107,7 @@ export const api = createApi({
         'mySubscriptions',
       ],
     }),
-    getTariffs: builder.query({
+    getTariffs: builder.query<ITariff[], string | undefined>({
       query: (id) => `subscriptions/${id}/tariffs`,
       providesTags: ['Tariffs'],
     }),

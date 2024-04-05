@@ -9,12 +9,7 @@ import {
 } from '@mui/material';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { Bell, ChevronLeft } from 'react-coolicons';
-import {
-  Link,
-  createSearchParams,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, createSearchParams, useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { catalog, faq } from '../../mocks/db';
@@ -34,7 +29,7 @@ export const HomePage = () => {
 
   const { data: mySubscriptions, isLoading: isLoadingMySubscriptions } =
     useGetMySubscriptionsQuery({
-      pay_status: 'true',
+      pay_status: true,
     });
 
   const {

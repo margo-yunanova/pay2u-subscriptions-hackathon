@@ -8,16 +8,14 @@ import {
   styled,
   useTheme,
 } from '@mui/material';
-import { FC } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { CaretRightSm } from 'react-coolicons';
 
 const StyledSummaryPaymentHistory = styled(CardBase)<CardProps>(() => ({
   borderRadius: '12px',
 }));
 
-interface SummaryPaymentHistoryProps {}
-
-export const SummaryPaymentHistory: FC<SummaryPaymentHistoryProps> = () => {
+export const SummaryPaymentHistory = () => {
   const theme = useTheme();
 
   return (

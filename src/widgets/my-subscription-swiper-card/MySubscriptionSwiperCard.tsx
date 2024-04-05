@@ -4,7 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
-import { TariffCardProps } from '../tariff-card/TariffCard';
+import { IMySubscription } from '../../shared/utils/type';
 
 const StyledMySubscriptionSwiperCard = styled(CardBase)<CardProps>(() => ({
   width: '160px',
@@ -12,20 +12,10 @@ const StyledMySubscriptionSwiperCard = styled(CardBase)<CardProps>(() => ({
   position: 'relative',
 }));
 
-export interface MySubscriptionSwiperCardProps {
-  id: number;
-  name: string;
-  logo: string;
-  cashback: number;
-  tariff: TariffCardProps;
-  pay_status: true;
-  dueDate: string;
-}
-
-export const MySubscriptionSwiperCard: FC<MySubscriptionSwiperCardProps> = ({
+export const MySubscriptionSwiperCard: FC<IMySubscription> = ({
   name,
   tariff,
-  dueDate,
+  due_date,
   logo,
 }) => {
   const theme = useTheme();
@@ -52,7 +42,8 @@ export const MySubscriptionSwiperCard: FC<MySubscriptionSwiperCardProps> = ({
             fontWeight: '300',
           }}
         >
-          Активна до: {dueDate}
+          {/* TODO сделать время */}
+          Активна до: {new Date(due_date).toLocaleString()}
         </Typography>
       </CardContent>
       <CardMedia

@@ -32,25 +32,10 @@ import {
 import { Accordion } from '../../shared/ui/accordion';
 import { SubscriptionBanner } from '../../widgets/subscription-banner/SubscriptionBanner';
 import { TariffCard } from '../../widgets/tariff-card';
-import { TariffCardProps } from '../../widgets/tariff-card/TariffCard';
-import { CategoryProps } from '../catalog-page/CatalogPage';
+
 import { faqTariff } from './subscriptionCardPageMock';
 import { SubscriptionManagement } from '../../widgets/subscription-management';
 import { Drawer } from '../../shared/ui/drawer';
-
-export interface SubscriptionCardPageProps {
-  id: number;
-  name: string;
-  cashback: number;
-  logo: string;
-  min_price: number;
-  categories: CategoryProps[];
-  description: string;
-  banners: { id: number; image: string }[];
-  subtitle: string;
-  tariffs: TariffCardProps[];
-  is_favorite: boolean;
-}
 
 export const SubscriptionCardPage = () => {
   const { id } = useParams();
@@ -139,9 +124,7 @@ export const SubscriptionCardPage = () => {
               />
               <Stack flexDirection="column" flexGrow={1}>
                 <Typography variant="h3">{subscription?.name}</Typography>
-                <Typography variant="body2">
-                  {subscription?.subtitle}
-                </Typography>
+                <Typography variant="body2">{subscription?.title}</Typography>
               </Stack>
               <Chip
                 variant="cashback"
@@ -202,7 +185,7 @@ export const SubscriptionCardPage = () => {
                   Подписка на {tariff?.period} месяца
                 </Typography>
                 <Typography variant="body2">
-                  {tariff?.price_per_month} ₽ спишется {tariff?.future}
+                  {tariff?.price_per_month} ₽ спишется {tariff?.due_date}
                 </Typography>
               </CardContent>
 
@@ -285,7 +268,7 @@ export const SubscriptionCardPage = () => {
                     margin: '0px',
                     border: 'solid 2px',
                     borderColor:
-                      tariffId === tariff.periodName
+                      tariffId === tariff.id.toString()
                         ? '#8EB2EC'
                         : 'transparent',
                     borderRadius: '12px',
@@ -320,7 +303,7 @@ export const SubscriptionCardPage = () => {
         </Container>
       )}
 
-      {subscriptionManagement && (
+      {subscriptionManagement && tariff && (
         <Drawer
           open={subscriptionManagement}
           setOpen={setSubscriptionManagement}

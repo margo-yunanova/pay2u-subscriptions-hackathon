@@ -24,11 +24,14 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { number, object, string } from 'yup';
-import { paymentAccount } from '../../mocks/db';
+import { payment_account } from '../../mocks/db';
 import { useOrderSubscriptionMutation } from '../../services/api';
 import { tariffInfo } from '../../shared/utils/constants';
-import { TariffCardProps } from '../../widgets/tariff-card/TariffCard';
-import { SubscriptionCardPageProps } from '../subscription-card-page/SubscriptionCardPage';
+import {
+  ISubscription,
+  ISubscriptionOrder,
+  ITariff,
+} from '../../shared/utils/type';
 
 const schema = object().shape({
   name: string()
@@ -41,7 +44,7 @@ const schema = object().shape({
   email: string()
     .email('Введите действительный адрес электронной почты')
     .required('Введите действительный адрес электронной почты'),
-  paymentAccount: number().required(),
+  payment_account: number().required(),
   tariff: number().required(),
 });
 
@@ -71,8 +74,8 @@ const TextMaskCustom = forwardRef<HTMLInputElement, TextMaskCustomProps>(
 );
 
 interface SubscriptionFormPageProps {
-  subscription: SubscriptionCardPageProps;
-  tariff: TariffCardProps;
+  subscription: ISubscription;
+  tariff: ITariff;
 }
 
 export const SubscriptionFormPage = () => {
@@ -91,7 +94,7 @@ export const SubscriptionFormPage = () => {
       name: '',
       phone_number: '',
       email: '',
-      paymentAccount: paymentAccount[0].id,
+      payment_account: payment_account[0].id,
       tariff: tariff.id,
     },
   });
@@ -100,13 +103,7 @@ export const SubscriptionFormPage = () => {
 
   const [orderSubscription, { isLoading }] = useOrderSubscriptionMutation();
 
-  const onSubmit: SubmitHandler<{
-    paymentAccount: number;
-    name: string;
-    phone_number: string;
-    email: string;
-    tariff: number;
-  }> = async (data) => {
+  const onSubmit: SubmitHandler<ISubscriptionOrder> = async (data) => {
     try {
       await orderSubscription({ data, subscriptionId: subscription.id });
       setTermsAgreed(false);
@@ -143,14 +140,14 @@ export const SubscriptionFormPage = () => {
             />
             <Stack flexDirection="column" flexGrow={1}>
               <Typography variant="h3">{subscription.name}</Typography>
-              <Typography variant="body2">{subscription.subtitle}</Typography>
+              <Typography variant="body2">{subscription.title}</Typography>
             </Stack>
           </Stack>
         </CardContent>
       </Card>
 
       <Typography variant="h3">
-        Подписка на {tariffInfo[tariff.periodName].period}
+        Подписка на {tariffInfo[tariff.period].period}
       </Typography>
       <Typography variant="h3">
         {location.state.tariff.price_per_month} ₽{' '}
@@ -229,7 +226,7 @@ export const SubscriptionFormPage = () => {
         />
 
         <Controller
-          name="paymentAccount"
+          name="payment_account"
           control={control}
           render={({ field }) => (
             <FormControl variant="standard">
@@ -243,7 +240,7 @@ export const SubscriptionFormPage = () => {
                 {...field}
                 style={{ marginTop: '0px' }}
               >
-                {paymentAccount.map(({ id, name }) => (
+                {payment_account.map(({ id, name }) => (
                   <MenuItem
                     key={id}
                     value={id}

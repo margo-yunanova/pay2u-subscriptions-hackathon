@@ -4,22 +4,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
-import { TariffCardProps } from '../tariff-card/TariffCard';
+import { IMySubscription } from '../../shared/utils/type';
 
-export interface MySubscriptionCardProps {
-  id: number;
-  name: string;
-  tariff: TariffCardProps;
-  dueDate: string;
-  logo: string;
-  cashback: number;
-  pay_status: string;
-}
-
-export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
+export const MySubscriptionCard: FC<IMySubscription> = ({
   name,
   tariff,
-  dueDate,
+  due_date,
   logo,
   cashback,
   pay_status,
@@ -28,9 +18,7 @@ export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
 
   return (
     <Card elevation={4} sx={{ borderRadius: '10px' }}>
-      <Container
-        style={{ paddingBottom: pay_status === 'false' ? '16px' : '0px' }}
-      >
+      <Container style={{ paddingBottom: !pay_status ? '16px' : '0px' }}>
         <Stack
           flexDirection="row"
           alignItems="flex-start"
@@ -71,12 +59,12 @@ export const MySubscriptionCard: FC<MySubscriptionCardProps> = ({
                   fontWeight: '300',
                 }}
               >
-                {pay_status === 'true' ? `Списание: ${dueDate}` : 'Неактивно'}
+                {pay_status ? `Списание: ${due_date}` : 'Неактивно'}
               </Typography>
             </Stack>
           </CardContent>
         </Stack>
-        {pay_status === 'false' && (
+        {!pay_status && (
           <Button variant="outlined">Возобновить подписку</Button>
         )}
       </Container>

@@ -35,7 +35,7 @@ export const ChangeTariffPage = () => {
     useGetTariffQuery(subscriptionId);
   const { data, isLoading: isLoadingMyTariffs } =
     useGetTariffsQuery(subscriptionId);
-  const [tariffId, setTariffId] = useState<string>(tariff?.id ?? '');
+  const [tariffId, setTariffId] = useState(tariff?.id.toString() ?? '');
 
   const [changeTariff, { isLoading: isLoadingChangeTariff }] =
     useChangeTariffMutation();
@@ -44,7 +44,7 @@ export const ChangeTariffPage = () => {
 
   useEffect(() => {
     if (tariff) {
-      setTariffId(tariff.id);
+      setTariffId(tariff.id.toString());
     }
   }, [tariff]);
 
@@ -106,9 +106,7 @@ export const ChangeTariffPage = () => {
               />
               <Stack flexDirection="column" flexGrow={1}>
                 <Typography variant="h3">{subscription?.name}</Typography>
-                <Typography variant="body2">
-                  {subscription?.subtitle}
-                </Typography>
+                <Typography variant="body2">{subscription?.title}</Typography>
               </Stack>
               <Chip
                 variant="cashback"
@@ -141,7 +139,7 @@ export const ChangeTariffPage = () => {
                   margin: '0px',
                   border: 'solid 2px',
                   borderColor:
-                    tariffId === tariff?.periodName ? '#8EB2EC' : 'transparent',
+                    +tariffId === tariff?.id ? '#8EB2EC' : 'transparent',
                   borderRadius: '12px',
                 }}
               />
@@ -164,7 +162,9 @@ export const ChangeTariffPage = () => {
                   margin: '0px',
                   border: 'solid 2px',
                   borderColor:
-                    tariffId === tariff.periodName ? '#8EB2EC' : 'transparent',
+                    tariffId === tariff.id.toString()
+                      ? '#8EB2EC'
+                      : 'transparent',
                   borderRadius: '12px',
                 }}
               />
@@ -178,7 +178,9 @@ export const ChangeTariffPage = () => {
           <Button
             variant="contained"
             onClick={handleChangeTariff}
-            disabled={isLoadingChangeTariff || +tariffId === tariff?.id}
+            disabled={
+              isLoadingChangeTariff || tariffId === tariff?.id.toString()
+            }
           >
             Изменить тариф
           </Button>

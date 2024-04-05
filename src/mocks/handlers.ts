@@ -51,14 +51,14 @@ const getSubscriptionById = http.get(
   },
 );
 
-const orderSubscription = http.post(
+const orderSubscription = http.post<{ id: string }, { tariff: number }>(
   '/api/v1/subscriptions/:id/order',
   async ({ request, params }) => {
     const { id } = params;
     const requestBody = await request.json();
 
     const subscription = mySubscriptions.find((item) => item.id === +id);
-    const tariff = tariffs.find((tariff) => tariff.id === requestBody!.tariff)!;
+    const tariff = tariffs.find((tariff) => tariff.id === requestBody.tariff)!;
 
     if (!subscription) {
       const data = services.find((item) => item.id === +id)!;
@@ -69,7 +69,7 @@ const orderSubscription = http.post(
         cashback: data.cashback,
         tariff: { ...tariff },
         pay_status: true,
-        dueDate: '31.12.2024',
+        due_date: '31.12.2024',
       });
       return HttpResponse.json(mySubscriptions.at(-1));
     }
@@ -103,7 +103,7 @@ const getMyTariff = http.get(
   },
 );
 
-const changeTariff = http.patch(
+const changeTariff = http.patch<{ id: string }, { tariff: number }>(
   '/api/v1/subscriptions/:id/change_tariff',
   async ({ request, params }) => {
     const { id } = params;
@@ -112,13 +112,13 @@ const changeTariff = http.patch(
 
     const subscription = mySubscriptions.find((item) => item.id === +id);
     console.log('subscription', subscription);
-    const tariff = tariffs.find((item) => item.id === +requestBody!.tariff);
+    const tariff = tariffs.find((item) => item.id === requestBody.tariff);
     console.log('tariff', tariff, tariffs);
     if (subscription && tariff) {
       subscription.tariff = tariff;
     }
     console.log(subscription?.tariff);
-    return HttpResponse.json({ tariff: requestBody!.tariff });
+    return HttpResponse.json({ tariff: requestBody.tariff });
   },
 );
 

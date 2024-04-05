@@ -13,13 +13,12 @@ import {
   useTheme,
 } from '@mui/material';
 import { FC, Fragment } from 'react';
-import { SubscriptionCardPageProps } from '../../pages/subscription-card-page/SubscriptionCardPage';
-import { TariffCardProps } from '../tariff-card/TariffCard';
 import { useNavigate, useParams } from 'react-router-dom';
+import { IMyTariff, ISubscription } from '../../shared/utils/type';
 
 interface SubscriptionManagementProps {
-  subscription: SubscriptionCardPageProps;
-  tariff: TariffCardProps;
+  subscription: ISubscription;
+  tariff: IMyTariff;
 }
 
 export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
@@ -31,10 +30,10 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
   const { id } = useParams();
 
   const listTitles = [
-    { title: 'Ближайшее списание', data: tariff?.date },
+    { title: 'Ближайшее списание', data: tariff?.due_date },
     { title: 'Сумма списания', data: tariff.price_per_month },
     { title: 'Кешбэк', data: tariff?.cashback },
-    { title: 'Счет списания', data: tariff?.account },
+    { title: 'Счет списания', data: tariff?.payment_account },
   ];
 
   const changeTariff = () => {
@@ -63,9 +62,7 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
               />
               <Stack flexDirection="column" flexGrow={1}>
                 <Typography variant="h3">{subscription?.name}</Typography>
-                <Typography variant="body2">
-                  {subscription?.subtitle}
-                </Typography>
+                <Typography variant="body2">{subscription?.title}</Typography>
               </Stack>
             </Stack>
           </CardContent>

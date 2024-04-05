@@ -32,11 +32,6 @@ interface TabPanelProps {
   value: number;
 }
 
-export interface CategoryProps {
-  id: number;
-  name: string;
-}
-
 const TabPanel: FC<TabPanelProps> = (props) => {
   const { children, value, index, ...other } = props;
 

@@ -11,26 +11,18 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-export interface CatalogCardProps {
-  id: number;
-  name: string;
-  cashback: number;
-  logo: string;
-  min_price: number;
-}
+import { IMainSubscription } from '../../shared/utils/type';
 
 const StyledCatalogCard = styled(CardBase)<CardProps>(() => ({
   borderRadius: '10px',
 }));
 
-export const CatalogCard: FC<CatalogCardProps> = ({
-  id,
-  name,
-  cashback,
-  logo,
-  min_price,
-}) => {
+export const CatalogCard: FC<
+  Omit<
+    IMainSubscription,
+    'description' | 'categories' | 'popular_rate' | 'is_favorite'
+  >
+> = ({ id, name, cashback, logo, min_price }) => {
   const navigate = useNavigate();
 
   return (

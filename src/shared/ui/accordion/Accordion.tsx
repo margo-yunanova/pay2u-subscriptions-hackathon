@@ -9,6 +9,7 @@ import {
   styled,
 } from '@mui/material';
 import { FC } from 'react';
+// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronDown } from 'react-coolicons';
 
 const StyledAccordion = styled(AccordionBase)<AccordionPropsBase>(() => ({
@@ -37,16 +38,12 @@ const StyledAccordionDetails = styled(
 }));
 
 interface AccordionProps {
-  title?: string;
-  details?: string;
-  id?: string;
+  title: string;
+  details: string;
+  id: string;
 }
 
-export const Accordion: FC<AccordionProps> = ({
-  title = 'Как подключить подписку',
-  details = 'Подписку можно подключить в мобильном приложении или на сайте tinkoff.ru. Если у вас есть приложение Тинькофф, на главном экране перейдите в раздел «Кэшбэк и бонусы» → подписка Tinkoff Pro → «Подключить».',
-  id = '1',
-}) => {
+export const Accordion: FC<AccordionProps> = ({ title, details, id }) => {
   return (
     <StyledAccordion>
       <StyledAccordionSummary
