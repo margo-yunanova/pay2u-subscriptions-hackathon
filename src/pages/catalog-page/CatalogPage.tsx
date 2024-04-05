@@ -94,7 +94,7 @@ export const CatalogPage = () => {
 
   const navigate = useNavigate();
   const handleCategoryChange = useCallback(
-    (event: SyntheticEvent, newValue: number) => {
+    (_event: SyntheticEvent, newValue: number) => {
       setActiveTab(newValue);
       navigate(
         {

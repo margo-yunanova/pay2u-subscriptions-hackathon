@@ -85,7 +85,7 @@ export const MySubscriptionsPage = () => {
   const navigate = useNavigate();
 
   const handleTabChange = useCallback(
-    (event: SyntheticEvent, newValue: number) => {
+    (_event: SyntheticEvent, newValue: number) => {
       setActiveTab(newValue);
     },
     [],
@@ -147,7 +147,7 @@ export const MySubscriptionsPage = () => {
         </Container>
       ) : (
         <Container>
-          {tabs.map((title, id) => (
+          {tabs.map((_title, id) => (
             <TabPanel key={id} value={activeTab} index={id}>
               <Stack flexDirection="column" gap="12px">
                 {/* TODO сделать типы */}
