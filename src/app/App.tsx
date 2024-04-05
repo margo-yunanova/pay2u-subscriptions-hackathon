@@ -1,5 +1,4 @@
 import {
-  Navigate,
   Outlet,
   RouterProvider,
   ScrollRestoration,
@@ -12,6 +11,7 @@ import { SubscriptionCardPage } from '../pages/subscription-card-page';
 import { SubscriptionFormPage } from '../pages/subscription-form-page';
 import './App.css';
 import { ChangeTariffPage } from '../pages/change-tariff-page';
+import { SetUpPage } from '../pages/set-up-page';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Navigate to="/home" replace={true} />,
+        element: <SetUpPage />,
       },
 
       {
