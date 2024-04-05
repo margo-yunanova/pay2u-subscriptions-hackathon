@@ -158,7 +158,8 @@ export const SubscriptionCardPage = () => {
             paddingBottom="12px"
           >
             <Typography variant="h2">Действующий тариф</Typography>
-            <Typography variant="link">
+            {/* TODO добавить страницу истории */}
+            {/* <Typography variant="link">
               <Link
                 to={'/payment-history'}
                 style={{
@@ -168,16 +169,22 @@ export const SubscriptionCardPage = () => {
               >
                 История
               </Link>
-            </Typography>
+            </Typography> */}
           </Stack>
-          {/* TODO обводка кнопки наезжает на границе, изменить паддинги */}
+
           <Card elevation={4} sx={{ borderRadius: '10px' }}>
-            <Container style={{ padding: '0px', paddingBottom: '2px' }}>
+            <Container
+              style={{
+                padding: '0px',
+                paddingBottom: '6px',
+                paddingLeft: '12px',
+              }}
+            >
               <CardContent
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '8px 12px',
+                  padding: '8px 8px',
                 }}
               >
                 <Typography variant="h3">
