@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { api } from '../../services/api';
+import theme from './theme-slice';
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
+    theme,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),

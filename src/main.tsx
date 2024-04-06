@@ -1,12 +1,9 @@
-import { ThemeProvider } from '@emotion/react';
-import { CssBaseline } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import App from './app/App';
-import { store } from './app/store';
-import { theme } from './app/themes/theme';
 import './index.css';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 async function enableMocking() {
   // if (process.env.NODE_ENV !== 'development') {
@@ -26,10 +23,7 @@ enableMocking().then(() => {
   rootElement.render(
     <React.StrictMode>
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
+        <App />
       </Provider>
     </React.StrictMode>,
   );

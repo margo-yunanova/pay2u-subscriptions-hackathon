@@ -10,10 +10,13 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { selectTheme, setTheme } from '../../app/store/theme-slice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const SetUpPage = () => {
   const [scenario, setScenario] = React.useState('1');
-  const [color, setSColor] = React.useState('1');
+  const dispatch = useDispatch();
+  const theme = useSelector(selectTheme);
 
   const navigate = useNavigate();
 
@@ -22,7 +25,7 @@ export const SetUpPage = () => {
   };
 
   const handleChangeColor = (_event: SelectChangeEvent) => {
-    setSColor(_event.target.value as string);
+    dispatch(setTheme(_event.target.value));
   };
 
   const handleButton = () => {
@@ -77,14 +80,12 @@ export const SetUpPage = () => {
           <Select
             labelId="color"
             id="color"
-            value={color}
+            value={theme}
             label=""
             onChange={handleChangeColor}
           >
-            <MenuItem value="1">По-умолчанию</MenuItem>
-            <MenuItem value="2" disabled>
-              Красный банк
-            </MenuItem>
+            <MenuItem value="default">По-умолчанию</MenuItem>
+            <MenuItem value="red">Красный банк</MenuItem>
             <MenuItem value="3" disabled>
               Зеленый банк
             </MenuItem>

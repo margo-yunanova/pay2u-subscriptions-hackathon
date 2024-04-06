@@ -1,13 +1,13 @@
 import type { Palette } from './type';
 
-export const palette: Partial<Palette> = {
+export const redPalette: Partial<Palette> = {
   background: {
     default: '#fff',
     paper: '#fff',
-    brandDay1: '#0050CF',
-    brandDay2: '#3A74D0',
-    brandDayDark: '#002D6E',
-    brandDay5: '#F0F5FF',
+    brandDay1: '#EF3124', //+
+    brandDay2: '#D03A3A', //+
+    brandDayDark: '#CD2816', //+
+    brandDay5: '#F2F3F5', //+
     accent: '#C3DDF4',
   },
   text: {
@@ -15,10 +15,10 @@ export const palette: Partial<Palette> = {
     secondary: '#6B7A99',
     disabled: '',
     baseWhite: '#FFFFFF',
-    brandDay1: '#0050CF',
-    brandDay2: '#3A74D0',
-    brandDay4: '#C2DAFF',
-    brandDayDark: '#002D6E',
+    brandDay1: '#EF3124', //+
+    brandDay2: '#D03A3A', //+
+    brandDay4: '#E2E4E8', //+
+    brandDayDark: '#CD2816', //+
     accentDeepDark: '#0065B0',
     greyDusk2: '#7C89A3',
     greyDusk1: '#6B7A99',
