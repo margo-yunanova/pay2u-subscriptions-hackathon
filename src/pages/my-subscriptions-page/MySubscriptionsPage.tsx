@@ -12,13 +12,16 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
-import { FC, SyntheticEvent, useCallback, useState } from 'react';
+import { FC, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
 import noSubscription from '../../assets/noSubscription.svg';
+import {
+  useGetDiscoveredSubscriptionsQuery,
+  useGetMySubscriptionsQuery,
+} from '../../services/api';
 import { MySubscriptionCard } from '../../widgets/my-subscription-card';
-import { useGetMySubscriptionsQuery } from '../../services/api';
 
 const NoSubscription = () => {
   return (
@@ -78,22 +81,24 @@ const a11yProps = (index: number) => {
   };
 };
 
-const tabs = ['Активные', 'Неактивные'];
-
 export const MySubscriptionsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
 
-  const handleTabChange = useCallback(
-    (_event: SyntheticEvent, newValue: number) => {
-      setActiveTab(newValue);
-    },
-    [],
-  );
+  const active = useGetMySubscriptionsQuery({ pay_status: true });
+  const inactive = useGetMySubscriptionsQuery({ pay_status: false });
+  const discovered = useGetDiscoveredSubscriptionsQuery();
+  const isLoading =
+    active.isLoading || inactive.isLoading || discovered.isLoading;
 
-  const { data: subscriptions, isLoading } = useGetMySubscriptionsQuery({
-    pay_status: activeTab === 0,
-  });
+  const tabs = [
+    { title: 'Активные', data: active.data },
+    { title: 'Неактивные', data: inactive.data },
+  ];
+
+  if (discovered.data?.length) {
+    tabs.unshift({ title: 'Вы уже подписаны', data: discovered.data });
+  }
 
   return (
     <Stack flexDirection="column" gap="24px">
@@ -115,10 +120,10 @@ export const MySubscriptionsPage = () => {
         variant="scrollable"
         scrollButtons={false}
         value={activeTab}
-        onChange={handleTabChange}
+        onChange={(_, newValue) => setActiveTab(newValue)}
         aria-label="Категории"
       >
-        {tabs.map((title, id) => (
+        {tabs.map(({ title }, id) => (
           <Tab
             style={{ flexGrow: '1' }}
             key={id}
@@ -138,24 +143,38 @@ export const MySubscriptionsPage = () => {
         <CircularProgress />
       </Backdrop>
 
-      {!subscriptions || subscriptions?.length === 0 ? (
-        <Container style={{ width: 'auto' }}>
-          <NoSubscription />
-        </Container>
-      ) : (
-        <Container>
-          {tabs.map((_title, id) => (
-            <TabPanel key={id} value={activeTab} index={id}>
-              <Stack flexDirection="column" gap="12px">
-                {/* TODO сделать типы */}
-                {subscriptions?.map((card) => (
+      <Container>
+        {tabs.map(({ title, data }, id) => (
+          <TabPanel key={id} value={activeTab} index={id}>
+            {title === 'Вы уже подписаны' && (
+              <Container
+                sx={{
+                  padding: '16px',
+                  backgroundColor: '#F8F9FB',
+                  borderRadius: '6px',
+                  marginBottom: '16px',
+                }}
+              >
+                <Typography variant="h4">
+                  Добавьте подписку в приложение для получения кешбэка. Вы
+                  получите кешбэк со следующего оплаченного периода.
+                </Typography>
+              </Container>
+            )}
+            <Stack flexDirection="column" gap="12px">
+              {data?.length ? (
+                data.map((card) => (
                   <MySubscriptionCard key={card.id} {...card} />
-                ))}
-              </Stack>
-            </TabPanel>
-          ))}
-        </Container>
-      )}
+                ))
+              ) : (
+                <Container style={{ width: 'auto' }}>
+                  <NoSubscription />
+                </Container>
+              )}
+            </Stack>
+          </TabPanel>
+        ))}
+      </Container>
     </Stack>
   );
 };

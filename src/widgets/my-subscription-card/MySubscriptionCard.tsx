@@ -52,15 +52,17 @@ export const MySubscriptionCard: FC<IMySubscription> = ({
                 {/* TODO добавить месяц в правильном падеже */}
                 Подписка на {tariff?.period} месяца
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: '10px',
-                  color: theme.palette.text.greyDusk1,
-                  fontWeight: '300',
-                }}
-              >
-                {pay_status ? `Списание: ${due_date}` : 'Неактивно'}
-              </Typography>
+              {(!pay_status || due_date) && (
+                <Typography
+                  sx={{
+                    fontSize: '10px',
+                    color: theme.palette.text.greyDusk1,
+                    fontWeight: '300',
+                  }}
+                >
+                  {pay_status ? `Списание: ${due_date}` : 'Неактивно'}
+                </Typography>
+              )}
             </Stack>
           </CardContent>
         </Stack>

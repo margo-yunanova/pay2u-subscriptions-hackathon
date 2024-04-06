@@ -403,6 +403,62 @@ export const faq = [
   },
 ];
 
+export let discoveredSubscriptions: IMySubscription[];
+
+const setupDiscoveredSubscriptions = (scenario: UserScenario) => {
+  if (scenario !== 'switcher') {
+    discoveredSubscriptions = [];
+    return;
+  }
+  discoveredSubscriptions = [
+    {
+      id: 1234,
+      name: 'IVI',
+      tariff: tariffs[0],
+      due_date: '',
+      logo: Ivi,
+      cashback: 10,
+      pay_status: true,
+    },
+    {
+      id: 2345,
+      name: 'Okko',
+      tariff: tariffs[1],
+      due_date: '',
+      logo: Okko,
+      cashback: 10,
+      pay_status: true,
+    },
+    {
+      id: 5123,
+      name: 'Vk Music',
+      tariff: tariffs[2],
+      due_date: '',
+      logo: VkMusic,
+      cashback: 10,
+      pay_status: true,
+    },
+    {
+      id: 4567,
+      name: 'Wink',
+      tariff: tariffs[3],
+      due_date: '',
+      logo: Wink,
+      cashback: 10,
+      pay_status: true,
+    },
+    {
+      id: 6789,
+      name: 'яндекс плюс',
+      tariff: tariffs[0],
+      due_date: '',
+      logo: Yandex,
+      cashback: 10,
+      pay_status: true,
+    },
+  ];
+};
+
 export type UserScenario = 'active' | 'new' | 'switcher';
 
 export const setupUserScenario = (scenario: UserScenario) => {
@@ -457,4 +513,6 @@ export const setupUserScenario = (scenario: UserScenario) => {
       pay_status: true,
     },
   ];
+
+  setupDiscoveredSubscriptions(scenario);
 };

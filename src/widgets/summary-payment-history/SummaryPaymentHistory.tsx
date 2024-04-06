@@ -3,13 +3,10 @@ import {
   Card as CardBase,
   CardContent,
   CardProps,
-  IconButton,
   Typography,
   styled,
   useTheme,
 } from '@mui/material';
-// @ts-expect-error: не работают типы в используемой библиотеке
-import { CaretRightSm } from 'react-coolicons';
 
 const StyledSummaryPaymentHistory = styled(CardBase)<CardProps>(() => ({
   borderRadius: '12px',
@@ -19,7 +16,7 @@ export const SummaryPaymentHistory = () => {
   const theme = useTheme();
 
   return (
-    <StyledSummaryPaymentHistory elevation={10}>
+    <StyledSummaryPaymentHistory elevation={4}>
       <CardContent
         sx={{
           display: 'flex',
@@ -39,9 +36,10 @@ export const SummaryPaymentHistory = () => {
           >
             История списаний и начислений
           </Typography>
+          {/* TODO добавить перенаправление на страницу с историей
           <IconButton sx={{ color: theme.palette.text.greyDusk2 }}>
             <CaretRightSm />
-          </IconButton>
+          </IconButton> */}
         </Box>
         <Box
           sx={{

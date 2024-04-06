@@ -8,12 +8,13 @@ import {
   Typography,
 } from '@mui/material';
 // @ts-expect-error: не работают типы в используемой библиотеке
-import { Bell, ChevronLeft } from 'react-coolicons';
+import { ChevronLeft } from 'react-coolicons';
 import { Link, createSearchParams, useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { catalog, faq } from '../../mocks/db';
 import {
+  useGetDiscoveredSubscriptionsQuery,
   useGetMySubscriptionsQuery,
   useGetSubscriptionsQuery,
 } from '../../services/api';
@@ -39,6 +40,8 @@ export const HomePage = () => {
     ordering: 'popular_rate',
   });
 
+  const { data: discoveredSubscription } = useGetDiscoveredSubscriptionsQuery();
+
   return (
     <Stack flexDirection="column" gap="24px">
       <Container>
@@ -52,9 +55,10 @@ export const HomePage = () => {
           >
             Управления подписками
           </Typography>
+          {/* TODO сделать оповещения
           <IconButton>
             <Bell />
-          </IconButton>
+          </IconButton> */}
         </Stack>
       </Container>
 
@@ -70,63 +74,73 @@ export const HomePage = () => {
 
       <Container>
         <Stack flexDirection="column" gap="12px">
-          <Stack flexDirection="row" justifyContent="space-between">
-            <Typography variant="h2">Мои подписки</Typography>
-            <Chip variant="cashback" label="Кешбэк до 30%" />
-          </Stack>
-          <NonModalDialog
-            title="Уже есть подписки?"
-            description="Добавьте их и получайте кешбэк до 30% с каждой оплаты в приложении"
-            buttonName="Добавить мои подписки"
-          />
-          <NonModalDialog
-            title="У вас пока нет подписок"
-            description="Купите подписку и получайте кешбэк до 30% с каждой оплаты в приложении "
-            buttonName="В каталог"
-          />
-          <SummaryPaymentHistory />
+          {mySubscriptions?.length === 0 && (
+            <Stack flexDirection="row" justifyContent="space-between">
+              <Typography variant="h2">Мои подписки</Typography>
+              <Chip variant="cashback" label="Кешбэк до 30%" />
+            </Stack>
+          )}
+          {!!discoveredSubscription?.length && (
+            <NonModalDialog
+              title="Уже есть подписки?"
+              description="Добавьте их и получайте кешбэк до 30% с каждой оплаты в приложении"
+              buttonName="Добавить мои подписки"
+              handleButton={() => navigate('/mysubscriptions')}
+            />
+          )}
+          {mySubscriptions?.length === 0 &&
+            discoveredSubscription?.length === 0 && (
+              <NonModalDialog
+                title="У вас пока нет подписок"
+                description="Купите подписку и получайте кешбэк до 30% с каждой оплаты в приложении "
+                buttonName="В каталог"
+                handleButton={() => navigate('/catalog')}
+              />
+            )}
+          {!!mySubscriptions?.length && <SummaryPaymentHistory />}
         </Stack>
       </Container>
 
-      <Stack flexDirection="column" marginBottom="-10px">
-        <Container>
-          <Stack flexDirection="row" justifyContent="space-between">
-            <Typography variant="h2">Мои подписки</Typography>
-            <Typography variant="link">
-              <Link
-                to={'/mysubscriptions'}
-                style={{
-                  color: 'inherit',
-                  textDecoration: 'inherit',
-                }}
-              >
-                Все мои подписки
-              </Link>
-            </Typography>
-          </Stack>
-        </Container>
-        <Container
-          style={{ padding: '0px', paddingTop: '12px', marginTop: '-10px' }}
-        >
-          <Swiper
-            slidesPerView="auto"
-            spaceBetween={7}
-            style={{
-              paddingLeft: '16px',
-              paddingBottom: '10px',
-              paddingTop: '10px',
-            }}
+      {!!mySubscriptions?.length && (
+        <Stack flexDirection="column" marginBottom="-10px">
+          <Container>
+            <Stack flexDirection="row" justifyContent="space-between">
+              <Typography variant="h2">Мои подписки</Typography>
+              <Typography variant="link">
+                <Link
+                  to={'/mysubscriptions'}
+                  style={{
+                    color: 'inherit',
+                    textDecoration: 'inherit',
+                  }}
+                >
+                  Все мои подписки
+                </Link>
+              </Typography>
+            </Stack>
+          </Container>
+          <Container
+            style={{ padding: '0px', paddingTop: '12px', marginTop: '-10px' }}
           >
-            {/* TODO добавить отступ справа */}
-            {mySubscriptions?.map((item) => (
-              <SwiperSlide key={item.id} style={{ width: 'auto' }}>
-                <MySubscriptionSwiperCard {...item} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </Container>
-      </Stack>
-
+            <Swiper
+              slidesPerView="auto"
+              spaceBetween={7}
+              style={{
+                paddingLeft: '16px',
+                paddingBottom: '10px',
+                paddingTop: '10px',
+              }}
+            >
+              {/* TODO добавить отступ справа */}
+              {mySubscriptions?.map((item) => (
+                <SwiperSlide key={item.id} style={{ width: 'auto' }}>
+                  <MySubscriptionSwiperCard {...item} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Container>
+        </Stack>
+      )}
       <Stack flexDirection="column" gap="12px">
         <Container>
           <Typography variant="h2">Популярное</Typography>

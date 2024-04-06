@@ -1,61 +1,54 @@
-import {
-  Button,
-  Fade,
-  IconButton,
-  Paper,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
-import TrapFocus from '@mui/material/Unstable_TrapFocus';
+import { Button, Fade, Paper, Stack, Typography } from '@mui/material';
 import { FC, useState } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
-import { CloseSm } from 'react-coolicons';
 
 interface NonModalDialogProps {
   title: string;
   description: string;
   buttonName: string;
+  handleButton: () => void;
 }
 
 export const NonModalDialog: FC<NonModalDialogProps> = ({
   title,
   description,
   buttonName,
+  handleButton,
 }) => {
-  const [bannerOpen, setBannerOpen] = useState(true);
-  const theme = useTheme();
-  const closeBanner = () => {
-    setBannerOpen(false);
-  };
+  const [bannerOpen] = useState(true);
+  // TODO добавить состояние кнопки в редакс
+  // const theme = useTheme();
+  // const closeBanner = () => {
+  //   setBannerOpen(false);
+  // };
 
   return (
-    <TrapFocus open disableAutoFocus disableEnforceFocus>
-      <Fade appear={false} in={bannerOpen}>
-        <Paper
-          role="dialog"
-          aria-modal="false"
-          aria-label={`${title}`}
-          elevation={10}
-          sx={{ padding: '16px', borderRadius: '12px' }}
-        >
-          <Stack direction="column" gap="24px">
-            <Stack direction="column" gap="4px">
-              <Stack direction="row" justifyContent="space-between">
-                <Typography variant="h3">{title}</Typography>
+    <Fade appear={false} in={bannerOpen}>
+      <Paper
+        role="dialog"
+        aria-modal="false"
+        aria-label={`${title}`}
+        elevation={10}
+        sx={{ padding: '16px', borderRadius: '12px' }}
+      >
+        <Stack direction="column" gap="24px">
+          <Stack direction="column" gap="4px">
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h3">{title}</Typography>
+              {/* TODO добавить состояние кнопки в редакс
                 <IconButton
                   onClick={closeBanner}
                   sx={{ color: theme.palette.text.greyDusk1 }}
                 >
                   <CloseSm />
-                </IconButton>
-              </Stack>
-              <Typography variant="subtitle2">{description}</Typography>
+                </IconButton> */}
             </Stack>
-            <Button variant="contained">{buttonName}</Button>
+            <Typography variant="subtitle2">{description}</Typography>
           </Stack>
-        </Paper>
-      </Fade>
-    </TrapFocus>
+          <Button variant="contained" onClick={handleButton}>
+            {buttonName}
+          </Button>
+        </Stack>
+      </Paper>
+    </Fade>
   );
 };

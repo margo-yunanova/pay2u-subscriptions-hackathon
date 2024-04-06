@@ -19,6 +19,7 @@ export const api = createApi({
     'Tariffs',
     'Tariff',
     'mySubscriptions',
+    'discoveredSubscriptions',
   ],
   endpoints: (builder) => ({
     getSubscriptions: builder.query<
@@ -87,6 +88,10 @@ export const api = createApi({
       }),
       providesTags: ['mySubscriptions'],
     }),
+    getDiscoveredSubscriptions: builder.query<IMySubscription[], void>({
+      query: () => 'subscriptions/discovered',
+      providesTags: ['discoveredSubscriptions'],
+    }),
     getTariff: builder.query<IMyTariff, string | undefined>({
       query: (id) => `subscriptions/${id}/mytariff`,
       providesTags: ['Tariff'],
@@ -117,6 +122,7 @@ export const api = createApi({
 export const {
   useGetSubscriptionsQuery,
   useGetSubscriptionByIdQuery,
+  useGetDiscoveredSubscriptionsQuery,
   useGetCategoriesQuery,
   useOrderSubscriptionMutation,
   useGetMySubscriptionsQuery,

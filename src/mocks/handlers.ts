@@ -1,5 +1,11 @@
 import { http, HttpResponse } from 'msw';
-import { categories, mySubscriptions, services, tariffs } from './db';
+import {
+  categories,
+  discoveredSubscriptions,
+  mySubscriptions,
+  services,
+  tariffs,
+} from './db';
 
 const getCategories = http.get('/api/v1/categories', () =>
   HttpResponse.json(categories),
@@ -87,9 +93,14 @@ const getMySubscriptions = http.get(
     const pay_status = url.searchParams.get('pay_status') === 'true';
 
     return HttpResponse.json(
-      mySubscriptions.filter((item) => pay_status === item.pay_status),
+      mySubscriptions?.filter((item) => pay_status === item.pay_status),
     );
   },
+);
+
+const getDiscoveredSubscriptions = http.get(
+  '/api/v1/subscriptions/discovered',
+  () => HttpResponse.json(discoveredSubscriptions),
 );
 
 const getMyTariff = http.get(
@@ -132,6 +143,7 @@ const getTariffs = http.get(
 export const handlers = [
   getCategories,
   getMySubscriptions,
+  getDiscoveredSubscriptions,
   getSubscriptions,
   getSubscriptionById,
   orderSubscription,
