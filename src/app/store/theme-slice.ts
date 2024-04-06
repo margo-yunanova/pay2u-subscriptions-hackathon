@@ -6,7 +6,7 @@ interface ThemeState {
 }
 
 const initialState = {
-  theme: localStorage.getItem('uiTheme') ?? '',
+  theme: localStorage.getItem('uiTheme') ?? 'default',
 } satisfies ThemeState as ThemeState;
 
 const themeSlice = createSlice({
