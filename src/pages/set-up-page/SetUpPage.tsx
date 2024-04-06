@@ -12,16 +12,18 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { selectTheme, setTheme } from '../../app/store/theme-slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { UserScenario, setupUserScenario } from '../../mocks/db';
+import { api } from '../../services/api';
 
 export const SetUpPage = () => {
-  const [scenario, setScenario] = React.useState('1');
+  const [scenario, setScenario] = React.useState<UserScenario>('active');
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
 
   const navigate = useNavigate();
 
   const handleChangeScenario = (_event: SelectChangeEvent) => {
-    setScenario(_event.target.value as string);
+    setScenario(_event.target.value as UserScenario);
   };
 
   const handleChangeColor = (_event: SelectChangeEvent) => {
@@ -29,6 +31,8 @@ export const SetUpPage = () => {
   };
 
   const handleButton = () => {
+    setupUserScenario(scenario);
+    dispatch(api.util.resetApiState());
     navigate('/home');
   };
 
@@ -57,12 +61,13 @@ export const SetUpPage = () => {
             label=""
             onChange={handleChangeScenario}
           >
-            <MenuItem value="1">
+            <MenuItem value="active">
               Действующий пользователь (с подписками)
             </MenuItem>
-            <MenuItem value="2" disabled>
-              Новый пользователь (без подписок)
+            <MenuItem value="switcher">
+              Новый пользователь (с обнаруженными подписками) TODO:REWORD!
             </MenuItem>
+            <MenuItem value="new">Новый пользователь (без подписок)</MenuItem>
           </Select>
         </FormControl>
       </Container>

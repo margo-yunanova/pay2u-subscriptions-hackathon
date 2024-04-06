@@ -373,53 +373,7 @@ export const services: {
   },
 ];
 
-export const mySubscriptions: IMySubscription[] = [
-  {
-    id: 1234,
-    name: 'IVI',
-    tariff: tariffs[0],
-    due_date: '2024-12-31T23:59:59.200Z',
-    logo: Ivi,
-    cashback: 10,
-    pay_status: true,
-  },
-  {
-    id: 2345,
-    name: 'Okko',
-    tariff: tariffs[1],
-    due_date: '2024-12-31T23:59:59.200Z',
-    logo: Okko,
-    cashback: 10,
-    pay_status: false,
-  },
-  {
-    id: 5123,
-    name: 'Vk Music',
-    tariff: tariffs[2],
-    due_date: '2024-12-31T23:59:59.200Z',
-    logo: VkMusic,
-    cashback: 10,
-    pay_status: true,
-  },
-  {
-    id: 4567,
-    name: 'Wink',
-    tariff: tariffs[3],
-    due_date: '2024-12-31T23:59:59.200Z',
-    logo: Wink,
-    cashback: 10,
-    pay_status: false,
-  },
-  {
-    id: 6789,
-    name: 'яндекс плюс',
-    tariff: tariffs[0],
-    due_date: '2024-12-31T23:59:59.200Z',
-    logo: Yandex,
-    cashback: 10,
-    pay_status: true,
-  },
-];
+export let mySubscriptions: IMySubscription[];
 
 export const faq = [
   {
@@ -448,3 +402,59 @@ export const faq = [
       'К сожалению, мы не обнаружили требуемый сервис в нашей базе данных. Попробуйте позже или обратитесь к нашей службе поддержки для получения дополнительной помощи.',
   },
 ];
+
+export type UserScenario = 'active' | 'new' | 'switcher';
+
+export const setupUserScenario = (scenario: UserScenario) => {
+  if (scenario !== 'active') {
+    mySubscriptions = [];
+    return;
+  }
+  mySubscriptions = [
+    {
+      id: 1234,
+      name: 'IVI',
+      tariff: tariffs[0],
+      due_date: '2024-12-31T23:59:59.200Z',
+      logo: Ivi,
+      cashback: 10,
+      pay_status: true,
+    },
+    {
+      id: 2345,
+      name: 'Okko',
+      tariff: tariffs[1],
+      due_date: '2024-12-31T23:59:59.200Z',
+      logo: Okko,
+      cashback: 10,
+      pay_status: false,
+    },
+    {
+      id: 5123,
+      name: 'Vk Music',
+      tariff: tariffs[2],
+      due_date: '2024-12-31T23:59:59.200Z',
+      logo: VkMusic,
+      cashback: 10,
+      pay_status: true,
+    },
+    {
+      id: 4567,
+      name: 'Wink',
+      tariff: tariffs[3],
+      due_date: '2024-12-31T23:59:59.200Z',
+      logo: Wink,
+      cashback: 10,
+      pay_status: false,
+    },
+    {
+      id: 6789,
+      name: 'яндекс плюс',
+      tariff: tariffs[0],
+      due_date: '2024-12-31T23:59:59.200Z',
+      logo: Yandex,
+      cashback: 10,
+      pay_status: true,
+    },
+  ];
+};

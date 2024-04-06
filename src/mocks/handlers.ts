@@ -108,16 +108,12 @@ const changeTariff = http.patch<{ id: string }, { tariff: number }>(
   async ({ request, params }) => {
     const { id } = params;
     const requestBody = await request.json();
-    console.log(requestBody);
 
     const subscription = mySubscriptions.find((item) => item.id === +id);
-    console.log('subscription', subscription);
     const tariff = tariffs.find((item) => item.id === requestBody.tariff);
-    console.log('tariff', tariff, tariffs);
     if (subscription && tariff) {
       subscription.tariff = tariff;
     }
-    console.log(subscription?.tariff);
     return HttpResponse.json({ tariff: requestBody.tariff });
   },
 );
