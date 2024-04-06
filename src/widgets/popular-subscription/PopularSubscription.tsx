@@ -14,11 +14,16 @@ export const PopularSubscription: FC<IMainSubscription> = ({ logo, name }) => {
       <Card
         elevation={0}
         style={{
-          width: '44px',
+          width: '54px',
         }}
       >
-        <CardMedia component="img" image={logo} height={'44px'}></CardMedia>
-        <CardContent style={{ padding: '0px' }}>
+        <CardMedia
+          component="img"
+          image={logo}
+          height={'54px'}
+          sx={{ objectFit: 'contain' }}
+        ></CardMedia>
+        <CardContent style={{ padding: '4px 0' }}>
           <Typography variant="body1" style={{ wordBreak: 'normal' }}>
             {name}
           </Typography>

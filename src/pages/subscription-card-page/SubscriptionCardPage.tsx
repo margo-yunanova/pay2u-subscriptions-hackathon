@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
-import { ChevronLeft, Heart01 } from 'react-coolicons';
+import { ChevronLeft } from 'react-coolicons';
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
@@ -31,6 +31,7 @@ import { TariffCard } from '../../widgets/tariff-card';
 import { faqTariff } from './subscriptionCardPageMock';
 import { SubscriptionManagement } from '../../widgets/subscription-management';
 import { Drawer } from '../../shared/ui/drawer';
+import { tariffInfo } from '../../shared/utils/constants';
 
 export const SubscriptionCardPage = () => {
   const { id } = useParams();
@@ -75,6 +76,10 @@ export const SubscriptionCardPage = () => {
     });
   };
 
+  // TODO: не передаётся в текущем API
+  const nextChargeDate = new Date();
+  nextChargeDate.setDate(nextChargeDate.getDate() + 1);
+
   return (
     <Stack flexDirection="column" gap="24px">
       <Container>
@@ -88,9 +93,10 @@ export const SubscriptionCardPage = () => {
           >
             {subscription?.name.toUpperCase()}
           </Typography>
+          {/* Добавить апи для добавления в избранное
           <IconButton>
             <Heart01 />
-          </IconButton>
+          </IconButton> */}
         </Stack>
       </Container>
 
@@ -183,11 +189,12 @@ export const SubscriptionCardPage = () => {
                 }}
               >
                 <Typography variant="h3">
-                  {/* TODO добавить месяц в правильном падеже */}
-                  Подписка на {tariff?.period} месяца
+                  Подписка на {tariffInfo[tariff.period].period}
                 </Typography>
                 <Typography variant="body2">
-                  {tariff?.price_per_month} ₽ спишется {tariff?.due_date}
+                  {/* TODO исправить дату */}
+                  {tariff?.price_per_month} ₽ спишется{' '}
+                  {nextChargeDate.toLocaleDateString('ru')}
                 </Typography>
               </CardContent>
 
@@ -215,9 +222,7 @@ export const SubscriptionCardPage = () => {
             slidesPerView="auto"
             spaceBetween={7}
             style={{
-              paddingLeft: '16px',
-              paddingBottom: '10px',
-              paddingTop: '10px',
+              padding: '10px 16px',
             }}
           >
             {subscription?.banners.map(({ image, id }) => (

@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 import { IMySubscription } from '../../shared/utils/type';
+import { tariffInfo } from '../../shared/utils/constants';
 
 const StyledMySubscriptionSwiperCard = styled(CardBase)<CardProps>(() => ({
   width: '160px',
@@ -20,6 +21,8 @@ export const MySubscriptionSwiperCard: FC<IMySubscription> = ({
 }) => {
   const theme = useTheme();
 
+  const date = new Date(due_date).toLocaleDateString('ru');
+
   return (
     <StyledMySubscriptionSwiperCard elevation={4}>
       <CardContent
@@ -32,8 +35,7 @@ export const MySubscriptionSwiperCard: FC<IMySubscription> = ({
       >
         <Typography variant="h3">{name}</Typography>
         <Typography variant="body1" letterSpacing={0}>
-          {/* TODO поставить месяц в правильный падеж */}
-          Подписка на {tariff.period} месяца
+          Подписка на {tariffInfo[tariff.period].period}
         </Typography>
         <Typography
           sx={{
@@ -42,8 +44,7 @@ export const MySubscriptionSwiperCard: FC<IMySubscription> = ({
             fontWeight: '300',
           }}
         >
-          {/* TODO сделать время */}
-          Активна до: {new Date(due_date).toLocaleString()}
+          Активна до: {date}
         </Typography>
       </CardContent>
       <CardMedia

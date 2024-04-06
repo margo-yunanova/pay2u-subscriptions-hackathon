@@ -54,7 +54,7 @@ export const HomePage = () => {
             style={{ flexGrow: '1', justifyContent: 'flex-start' }}
             variant="h3"
           >
-            Управления подписками
+            Управление подписками
           </Typography>
           {/* TODO сделать оповещения
           <IconButton>
@@ -81,14 +81,15 @@ export const HomePage = () => {
               <Chip variant="cashback" label="Кешбэк до 30%" />
             </Stack>
           )}
-          {!!discoveredSubscription?.length && (
-            <NonModalDialog
-              title="Уже есть подписки?"
-              description="Добавьте их и получайте кешбэк до 30% с каждой оплаты в приложении"
-              buttonName="Добавить мои подписки"
-              handleButton={() => navigate('/mysubscriptions')}
-            />
-          )}
+          {mySubscriptions?.length === 0 &&
+            !!discoveredSubscription?.length && (
+              <NonModalDialog
+                title="Уже есть подписки?"
+                description="Добавьте их и получайте кешбэк до 30% с каждой оплаты в приложении"
+                buttonName="Добавить мои подписки"
+                handleButton={() => navigate('/mysubscriptions')}
+              />
+            )}
           {mySubscriptions?.length === 0 &&
             discoveredSubscription?.length === 0 && (
               <NonModalDialog

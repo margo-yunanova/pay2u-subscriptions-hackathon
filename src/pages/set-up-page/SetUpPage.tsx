@@ -65,7 +65,7 @@ export const SetUpPage = () => {
               Действующий пользователь (с подписками)
             </MenuItem>
             <MenuItem value="switcher">
-              Новый пользователь (с обнаруженными подписками) TODO:REWORD!
+              Новый пользователь (с обнаруженными подписками)
             </MenuItem>
             <MenuItem value="new">Новый пользователь (без подписок)</MenuItem>
           </Select>

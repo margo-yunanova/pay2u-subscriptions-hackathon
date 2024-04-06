@@ -42,14 +42,7 @@ export const Drawer: FC<DrawerProps> = ({ open, setOpen, children }) => {
       onOpen={toggleDrawer(true)}
     >
       <Puller />
-      <StyledBox
-        role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-        data-test
-      >
-        {children}
-      </StyledBox>
+      <StyledBox role="presentation">{children}</StyledBox>
     </StyledDrawer>
   );
 };

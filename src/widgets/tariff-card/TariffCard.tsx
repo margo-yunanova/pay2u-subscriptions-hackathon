@@ -52,7 +52,7 @@ export const TariffCard: FC<ITariff> = ({
               </Typography>
             </Typography>
             <Typography variant="body1">
-              Оплата {price_per_period} {tariffInfo[period].frequency}
+              Оплата {price_per_period} ₽ {tariffInfo[period].frequency}
             </Typography>
           </Stack>
         </CardContent>

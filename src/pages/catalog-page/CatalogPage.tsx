@@ -148,6 +148,7 @@ export const CatalogPage = () => {
             )}
             <IconButton
               onClick={() => {
+                setActiveTab(0);
                 setShowSearchInput(!showSearchInput);
                 setSearchValue('');
               }}

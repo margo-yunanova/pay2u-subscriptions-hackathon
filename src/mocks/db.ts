@@ -508,3 +508,5 @@ export const setupUserScenario = (scenario: UserScenario) => {
     },
   ];
 };
+
+setupUserScenario('active');

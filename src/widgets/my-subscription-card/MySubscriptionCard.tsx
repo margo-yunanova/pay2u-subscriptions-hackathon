@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 import { IMySubscription } from '../../shared/utils/type';
+import { tariffInfo } from '../../shared/utils/constants';
 
 export const MySubscriptionCard: FC<IMySubscription> = ({
   name,
@@ -15,6 +16,8 @@ export const MySubscriptionCard: FC<IMySubscription> = ({
   pay_status,
 }) => {
   const theme = useTheme();
+
+  const date = new Date(due_date).toLocaleDateString('ru');
 
   return (
     <Card elevation={4} sx={{ borderRadius: '10px' }}>
@@ -45,12 +48,11 @@ export const MySubscriptionCard: FC<IMySubscription> = ({
           >
             <Stack flexDirection="row" gap="12px" alignItems="center">
               <Typography variant="h3">{name}</Typography>
-              <Chip variant="cashback" label={`${cashback} кешбэк`} />
+              <Chip variant="cashback" label={`${cashback}% кешбэк`} />
             </Stack>
             <Stack>
               <Typography variant="body1" letterSpacing={0}>
-                {/* TODO добавить месяц в правильном падеже */}
-                Подписка на {tariff?.period} месяца
+                Подписка на {tariffInfo[tariff.period].period}
               </Typography>
               {(!pay_status || due_date) && (
                 <Typography
@@ -60,7 +62,7 @@ export const MySubscriptionCard: FC<IMySubscription> = ({
                     fontWeight: '300',
                   }}
                 >
-                  {pay_status ? `Списание: ${due_date}` : 'Неактивно'}
+                  {pay_status ? `Списание: ${date}` : 'Неактивно'}
                 </Typography>
               )}
             </Stack>

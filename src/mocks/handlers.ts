@@ -80,6 +80,7 @@ const orderSubscription = http.post<{ id: string }, { tariff: number }>(
       return HttpResponse.json(mySubscriptions.at(-1));
     }
     subscription.tariff = { ...tariff };
+    subscription.pay_status = true;
 
     return HttpResponse.json(subscription);
   },

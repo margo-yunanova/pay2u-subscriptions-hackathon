@@ -15,6 +15,7 @@ import {
 import { FC, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IMyTariff, ISubscription } from '../../shared/utils/type';
+import { tariffInfo } from '../../shared/utils/constants';
 
 interface SubscriptionManagementProps {
   subscription: ISubscription;
@@ -29,11 +30,22 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
   const navigate = useNavigate();
   const { id } = useParams();
 
+  // TODO: не передаётся в текущем API
+  const nextChargeDate = new Date();
+  nextChargeDate.setDate(nextChargeDate.getDate() + 1);
+  // TODO: не передаётся в текущем API
+  const cashback = 10;
+  // TODO: не передаётся в текущем API
+  const paymentAccount = 'СБП';
+
   const listTitles = [
-    { title: 'Ближайшее списание', data: tariff?.due_date },
-    { title: 'Сумма списания', data: tariff.price_per_month },
-    { title: 'Кешбэк', data: tariff?.cashback },
-    { title: 'Счет списания', data: tariff?.payment_account },
+    {
+      title: 'Ближайшее списание',
+      data: nextChargeDate.toLocaleDateString('ru'),
+    },
+    { title: 'Сумма списания', data: `${tariff.price_per_month} ₽` },
+    { title: 'Кешбэк', data: `${cashback}%` },
+    { title: 'Счет списания', data: paymentAccount },
   ];
 
   const changeTariff = () => {
@@ -43,7 +55,7 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
   };
 
   // TODO сделать отключение подписки
-  // const stopSubscription = () => {};
+  const stopSubscription = () => {};
 
   return (
     <Stack flexDirection="column" gap="24px" padding="44px 16px 24px">
@@ -67,7 +79,9 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
             </Stack>
           </CardContent>
         </Card>
-        <Typography variant="h3">Подписка на</Typography>
+        <Typography variant="h3">
+          Подписка на {tariffInfo[tariff.period].period}
+        </Typography>
       </Container>
 
       <List>
@@ -104,10 +118,10 @@ export const SubscriptionManagement: FC<SubscriptionManagementProps> = ({
           <Button variant="contained" onClick={changeTariff}>
             Изменить тариф
           </Button>
-          {/* TODO сделать отключение подписки
-          <Button variant="outlined" onClick={stopSubscription}>
+          {/* TODO сделать отключение подписки */}
+          <Button variant="outlined" disabled onClick={stopSubscription}>
             Отключить подписку
-          </Button> */}
+          </Button>
         </Stack>
       </Container>
     </Stack>
