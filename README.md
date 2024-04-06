@@ -77,5 +77,5 @@ $ npm run preview
 |Замураев Владимир|[Telegram](https://t.me/Vladimir_Zamuraev)|🎨 Design|
 |Прокофьева Полина|[Telegram](https://t.me/iampoly)|🎨 Design|
 |Кислейко Ксения|[Telegram](https://t.me/ksenia_2722)|📈 SA|
-|Раджбов Гамид|[Telegram](https://t.me/GamidRadzhabov)|📈 SA|
+|Раджабов Гамид|[Telegram](https://t.me/GamidRadzhabov)|📈 SA|
 |Грейлих Евгений|[Telegram](https://t.me/BarristanKell)|🎯 BA|
