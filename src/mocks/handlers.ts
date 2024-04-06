@@ -108,7 +108,9 @@ const getMyTariff = http.get(
   ({ params }) => {
     const { id } = params;
 
-    const tariff = mySubscriptions.find((item) => item.id === +id)?.tariff;
+    const tariff = mySubscriptions.find(
+      (item) => item.id === +id && item.pay_status,
+    )?.tariff;
 
     return HttpResponse.json(tariff);
   },

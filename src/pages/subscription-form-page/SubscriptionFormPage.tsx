@@ -86,7 +86,6 @@ export const SubscriptionFormPage = () => {
     handleSubmit,
     formState: { errors, isValid },
     control,
-    reset,
   } = useForm({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -106,10 +105,9 @@ export const SubscriptionFormPage = () => {
   const onSubmit: SubmitHandler<ISubscriptionOrder> = async (data) => {
     try {
       await orderSubscription({ data, subscriptionId: subscription.id });
-      setTermsAgreed(false);
-      reset();
+      navigate(-1);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 

@@ -15,7 +15,12 @@ import {
 import { FC, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft } from 'react-coolicons';
-import { useNavigate } from 'react-router-dom';
+import {
+  Link,
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import noSubscription from '../../assets/noSubscription.svg';
 import {
   useGetDiscoveredSubscriptionsQuery,
@@ -24,6 +29,7 @@ import {
 import { MySubscriptionCard } from '../../widgets/my-subscription-card';
 
 const NoSubscription = () => {
+  const navigate = useNavigate();
   return (
     <Card elevation={0}>
       <Stack flexDirection="column" alignItems="center" maxWidth="248px">
@@ -44,7 +50,11 @@ const NoSubscription = () => {
             приложении
           </Typography>
         </CardContent>
-        <Button variant="contained" sx={{ width: 'auto' }}>
+        <Button
+          variant="contained"
+          sx={{ width: 'auto' }}
+          onClick={() => navigate('/catalog')}
+        >
           В каталог
         </Button>
       </Stack>
@@ -82,7 +92,10 @@ const a11yProps = (index: number) => {
 };
 
 export const MySubscriptionsPage = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState(
+    +(searchParams.get('activeTab') ?? 0),
+  );
   const navigate = useNavigate();
 
   const active = useGetMySubscriptionsQuery({ pay_status: true });
@@ -120,7 +133,16 @@ export const MySubscriptionsPage = () => {
         variant="scrollable"
         scrollButtons={false}
         value={activeTab}
-        onChange={(_, newValue) => setActiveTab(newValue)}
+        onChange={(_, newValue) => {
+          setActiveTab(newValue);
+          navigate(
+            {
+              pathname: '/mysubscriptions',
+              search: `${createSearchParams({ activeTab: newValue.toString() })}`,
+            },
+            { replace: true },
+          );
+        }}
         aria-label="Категории"
       >
         {tabs.map(({ title }, id) => (
@@ -164,7 +186,16 @@ export const MySubscriptionsPage = () => {
             <Stack flexDirection="column" gap="12px">
               {data?.length ? (
                 data.map((card) => (
-                  <MySubscriptionCard key={card.id} {...card} />
+                  <Link
+                    key={card.id}
+                    to={`/catalog/${card.id}`}
+                    style={{
+                      color: 'inherit',
+                      textDecoration: 'inherit',
+                    }}
+                  >
+                    <MySubscriptionCard {...card} />
+                  </Link>
                 ))
               ) : (
                 <Container style={{ width: 'auto' }}>

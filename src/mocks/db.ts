@@ -11,7 +11,6 @@ import banner1 from '../assets/service/1.png';
 import banner2 from '../assets/service/2.png';
 import banner3 from '../assets/service/3.png';
 import banner4 from '../assets/service/4.png';
-import heart from '../assets/heart.svg';
 import ticket from '../assets/ticket.svg';
 import disk from '../assets/disk.svg';
 import {
@@ -46,13 +45,6 @@ export const categories = [
 ];
 
 export const catalog: IMainCard[] = [
-  {
-    id: 1,
-    title: 'Избранное',
-    subtitle: 'Храните интересное здесь',
-    image: heart,
-    categoryId: 0,
-  },
   {
     id: 2,
     title: 'Кино',
@@ -462,6 +454,8 @@ const setupDiscoveredSubscriptions = (scenario: UserScenario) => {
 export type UserScenario = 'active' | 'new' | 'switcher';
 
 export const setupUserScenario = (scenario: UserScenario) => {
+  setupDiscoveredSubscriptions(scenario);
+
   if (scenario !== 'active') {
     mySubscriptions = [];
     return;
@@ -513,6 +507,4 @@ export const setupUserScenario = (scenario: UserScenario) => {
       pay_status: true,
     },
   ];
-
-  setupDiscoveredSubscriptions(scenario);
 };

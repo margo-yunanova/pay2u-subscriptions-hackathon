@@ -24,6 +24,7 @@ import { MainCard } from '../../widgets/main-card';
 import { MySubscriptionSwiperCard } from '../../widgets/my-subscription-swiper-card';
 import { PopularSubscription } from '../../widgets/popular-subscription';
 import { SummaryPaymentHistory } from '../../widgets/summary-payment-history';
+import heart from '../../assets/heart.svg';
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -104,7 +105,11 @@ export const HomePage = () => {
       {!!mySubscriptions?.length && (
         <Stack flexDirection="column" marginBottom="-10px">
           <Container>
-            <Stack flexDirection="row" justifyContent="space-between">
+            <Stack
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="flex-end"
+            >
               <Typography variant="h2">Мои подписки</Typography>
               <Typography variant="link">
                 <Link
@@ -125,16 +130,20 @@ export const HomePage = () => {
             <Swiper
               slidesPerView="auto"
               spaceBetween={7}
-              style={{
-                paddingLeft: '16px',
-                paddingBottom: '10px',
-                paddingTop: '10px',
-              }}
+              style={{ padding: '10px 16px' }}
             >
               {/* TODO добавить отступ справа */}
               {mySubscriptions?.map((item) => (
                 <SwiperSlide key={item.id} style={{ width: 'auto' }}>
-                  <MySubscriptionSwiperCard {...item} />
+                  <Link
+                    to={`/catalog/${item.id}`}
+                    style={{
+                      color: 'inherit',
+                      textDecoration: 'inherit',
+                    }}
+                  >
+                    <MySubscriptionSwiperCard {...item} />
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -147,11 +156,10 @@ export const HomePage = () => {
         </Container>
         <Container style={{ padding: '0px', paddingTop: '12px' }}>
           <Swiper
-            slidesPerView={6}
+            slidesPerView="auto"
             spaceBetween={7}
-            style={{ paddingLeft: '16px' }}
+            style={{ paddingLeft: '16px', paddingRight: '16px' }}
           >
-            {/* TODO сделать карточки ссылками */}
             {popularSubscriptions?.map((item) => (
               <SwiperSlide
                 key={item.id}
@@ -168,7 +176,11 @@ export const HomePage = () => {
 
       <Container>
         <Stack flexDirection="column" gap="12px">
-          <Stack flexDirection="row" justifyContent="space-between">
+          <Stack
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="flex-end"
+          >
             <Typography variant="h2">Каталог</Typography>
 
             <Typography variant="link">
@@ -184,6 +196,11 @@ export const HomePage = () => {
             </Typography>
           </Stack>
           {/* INFO нет api для получения категорий для главного экрана */}
+          <MainCard
+            title="Избранное"
+            subtitle="Храните интересное здесь"
+            image={heart}
+          />
           {catalog.map((card) => (
             <Link
               key={card.id}

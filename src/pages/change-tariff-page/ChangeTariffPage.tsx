@@ -65,7 +65,6 @@ export const ChangeTariffPage = () => {
     }
   };
 
-  console.log('change tariff', tariffId, tariff?.id);
   return (
     <Stack flexDirection="column" gap="24px">
       <Container>

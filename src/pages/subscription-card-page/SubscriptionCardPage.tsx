@@ -53,7 +53,7 @@ export const SubscriptionCardPage = () => {
     setFullDescription(!fullDescription);
   };
 
-  const [tariffId, setTariffId] = useState<string | undefined>(undefined);
+  const [tariffId, setTariffId] = useState<string>('');
   const [subscriptionManagement, setSubscriptionManagement] = useState(false);
 
   const handleTariffSubscription = (
