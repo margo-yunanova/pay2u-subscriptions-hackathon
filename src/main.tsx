@@ -14,7 +14,11 @@ async function enableMocking() {
 
   // `worker.start()` returns a Promise that resolves
   // once the Service Worker is up and ready to intercept requests.
-  return worker.start({ onUnhandledRequest: 'bypass' });
+  return worker.start({
+    onUnhandledRequest: 'bypass',
+    quiet: true,
+    serviceWorker: { options: { scope: '/api/' } },
+  });
 }
 
 const rootElement = ReactDOM.createRoot(document.getElementById('root')!);
