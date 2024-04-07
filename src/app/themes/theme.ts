@@ -75,8 +75,8 @@ export const theme = (palette: Partial<Palette>) =>
             '@media (hover: hover)': {
               ':hover': {
                 color: palette.text?.brandDay2,
-                border: '1px solid',
-                borderColor: palette.text?.brandDay4,
+                outline: '1px solid',
+                outlineColor: palette.text?.brandDay4,
               },
             },
             '&.Mui-disabled': {

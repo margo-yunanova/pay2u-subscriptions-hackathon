@@ -334,7 +334,7 @@ export const SubscriptionCardPage = () => {
               </Container>
             )}
 
-            {subscriptionManagement && tariff && (
+            {tariff && (
               <Drawer
                 open={subscriptionManagement}
                 setOpen={setSubscriptionManagement}
