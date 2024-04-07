@@ -44,6 +44,12 @@ $ npm run preview
 
 [Ссылка на Figma](https://www.figma.com/file/4AQJbXciO0LZJBN0UuYgCm/%D0%A5%D0%B0%D0%BA%D0%B0%D1%82%D0%BE%D0%BD-%2B.-11-%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%B0?type=design&node-id=963-3132&mode=design&t=mpJQHQUKhz355Z9A-0)
 
+## Бэкенд приложения
+
+[Репозиторий бэкенда](https://github.com/zalgan05/PAY2U_team11)
+
+[API](https://app.swaggerhub.com/apis/ZALGAN94_1/PAY2U/1.0.0)
+
 ## Реализованный функционал
 
 1. Главный экран (2.1-2.3)
@@ -57,7 +63,7 @@ $ npm run preview
 
 ## Планы по доработке функционала
 
-1. Подключение к бэкенду - [репозиторий бэкенда](https://github.com/zalgan05/PAY2U_team11)
+1. Подключение к бэкенду 
 1. История (7.1-7.3)
 1. Уведомления (6.1-6.3)
 1. Экраны состояний (8.1-8.5)
