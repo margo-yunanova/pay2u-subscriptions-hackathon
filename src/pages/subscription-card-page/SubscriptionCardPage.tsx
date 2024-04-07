@@ -17,12 +17,13 @@ import {
 } from '@mui/material';
 import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 // @ts-expect-error: не работают типы в используемой библиотеке
-import { ChevronLeft } from 'react-coolicons';
+import { ChevronLeft, Heart01 } from 'react-coolicons';
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   useGetSubscriptionByIdQuery,
   useGetTariffQuery,
+  useSetFavoriteSubscriptionMutation,
 } from '../../services/api';
 import { Accordion } from '../../shared/ui/accordion';
 import { SubscriptionBanner } from '../../widgets/subscription-banner/SubscriptionBanner';
@@ -37,6 +38,7 @@ export const SubscriptionCardPage = () => {
   const { id } = useParams();
   const { data: subscription, isLoading } = useGetSubscriptionByIdQuery(id);
   const { data: tariff, isLoading: isLoadingMyTariff } = useGetTariffQuery(id);
+  const [setFavorite] = useSetFavoriteSubscriptionMutation();
 
   const navigate = useNavigate();
   const descriptionRef = useRef<HTMLDivElement>(null);
@@ -103,10 +105,19 @@ export const SubscriptionCardPage = () => {
             >
               {subscription?.name.toUpperCase()}
             </Typography>
-            {/* Добавить апи для добавления в избранное
-          <IconButton>
-            <Heart01 />
-          </IconButton> */}
+            <IconButton
+              aria-label="Добавить подписку в Избранное"
+              onClick={() =>
+                setFavorite({
+                  id: id!,
+                  value: !subscription?.is_favorite,
+                })
+              }
+            >
+              <Heart01
+                fill={`${subscription?.is_favorite ? 'black' : 'none'}`}
+              />
+            </IconButton>
           </Stack>
         </Container>
 

@@ -17,6 +17,7 @@ import { CssBaseline } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from './store';
 import { themes } from './themes/theme';
+import { FavoriteSubscriptionsPage } from '../pages/favorites-subscriptions-page';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
         element: <SubscriptionFormPage />,
       },
       { path: 'change-tariff/:id', element: <ChangeTariffPage /> },
+      { path: 'favorites', element: <FavoriteSubscriptionsPage /> },
     ],
   },
 ]);

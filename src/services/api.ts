@@ -28,28 +28,19 @@ export const api = createApi({
         categoryId?: number;
         name?: string;
         ordering?: 'popular_rate';
-        'is-favorite'?: boolean;
+        is_favorite?: boolean;
       }
     >({
-      query: (arg) => {
-        if (arg.categoryId === 0) {
+      query: ({ categoryId, name, ordering, is_favorite }) => {
+        if (categoryId === 0) {
           return {
             url: 'subscriptions',
-            params: {
-              'is-favorite': arg?.['is-favorite'],
-              name: arg?.name,
-              ordering: arg?.ordering,
-            },
+            params: { is_favorite, name, ordering },
           };
         } else {
           return {
             url: 'subscriptions',
-            params: {
-              'is-favorite': arg['is-favorite'],
-              name: arg?.name,
-              ordering: arg?.ordering,
-              categoryId: arg?.categoryId,
-            },
+            params: { is_favorite, name, ordering, categoryId },
           };
         }
       },
@@ -116,6 +107,16 @@ export const api = createApi({
       query: (id) => `subscriptions/${id}/tariffs`,
       providesTags: ['Tariffs'],
     }),
+    setFavoriteSubscription: builder.mutation<
+      void,
+      { id: string; value: boolean }
+    >({
+      query: ({ id, value }) => {
+        const method = value ? 'POST' : 'DELETE';
+        return { url: `subscriptions/${id}/favorite`, method };
+      },
+      invalidatesTags: ['Subscriptions', 'Subscription', 'mySubscriptions'],
+    }),
   }),
 });
 
@@ -129,4 +130,5 @@ export const {
   useGetTariffQuery,
   useChangeTariffMutation,
   useGetTariffsQuery,
+  useSetFavoriteSubscriptionMutation,
 } = api;

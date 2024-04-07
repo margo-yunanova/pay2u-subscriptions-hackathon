@@ -22,7 +22,7 @@ const getSubscriptions = http.get('/api/v1/subscriptions', ({ request }) => {
     );
   }
 
-  const isFavorite = url.searchParams.get('is-favorite');
+  const isFavorite = url.searchParams.get('is_favorite');
   if (isFavorite) {
     subscriptions = subscriptions.filter((service) => service.is_favorite);
   }
@@ -145,6 +145,32 @@ const getTariffs = http.get(
   },
 );
 
+const setFavoriteSubscription = http.post(
+  '/api/v1/subscriptions/:id/favorite',
+  ({ params }) => {
+    const { id } = params;
+    const subscription = services.find((item) => item.id === +id);
+    if (subscription) {
+      subscription.is_favorite = true;
+    }
+
+    return HttpResponse.json({});
+  },
+);
+
+const cancelFavoriteSubscription = http.delete(
+  '/api/v1/subscriptions/:id/favorite',
+  ({ params }) => {
+    const { id } = params;
+
+    const subscription = services.find((item) => item.id === +id);
+    if (subscription) {
+      subscription.is_favorite = false;
+    }
+    return HttpResponse.json({});
+  },
+);
+
 export const handlers = [
   getCategories,
   getMySubscriptions,
@@ -155,4 +181,6 @@ export const handlers = [
   getMyTariff,
   changeTariff,
   getTariffs,
+  setFavoriteSubscription,
+  cancelFavoriteSubscription,
 ];

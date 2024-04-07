@@ -30,9 +30,7 @@ export const HomePage = () => {
   const navigate = useNavigate();
 
   const { data: mySubscriptions, isLoading: isLoadingMySubscriptions } =
-    useGetMySubscriptionsQuery({
-      pay_status: true,
-    });
+    useGetMySubscriptionsQuery({ pay_status: true });
 
   const {
     data: popularSubscriptions,
@@ -213,11 +211,13 @@ export const HomePage = () => {
                     </Typography>
                   </Stack>
                   {/* INFO нет api для получения категорий для главного экрана */}
-                  <MainCard
-                    title="Избранное"
-                    subtitle="Храните интересное здесь"
-                    image={heart}
-                  />
+                  <Link to={`/favorites`} style={{ textDecoration: 'inherit' }}>
+                    <MainCard
+                      title="Избранное"
+                      subtitle="Храните интересное здесь"
+                      image={heart}
+                    />
+                  </Link>
                   {catalog.map((card) => (
                     <Link
                       key={card.id}
