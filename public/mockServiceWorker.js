@@ -92,6 +92,13 @@ self.addEventListener('message', async function (event) {
 self.addEventListener('fetch', function (event) {
   const { request } = event
 
+  if (
+    request.destination ||
+    !new URL(request.url).pathname.startsWith('/api/v1/')
+  ) {
+    return;
+  }
+
   // Bypass navigation requests.
   if (request.mode === 'navigate') {
     return
