@@ -123,6 +123,7 @@ export const SubscriptionCardPage = () => {
                       sx={{
                         width: '44px',
                         height: '44px',
+                        objectFit: 'contain',
                       }}
                     />
                     <Stack flexDirection="column" flexGrow={1}>

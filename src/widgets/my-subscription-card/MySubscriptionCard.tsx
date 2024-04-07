@@ -35,6 +35,7 @@ export const MySubscriptionCard: FC<IMySubscription> = ({
             sx={{
               width: '56px',
               height: '56px',
+              objectFit: 'contain',
             }}
           />
           <CardContent
