@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './app/App';
 import { store } from './app/store';
 import './index.css';
+import './mocks/browser'; // TODO: bundle mock data for demo
 
 async function enableMocking() {
   // if (process.env.NODE_ENV !== 'development') {
