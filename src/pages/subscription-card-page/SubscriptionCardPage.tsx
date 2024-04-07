@@ -84,7 +84,7 @@ export const SubscriptionCardPage = () => {
     <Stack flexDirection="column" gap="24px">
       <Container>
         <Stack flexDirection="row" alignItems="center">
-          <IconButton onClick={() => navigate(-1)}>
+          <IconButton aria-label="Назад" onClick={() => navigate(-1)}>
             <ChevronLeft />
           </IconButton>
           <Typography

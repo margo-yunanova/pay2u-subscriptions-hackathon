@@ -48,6 +48,7 @@ export const MainCard: FC<MainCardProps> = ({ title, subtitle, image }) => {
             sx={{
               textAlign: 'left',
             }}
+            component="span"
           >
             {subtitle}
           </Typography>

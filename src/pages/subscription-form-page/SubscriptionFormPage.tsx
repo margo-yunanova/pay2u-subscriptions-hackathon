@@ -116,7 +116,7 @@ export const SubscriptionFormPage = () => {
   return (
     <Container style={{ paddingBottom: '10px' }}>
       <Stack flexDirection="row" alignItems="center">
-        <IconButton onClick={() => navigate(-1)}>
+        <IconButton aria-label="Назад" onClick={() => navigate(-1)}>
           <ChevronLeft />
         </IconButton>
         <Typography variant="h3">Оформление</Typography>
