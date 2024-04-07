@@ -11,8 +11,8 @@ import banner1 from '../assets/service/1.png';
 import banner2 from '../assets/service/2.png';
 import banner3 from '../assets/service/3.png';
 import banner4 from '../assets/service/4.png';
-import ticket from '../assets/ticket.svg';
-import disk from '../assets/disk.svg';
+import ticket from '../assets/ticket.png';
+import disk from '../assets/music.svg';
 import {
   IBanner,
   ICategory,
