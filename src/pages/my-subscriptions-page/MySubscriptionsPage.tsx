@@ -45,7 +45,7 @@ const NoSubscription = () => {
           <Typography variant="h3" textAlign="center">
             У вас пока нет подписок
           </Typography>
-          <Typography variant="subtitle2" textAlign="center">
+          <Typography variant="subtitle2" textAlign="center" component="span">
             Купите подписку и получайте кешбэк до 30% с каждой оплаты в
             приложении
           </Typography>
@@ -54,6 +54,7 @@ const NoSubscription = () => {
           variant="contained"
           sx={{ width: 'auto' }}
           onClick={() => navigate('/catalog')}
+          aria-label="Перейти в каталог"
         >
           В каталог
         </Button>

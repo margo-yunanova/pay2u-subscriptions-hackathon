@@ -147,6 +147,7 @@ export const CatalogPage = () => {
               />
             )}
             <IconButton
+              aria-label="Поиск"
               onClick={() => {
                 setActiveTab(0);
                 setShowSearchInput(!showSearchInput);

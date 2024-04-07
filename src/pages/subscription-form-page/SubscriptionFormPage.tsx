@@ -226,13 +226,13 @@ export const SubscriptionFormPage = () => {
           control={control}
           render={({ field }) => (
             <FormControl variant="standard">
-              <InputLabel shrink htmlFor="uncontrolled-native">
+              <InputLabel shrink htmlFor="payment_account">
                 Счет списания
               </InputLabel>
 
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="payment_account"
+                id="payment_account"
                 {...field}
                 style={{ marginTop: '0px' }}
               >

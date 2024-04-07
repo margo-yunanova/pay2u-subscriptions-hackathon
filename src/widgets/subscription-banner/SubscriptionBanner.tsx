@@ -13,7 +13,12 @@ export const SubscriptionBanner: FC<SubscriptionBannerProps> = ({ image }) => {
         borderRadius: '12px',
       }}
     >
-      <CardMedia component="img" image={image} height="160px"></CardMedia>
+      <CardMedia
+        component="img"
+        image={image}
+        height="160px"
+        alt={`Рекламный баннер с информацией о подписке`}
+      ></CardMedia>
     </Card>
   );
 };

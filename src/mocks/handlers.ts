@@ -35,12 +35,14 @@ const getSubscriptions = http.get('/api/v1/subscriptions', ({ request }) => {
   }
 
   const ordering = url.searchParams.get('ordering');
-  if (ordering) {
-    subscriptions.sort((a, b) => {
-      if (a.popular_rate > b.popular_rate) return -1;
-      if (a.popular_rate < b.popular_rate) return 1;
-      return 0;
-    });
+  if (ordering === 'popular_rate') {
+    subscriptions = subscriptions
+      .sort((a, b) => {
+        if (a.popular_rate > b.popular_rate) return -1;
+        if (a.popular_rate < b.popular_rate) return 1;
+        return 0;
+      })
+      .slice(7);
   }
 
   return HttpResponse.json(subscriptions);
