@@ -4,14 +4,14 @@ import { Provider } from 'react-redux';
 import App from './app/App';
 import { store } from './app/store';
 import './index.css';
-import './mocks/browser'; // TODO: bundle mock data for demo
+import { worker } from './mocks/browser'; // TODO: bundle mock data for demo
 
 async function enableMocking() {
   // if (process.env.NODE_ENV !== 'development') {
   //   return;
   // }
 
-  const { worker } = await import('./mocks/browser');
+  // const { worker } = await import('./mocks/browser');
 
   // `worker.start()` returns a Promise that resolves
   // once the Service Worker is up and ready to intercept requests.

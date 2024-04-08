@@ -187,6 +187,7 @@ export const SubscriptionFormPage = () => {
                 type="tel"
                 placeholder="+7 (985) 123-45-67"
                 id="phone_number"
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any -- unfortunately this `any` is from official mui docs/samples: https://mui.com/material-ui/react-text-field/
                 inputComponent={TextMaskCustom as any}
                 {...field}
               />
