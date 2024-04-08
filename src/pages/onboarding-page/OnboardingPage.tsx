@@ -41,7 +41,7 @@ export const OnboardingPage = () => {
   const swiperRef = useRef<SwiperType>();
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const handleClick: MouseEventHandler = (e) => {
+  const handleClick: MouseEventHandler = () => {
     if (activeSlide === content.length - 1) {
       navigate('/home', { replace: true });
     } else {
