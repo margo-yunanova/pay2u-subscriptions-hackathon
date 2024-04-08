@@ -8,7 +8,6 @@ import { CatalogPage } from '../pages/catalog-page';
 import { HomePage } from '../pages/home-page';
 import { MySubscriptionsPage } from '../pages/my-subscriptions-page';
 import { SubscriptionCardPage } from '../pages/subscription-card-page';
-import { SubscriptionFormPage } from '../pages/subscription-form-page';
 import './App.css';
 import { ChangeTariffPage } from '../pages/change-tariff-page';
 import { SetUpPage } from '../pages/set-up-page';
@@ -53,7 +52,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'form',
-        element: <SubscriptionFormPage />,
+        async lazy() {
+          const { SubscriptionFormPage: Component } = await import(
+            '../pages/subscription-form-page'
+          );
+          return { Component };
+        },
       },
       { path: 'change-tariff/:id', element: <ChangeTariffPage /> },
       { path: 'favorites', element: <FavoriteSubscriptionsPage /> },
