@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './store';
 import { themes } from './themes/theme';
 import { FavoriteSubscriptionsPage } from '../pages/favorites-subscriptions-page';
+import { OnboardingPage } from '../pages/onboarding-page';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <SetUpPage />,
       },
-
+      { path: 'onboarding', element: <OnboardingPage /> },
       {
         path: 'home',
         element: <HomePage />,

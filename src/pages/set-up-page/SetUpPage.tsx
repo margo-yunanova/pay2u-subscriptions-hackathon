@@ -33,7 +33,7 @@ export const SetUpPage = () => {
   const handleButton = () => {
     setupUserScenario(scenario);
     dispatch(api.util.resetApiState());
-    navigate('/home');
+    navigate(scenario === 'active' ? '/home' : '/onboarding');
   };
 
   return (
