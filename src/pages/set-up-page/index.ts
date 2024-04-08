@@ -1,0 +1,1 @@
+export { SetUpPage } from './SetUpPage';
