@@ -7,7 +7,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { MouseEventHandler, useRef, useState } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { CloseMd } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
 import 'swiper/css';

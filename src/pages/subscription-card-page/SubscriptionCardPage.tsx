@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { ChevronLeft, Heart01 } from 'react-coolicons';
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';

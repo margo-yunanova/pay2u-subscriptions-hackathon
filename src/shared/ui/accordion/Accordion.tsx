@@ -9,7 +9,7 @@ import {
   styled,
 } from '@mui/material';
 import { FC } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { ChevronDown } from 'react-coolicons';
 
 const StyledAccordion = styled(AccordionBase)<AccordionPropsBase>(() => ({

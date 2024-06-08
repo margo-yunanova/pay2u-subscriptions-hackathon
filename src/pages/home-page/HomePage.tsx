@@ -7,7 +7,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { ChevronLeft } from 'react-coolicons';
 import { Link, createSearchParams, useNavigate } from 'react-router-dom';
 import 'swiper/css';

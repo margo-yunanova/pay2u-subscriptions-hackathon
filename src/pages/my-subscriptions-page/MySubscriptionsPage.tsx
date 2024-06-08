@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { ChevronLeft } from 'react-coolicons';
 import {
   Link,

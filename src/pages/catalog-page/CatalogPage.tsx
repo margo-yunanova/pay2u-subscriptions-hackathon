@@ -11,7 +11,6 @@ import {
   styled,
 } from '@mui/material';
 import { FC, SyntheticEvent, useCallback, useMemo, useState } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, CloseMd, SearchMagnifyingGlass } from 'react-coolicons';
 import {
   createSearchParams,

@@ -18,7 +18,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { forwardRef, useState } from 'react';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { ChevronLeft, CreditCard01 } from 'react-coolicons';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { IMaskInput } from 'react-imask';

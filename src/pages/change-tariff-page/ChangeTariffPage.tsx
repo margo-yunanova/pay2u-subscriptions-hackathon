@@ -22,7 +22,6 @@ import {
   Typography,
 } from '@mui/material';
 import { TariffCard } from '../../widgets/tariff-card';
-// @ts-expect-error: не работают типы в используемой библиотеке
 import { ChevronLeft, ArrowDownUp } from 'react-coolicons';
 import { useEffect, useState } from 'react';
 

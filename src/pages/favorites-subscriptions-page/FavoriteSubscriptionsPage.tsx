@@ -11,7 +11,7 @@ import {
   CardMedia,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-// @ts-expect-error: не работают типы в используемой библиотеке
+
 import { ChevronLeft } from 'react-coolicons';
 import { useGetSubscriptionsQuery } from '../../services/api';
 import noSubscription from '../../assets/noSubscription.svg';
