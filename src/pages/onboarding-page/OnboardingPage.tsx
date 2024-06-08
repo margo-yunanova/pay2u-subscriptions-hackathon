@@ -6,8 +6,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { MouseEventHandler, useRef, useState } from 'react';
-
+import { MouseEventHandler, useLayoutEffect, useRef, useState } from 'react';
 import { CloseMd } from 'react-coolicons';
 import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
@@ -40,6 +39,7 @@ export const OnboardingPage = () => {
   const theme = useTheme();
   const swiperRef = useRef<SwiperType>();
   const [activeSlide, setActiveSlide] = useState(0);
+  const [clientHeight, setClientHeight] = useState(0);
 
   const handleClick: MouseEventHandler = () => {
     if (activeSlide === content.length - 1) {
@@ -49,8 +49,18 @@ export const OnboardingPage = () => {
     }
   };
 
+  useLayoutEffect(() => {
+    setClientHeight(document.documentElement.clientHeight);
+  }, []);
+
   return (
-    <div style={{ height: '100vh' }}>
+    <div
+      style={{
+        minHeight: `calc(${clientHeight}px - var(--root-padding-top))`,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Container>
         <Stack flexDirection="row" justifyContent="flex-end">
           <IconButton
@@ -71,6 +81,7 @@ export const OnboardingPage = () => {
         onSlideChange={(swiper) => {
           setActiveSlide(swiper.activeIndex);
         }}
+        style={{ width: '100%', flexGrow: 1 }}
       >
         {content.map(({ title, subtitle, image }, idx) => (
           <SwiperSlide key={idx}>
@@ -80,13 +91,12 @@ export const OnboardingPage = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 width: '100%',
-                minHeight: 'calc(100vh - 112px - 32px - 120px)',
               }}
             >
               <Typography
                 variant="h2"
                 textAlign="center"
-                sx={{ paddingBottom: '36px', maxWidth: '328px' }}
+                sx={{ maxWidth: '328px' }}
               >
                 {title}
               </Typography>
@@ -96,8 +106,7 @@ export const OnboardingPage = () => {
                 textAlign="center"
                 component="span"
                 sx={{
-                  paddingTop: '10px',
-                  paddingBottom: '40px',
+                  paddingBottom: '30px',
                   color: theme.palette.text.greyDusk1,
                   maxWidth: '328px',
                 }}
@@ -109,7 +118,7 @@ export const OnboardingPage = () => {
         ))}
       </Swiper>
 
-      <Container sx={{ marginBottom: '24px', marginTop: '24px' }}>
+      <Container sx={{ marginBottom: '24px', marginTop: '16px' }}>
         <Button
           variant="contained"
           onClick={handleClick}

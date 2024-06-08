@@ -8,7 +8,6 @@ import { CatalogPage } from '../pages/catalog-page';
 import { HomePage } from '../pages/home-page';
 import { MySubscriptionsPage } from '../pages/my-subscriptions-page';
 import { SubscriptionCardPage } from '../pages/subscription-card-page';
-import './App.css';
 import { ChangeTariffPage } from '../pages/change-tariff-page';
 import { SetUpPage } from '../pages/set-up-page';
 import { ThemeProvider } from '@emotion/react';
